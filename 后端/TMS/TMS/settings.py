@@ -25,7 +25,7 @@ SECRET_KEY = '1-+za8sb5hlc#tl^_%62!yvoi1q&z)o*9ynce40i=^^zxj7g)b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [*]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -74,9 +74,22 @@ WSGI_APPLICATION = 'TMS.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
+    # @Lizhenghao
+    # 设置mysql数据库
+    # 2019年07月16日10:05:53
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 数据库引擎名称, 此处使用MySQL
+        'ENGINE': 'django.db.backends.mysql',
+        # 数据库名称,与数据库内部有关
+        'NAME': 'django_TMS',
+        # 数据库用户名,敏感信息,不要轻易暴露
+        'USER': 'django_TMS_user',
+        # 数据库密码,敏感信息,不要轻易暴露
+        'PASSWORD': 'qweqwe123',
+        # 数据库所在地址,若数据库在本地则使用localhost
+        'HOST': '129.204.114.145',
+        # 数据库端口号,MySQL默认使用3306号
+        'PORT': '3306',
     }
 }
 
