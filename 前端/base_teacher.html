@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>管理员|教师名单</title>
+  <title>管理员系统</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -142,41 +142,39 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	    <section class="content container-fluid">
 		    <div class="row">
 	        <div class="col-xs-12">
-	          <div class="box">
-	            <div class="box-header">
-	              <h3 class="box-title">教师名单</h3>
+				<div class="box">
+					<div class="box-header">
+					<h3 class="box-title">教师名单</h3>
 
-	              <div class="box-tools">
-	                <div class="input-group input-group-sm" style="width: 150px;">
-	                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+					<div class="box-tools">
+						<div class="input-group input-group-sm" style="width: 150px;">
+						<input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
 
-	                  <div class="input-group-btn">
-	                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-	                  </div>
-	                </div>
-	              </div>
-	            </div>
-	            <!-- /.box-header -->
-	            <div class="box-body table-responsive no-padding">
-	              <table class="table table-hover" id="table_test">
-	                <tbody><tr>
-	                  <th>学号</th>
-	                  <th>姓名</th>
-	                  <th>管理班级</th>
-	                  <th>班级</th>
-	                  <th>备注</th>
-	                </tr>
-	                <!-- <tr>
-	                  <td>183</td>
-	                  <td>John Doe</td>
-	                  <td>11-7-2014</td>
-	                  <td><span class="label label-success">Approved</span></td>
-	                  <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-	                </tr> -->
-	              </tbody></table>
-	            </div>
-	            <!-- /.box-body -->
-	          </div>
+						<div class="input-group-btn">
+							<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+						</div>
+						</div>
+					</div>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body table-responsive no-padding">
+					<table class="table table-hover" id="table_test">
+						<tbody>
+						<tr>
+							<th>ID</th>
+							<th>姓名</th>
+							<th>管理班级</th>
+							<th>备注</th>
+						</tr>
+						</tbody>
+					</table>
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<div class="row" style="margin-top: 10px">
+					<div class="col-md-2"><button type="button" class="btn btn-block btn-default"><b>Add</b></button></div>
+					<div class="col-md-2"><button type="button" class="btn btn-block btn-success"><b>Confirm</b></button></div>
+				</div>
 	          <!-- /.box -->
 	        </div>
 	      </div>
