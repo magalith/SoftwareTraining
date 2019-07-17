@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>管理员系统</title>
+  <title>实训管理|管理员</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -30,8 +30,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <![endif]-->
 
   <!-- Google Font -->
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+<!--  <link rel="stylesheet"-->
+<!--        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">-->
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -114,19 +114,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	      <ul class="sidebar-menu" data-widget="tree">
 	        <li class="header">可选操作</li>
 	        <!-- Optionally, you can add icons to the links -->
-	        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>学生名单</span></a></li>
+	        <li><a href="#"><i class="fa fa-link"></i> <span>学生名单</span></a></li>
 	        <li><a href="#"><i class="fa fa-link"></i> <span>教师名单</span></a></li>
-	        <li class="treeview">
-	          <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-	            <span class="pull-right-container">
-	                <i class="fa fa-angle-left pull-right"></i>
-	              </span>
-	          </a>
-	          <ul class="treeview-menu">
-	            <li><a href="#">Link in level 2</a></li>
-	            <li><a href="#">Link in level 2</a></li>
-	          </ul>
-	        </li>
+	        <li><a href="#"><i class="fa fa-link"></i> <span>班级管理</span></a></li>
 	      </ul>
 	      <!-- /.sidebar-menu -->
 	    </section>
@@ -149,17 +139,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	            <div class="box-header">
 	              <h3 class="box-title">学生名单</h3>
 
-	              <div class="box-tools">
-	                <div class="input-group input-group-sm" style="width: 150px;">
-	                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+					<div class="box-tools">
 
-	                  <div class="input-group-btn">
-	                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-	                  </div>
-	                </div>
-	              </div>
-	            </div>
-	            <!-- /.box-header -->
+						<button type="button" class="btn btn-info">分为几班</button>
+						<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+							<span class="caret"></span>
+							<span class="sr-only">Toggle Dropdown</span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#">1</a></li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#">5</a></li>
+							<li><a href="#">6</a></li>
+						</ul>
+					</div>
+
+					<!-- /.box-header -->
 	            <div class="box-body table-responsive no-padding">
 	              <table class="table table-hover">
 	                <tbody><tr>
