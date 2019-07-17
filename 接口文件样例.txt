@@ -1,0 +1,23 @@
+//请求学生名单样例
+
+var data = [{
+    "id": 1,
+    "stuname": "aa",
+    "class": 2,
+    "teacher": "aa",
+    "note": ""
+},
+{
+    "id": 1,
+    "stuname": "aa",
+    "class": 2,
+    "teacher": "aa",
+    "note": ""
+},
+{
+    "id": 1,
+    "stuname": "aa",
+    "class": 2,
+    "teacher": "aa",
+    "note": ""
+}]
