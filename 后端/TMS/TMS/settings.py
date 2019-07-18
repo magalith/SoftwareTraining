@@ -60,6 +60,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.static',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -130,4 +131,24 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+# STATIC_URL = '/static/'
+
+
+# Personal Settings
+
+# 设置路由路径,静态文件的映射路径
+# 在模板中访问静态文件时,{% static '<静态文件路径>' %}会指向该路由
 STATIC_URL = '/static/'
+# 执行`python manage.py collectstatic`时静态文静聚合的目录
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+# 公有资源
+PUBLIC_ROOT = os.path.join(BASE_DIR, 'public/')
+
+# 设置媒体文件路由路径
+MEDIA_URL = '/media/'
+# 设置静态媒体文件路径
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# 设置文稿池路径
+FILE_ROOT = os.path.join(MEDIA_ROOT, 'file/')
