@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>管理员|学生名单</title>
+  <title>教师|学生名单</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -64,14 +64,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	              <!-- The user image in the navbar-->
 	              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
 	              <!-- hidden-xs hides the username on small devices so only the image appears. -->
-	              <span class="hidden-xs">管理员</span>
+	              <span class="hidden-xs">教师</span>
 	            </a>
 	            <ul class="dropdown-menu">
 	              <!-- The user image in the menu -->
 	              <li class="user-header">
 	                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 	                <p>
-	                  管理员
+	                  教师
 	                  <small>Member since Nov. 2012</small>
 	                </p>
 	              </li>
@@ -105,7 +105,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	          <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 	        </div>
 	        <div class="pull-left info">
-	          <p>管理员</p>
+	          <p>教师</p>
 	          <!-- Status -->
 	        </div>
 	      </div>
@@ -115,8 +115,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	        <li class="header">可选操作</li>
 	        <!-- Optionally, you can add icons to the links -->
 	        <li><a href="#"><i class="fa fa-link"></i> <span>学生名单</span></a></li>
-	        <li><a href="#"><i class="fa fa-link"></i> <span>教师名单</span></a></li>
-	        <li><a href="#"><i class="fa fa-link"></i> <span>班级管理</span></a></li>
+	        <li><a href="#"><i class="fa fa-link"></i> <span>教学任务</span></a></li>
+	       
 	      </ul>
 	      <!-- /.sidebar-menu -->
 	    </section>
@@ -142,7 +142,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 					<!-- /.box-header -->
 	            <div class="box-body table-responsive no-padding">
-	              <table class="table table-hover" id="table_test">
+	              <table class="table table-hover" id="table_studentlist">
 	                <tbody><tr>
 	                  <th>序号</th>
 	                  <th>姓名</th>
@@ -156,17 +156,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	                  <td>11-7-2014</td>
 	                  <td><span class="label label-success">Approved</span></td>
 	                  <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-						<td><span class="glyphicon glyphicon-trash"></span></td>
+						<td>								<form action="#" method="post">								  <div class="input-group">									<input type="text" name="message" placeholder="分数" class="form-control" style="width: 80px">																			  <button type="submit" class="btn btn-primary btn-flat">发送</button>																		  </div>								</form>							 </td>
 
 	               
-					<!-- <tr bgcolor="#87ceeb">
-						<td> </td>
-						<td> </td>
-						<td></td>
-						<td> </td>
-						<td> </td>
-						<td><span class="glyphicon glyphicon-plus"></span>增加 </td>
-					</tr> -->
+
 
 					</tbody></table>
 	            </div>
@@ -175,23 +168,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	          <!-- /.box -->
 	        </div>
 
-				<!--分班功能-->
-				<div class="box-tools">
-
-					<button type="button" class="btn btn-info">分为几班</button>
-					<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-						<span class="caret"></span>
-						<span class="sr-only">Toggle Dropdown</span>
-					</button>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#">6</a></li>
-					</ul>
-				</div>
+				
 
 	      </div>
 	      <!--------------------------
@@ -293,7 +270,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<!-- AdminLTE App -->
 	<script src="dist/js/adminlte.min.js"></script>
 	<!-- 导入数据 -->
-	<script src="handle-ajax-basestudent.js"></script>
+	<script src="handle-ajax-studentlist.js"></script>
 
 	<!-- Optionally, you can add Slimscroll and FastClick plugins.
 	     Both of these plugins are recommended to enhance the
