@@ -30,10 +30,9 @@ var data =
 var html = '';
 for ( var i = 0; i < data.length; i++) {
     html = html + '<li style="font-size: 20px">' + data[i].text +'</li>';
-
     html = html + '<li>' + data[i].deadline + '</li> <br/>';
-    $('#missionlist').append(html);
-
+    $('.missionlist').eq(i).append(html);
+    html = ''
 }
 
 
