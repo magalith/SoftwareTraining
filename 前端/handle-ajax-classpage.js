@@ -21,9 +21,9 @@ for (var i = 0; i < data.length; i++) {//将班级名称加入列表中
     html += data[i].class_name + '班';
     html += '</h5></div><div class="box-footer no-padding"><ul class="nav nav-stacked"><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">学生人数<span class="pull-right badge bg-blue">';
     html += data[i].students.length + '</span></a>';
-    html += '<ul class="dropdown-menu" style = "width:310px"><li>学生名单</li>';
-    for (var j = 0; j < data.length; j++) {
-        html += '<li><a>' + data[j].teacher +'</a></li>'
+    html += '<ul class="dropdown-menu" style = "width:310px"><li><b>学生名单</b></li>';
+    for (var j = 0; j < data[i].students.length; j++) {
+        html += '<li><a>' + data[i].students[j] +'</a></li>'
     };
     html += '</ul><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">负责老师 <span class="pull-right badge bg-aqua teacher_name">';
     html += data[i].teacher + '</span></a>';
@@ -38,5 +38,5 @@ for (var i = 0; i < data.length; i++) {//将班级名称加入列表中
 
 function getTeacher(obj) {
     index = $(obj).parent().index();
-    $(obj).parent().parent().siblings().find("span").html(obj.text)
+    $(obj).parent().parent().siblings().find("span").html(obj.text);
 }
