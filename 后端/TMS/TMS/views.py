@@ -12,3 +12,15 @@ def index(requests):
 
 def login(requests):
     return render(requests, "login.html", {})
+
+
+def admin_teacher(requests):
+    return render(requests, "admin_teacher.html", {})
+
+
+def class_page(requests):
+    return render(requests, "admin_Class_Page.html", {})
+
+
+def admin_student(requests):
+    return render(requests, 'admin_student.html', {})
