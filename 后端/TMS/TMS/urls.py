@@ -31,6 +31,8 @@ urlpatterns = [
     # 媒体文档文件静态目录
     re_path(r"file/(?P<path>.*)", serve, {"document_root": settings.FILE_ROOT}),
 
+    path('login', views.login),
+
     # 配置静态资源,可以直接通过url访问static目录下的文件,!!!需要放置在最后一条路由规则!!!
     re_path(r"(?P<path>.*)", serve, {"document_root": settings.PUBLIC_ROOT}),
 ]
