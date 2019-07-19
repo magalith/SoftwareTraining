@@ -8,6 +8,8 @@ urlpatterns = [
     #############
     #  通用接口  #
     #############
+    # api版本界面,用于测试服务是否可用
+    path("", views.api_index),
     # 测试界面,用于测试服务是否可用
     re_path("test/?", views.test),
     # 查看自己的信息
