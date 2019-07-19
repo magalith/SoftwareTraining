@@ -29,7 +29,7 @@ var data =
 
 var html = '';
 for ( var i = 0; i < data.length; i++) {
-    html += '<li style="font-size: 20px"><a href="teacher_file_check.html">' + data[i].text +'</a></li>';
+    html += '<li style="font-size: 20px"><a href="teacher_file_check.html"><h3>' + data[i].text +'</h3></a></li>';
     html += '<li>' + data[i].deadline + '</li> <br/>';
     html += ''
     $('.missionlist').eq(i).append(html);
