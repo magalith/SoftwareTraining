@@ -36,7 +36,3 @@ for ( var i = 0; i < data.length; i++) {
     html = ''
 }
 
-
-function deleteItem(obj){
-    $(obj).parent().parent().remove();
-}

@@ -23,6 +23,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
         apply the skin class to the body tag so the changes take effect. -->
 	<link rel="stylesheet" href="../dist/css/skins/skin-blue.min.css">
 
+	<style>
+		ul.proList,
+		.proList>li {
+			list-style: none;
+			padding: 0px;
+		}
+	</style>
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -101,8 +109,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				<ul class="sidebar-menu" data-widget="tree">
 					<li class="header">可选操作</li>
 					<!-- Optionally, you can add icons to the links -->
-					<li><a href="student_checkTask.html"><i class="fa fa-link"></i> <span>阶段任务</span></a></li>
-					<li class="active"><a href="#"><i class="fa fa-link"></i> <span>查看文档</span></a></li>
+					<li class="active"><a href="#"><i class="fa fa-link"></i> <span>阶段任务</span></a></li>
+					<li><a href="student_score.html"><i class="fa fa-link"></i> <span>查看文档</span></a></li>
 
 				</ul>
 				<!-- /.sidebar-menu -->
@@ -115,40 +123,48 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 			<!-- Main content -->
 			<section class="content container-fluid">
-				<div class="box">
-					<h3 class="box-title">已提交任务文档</h3>
-
-					<!-- /.box-header -->
-					<div class="box-body table-responsive no-padding">
-						<table class="table table-hover" id="check_task">
-							<tbody>
-								<tr>
-									<th>序号</th>
-									<th>任务描述</th>
-									<th>附件</th>
-									<th>分数</th>
-								</tr>
-							</tbody>
-						</table>
+				<div class="col-md-4">
+					<div class="box box-warning box-solid collapsed-box">
+						<div class="box-header with-border">
+							<h3 class="boxtitle" data-widget="collapse">阶段一</h3>
+						</div>
+						<div class="box-header with-border">
+							<h3 class="box-title">需求分析阶段</h3>
+						</div>
+						<div class="box-body" style="display: none;">
+							<ul class="proList missionlist">
+							</ul>
+						</div>
 					</div>
 				</div>
-			</section>
 
-			<section class="content container-fluid">
-				<div class="box">
-					<h3 class="box-title">未提交任务</h3>
+				<div class="col-md-4">
+					<div class="box box-warning box-solid collapsed-box">
+						<div class="box-header with-border">
+							<h3 class="boxtitle" data-widget="collapse">阶段二</h3>
+						</div>
+						<div class="box-header with-border">
+							<h3 class="box-title">需求分析阶段</h3>
+						</div>
+						<div class="box-body" style="display: none;">
+							<ul class="proList missionlist">
+							</ul>
+						</div>
+					</div>
+				</div>
 
-					<!-- /.box-header -->
-					<div class="box-body table-responsive no-padding">
-						<table class="table table-hover" id="check_untask">
-							<tbody>
-								<tr>
-									<th>序号</th>
-									<th>任务描述</th>
-									<th>上传附件</th>
-								</tr>
-							</tbody>
-						</table>
+				<div class="col-md-4">
+					<div class="box box-warning box-solid collapsed-box">
+						<div class="box-header with-border">
+							<h3 class="boxtitle" data-widget="collapse">阶段三</h3>
+						</div>
+						<div class="box-header with-border">
+							<h3 class="box-title">需求分析阶段</h3>
+						</div>
+						<div class="box-body" style="display: none;">
+							<ul class="proList missionlist">
+							</ul>
+						</div>
 					</div>
 				</div>
 			</section>
@@ -168,7 +184,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<!-- AdminLTE App -->
 	<script src="../dist/js/adminlte.min.js"></script>
 	<!-- 导入数据 -->
-	<script src="../project_js/handle-ajax-student_score.js"></script>
+	<script src="../project_js/handle-ajax-student_task.js"></script>
 
 </body>
 
