@@ -17,13 +17,20 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 from django.views.static import serve
 from django.conf import settings
+from . import views
 
 urlpatterns = [
+    # 主视图界面
+    path("", views.index),
+    # 管理员界面,暂时无用,先保留
     path("admin/", admin.site.urls),
-    path("api/", include("api.urls")),
-    # 访问文档文件
+    # api应用url,指向api/urls
+    re_path("api/?", include("api.urls")),
+    # 数据库视图接口,测试时使用
+    re_path("database/?", include("database.urls")),
+    # 媒体文档文件静态目录
     re_path(r"file/(?P<path>.*)", serve, {"document_root": settings.FILE_ROOT}),
 
-    # 配置静态资源,可以直接通过url访问static目录下的文件,需要放置在最后一条路由规则
+    # 配置静态资源,可以直接通过url访问static目录下的文件,!!!需要放置在最后一条路由规则!!!
     re_path(r"(?P<path>.*)", serve, {"document_root": settings.PUBLIC_ROOT}),
 ]
