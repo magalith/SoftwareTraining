@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>前后端接口.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+	font-size: 14px;
+	padding: 0 12px;
+	line-height: 22px;
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family:  "Meiryo", "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+</head>
+<body>
+<h2 id="%E9%94%99%E8%AF%AF%E4%BB%A3%E7%A0%81">错误代码</h2>
+<table>
+<thead>
+<tr>
+<th>错误代码</th>
+<th>错误类型</th>
+<th>详细错误</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1001</td>
+<td>权限错误</td>
+<td>该接口需要登陆才能访问</td>
+</tr>
+<tr>
+<td>1002</td>
+<td>权限错误</td>
+<td>当前用户无权限访问指定内容</td>
+</tr>
+<tr>
+<td>1003</td>
+<td>权限错误</td>
+<td>错误的用户权限</td>
+</tr>
+<tr>
+<td>2001</td>
+<td>请求错误</td>
+<td>POST参数错误</td>
+</tr>
+<tr>
+<td>2002</td>
+<td>请求错误</td>
+<td>错误的数据格式</td>
+</tr>
+<tr>
+<td>2003</td>
+<td>请求错误</td>
+<td>附件超过指定大小</td>
+</tr>
+<tr>
+<td>3001</td>
+<td>会话错误</td>
+<td>会话已过期,或遭到中间人攻击</td>
+</tr>
+<tr>
+<td>3002</td>
+<td>会话错误</td>
+<td>会话异常,请重新登陆后尝试</td>
+</tr>
+<tr>
+<td>4001</td>
+<td>服务异常</td>
+<td>数据库访问异常</td>
+</tr>
+<tr>
+<td>4002</td>
+<td>服务异常</td>
+<td>服务器出现未知错误</td>
+</tr>
+<tr>
+<td>4003</td>
+<td>服务异常</td>
+<td>错误的查询结果</td>
+</tr>
+</tbody>
+</table>
+<pre class="hljs"><code><div>返回格式: 
+{
+    <span class="hljs-attr">"code"</span>: <span class="hljs-string">"1001"</span>,
+    <span class="hljs-attr">"data"</span>: {
+        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"权限错误"</span>,
+        <span class="hljs-attr">"detail"</span>: <span class="hljs-string">"该接口需要登陆才能访问"</span>
+    }
+}
+</div></code></pre>
+<h2 id="%E9%80%9A%E7%94%A8%E6%8E%A5%E5%8F%A3">通用接口</h2>
+<ol>
+<li>
+<p>查看自己的信息</p>
+</li>
+<li>
+<p>查看所有可选项目</p>
+</li>
+</ol>
+<ul>
+<li>请求方法: POST</li>
+<li>请求地址: <code>/api/get_self_info</code></li>
+<li>请求参数:</li>
+</ul>
+<pre class="hljs"><code><div>{
+    &quot;session&quot;: &lt;会话ID&gt;,
+    &quot;timestamp&quot;: &lt;整数时间戳&gt;
+}
+</div></code></pre>
+<ul>
+<li>正确返回结果:</li>
+</ul>
+<pre class="hljs"><code><div>{
+	<span class="hljs-attr">"code"</span>: <span class="hljs-string">"ok"</span>,
+	<span class="hljs-attr">"data"</span>: {
+        <span class="hljs-attr">"id"</span>: <span class="hljs-string">"U_001"</span>,
+        <span class="hljs-attr">"name"</span>: <span class="hljs-string">"江泽民"</span>,
+        <span class="hljs-attr">"gender"</span>: <span class="hljs-string">"男"</span>,
+        <span class="hljs-attr">"class"</span>: <span class="hljs-string">"国机二班"</span>,
+    }
+}
+</div></code></pre>
+<h2 id="%E7%AE%A1%E7%90%86%E5%91%98%E6%8E%A5%E5%8F%A3">管理员接口</h2>
+<ol>
+<li>管理员查看全部学生名单</li>
+</ol>
+<ul>
+<li>请求方法: POST</li>
+<li>请求地址: <code>/api/get_students</code></li>
+<li>请求参数:</li>
+</ul>
+<pre class="hljs"><code><div>{
+    'session': &lt;会话ID&gt;,
+    'timestamp': &lt;整数时间戳&gt;
+}
+</div></code></pre>
+<ul>
+<li>正确返回结果:</li>
+</ul>
+<pre class="hljs"><code><div>{
+	<span class="hljs-attr">"code"</span>: <span class="hljs-string">"ok"</span>,
+	<span class="hljs-attr">"data"</span>: [{
+		<span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>,
+		<span class="hljs-attr">"stuname"</span>: <span class="hljs-string">"aa"</span>,
+		<span class="hljs-attr">"class"</span>: <span class="hljs-string">"CLASS_01"</span>,
+		<span class="hljs-attr">"teacher"</span>: <span class="hljs-string">"teacher_a"</span>,
+		<span class="hljs-attr">"note"</span>: <span class="hljs-string">"项目一"</span>
+	}, {
+		<span class="hljs-attr">"id"</span>: <span class="hljs-number">2</span>,
+		<span class="hljs-attr">"stuname"</span>: <span class="hljs-string">"bb"</span>,
+		<span class="hljs-attr">"class"</span>: <span class="hljs-string">"CLASS_02"</span>,
+		<span class="hljs-attr">"teacher"</span>: <span class="hljs-string">"teacher_a"</span>,
+		<span class="hljs-attr">"name"</span>: <span class="hljs-string">"项目二"</span>
+	},
+    {...}]
+}
+</div></code></pre>
+<ol start="2">
+<li>管理员更新班级信息(全部POST)</li>
+</ol>
+<ul>
+<li>请求方法: POST</li>
+<li>请求地址: <code>/api/set_classes</code></li>
+<li>请求参数:</li>
+</ul>
+<pre class="hljs"><code><div>{
+    'session': &lt;会话ID&gt;,
+    'timestamp': &lt;整数时间戳&gt;
+    &quot;classes&quot;: [{
+		&quot;class_name&quot;: &quot;CLASS_01&quot;,
+		&quot;teacher&quot;: &quot;teacher_a&quot;,
+        &quot;students&quot;: [1001, 1002, 1003, ...]
+	},
+    {...}]
+}
+</div></code></pre>
+<ul>
+<li>正确返回结果:</li>
+</ul>
+<pre class="hljs"><code><div>{
+	<span class="hljs-attr">"code"</span>: <span class="hljs-string">"ok"</span>,
+    // 班级ID
+	<span class="hljs-attr">"data"</span>: <span class="hljs-string">"C_001"</span>
+}
+</div></code></pre>
+<ol start="3">
+<li>管理员获取教师名单</li>
+</ol>
+<ul>
+<li>请求方法: POST</li>
+<li>请求地址: <code>/api/get_teachers</code></li>
+<li>请求参数:</li>
+</ul>
+<pre class="hljs"><code><div>{
+    'session': &lt;会话ID&gt;,
+    'timestamp': &lt;整数时间戳&gt;
+}
+</div></code></pre>
+<ul>
+<li>正确返回结果:</li>
+</ul>
+<pre class="hljs"><code><div>{
+	<span class="hljs-attr">"code"</span>: <span class="hljs-string">"ok"</span>,
+	<span class="hljs-attr">"data"</span>: [{
+		<span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>,
+		<span class="hljs-attr">"name"</span>: <span class="hljs-string">"aa"</span>,
+		<span class="hljs-attr">"class"</span>: [<span class="hljs-string">"CLASS_01"</span>, <span class="hljs-string">"CLASS_02"</span>],
+	}, {
+		<span class="hljs-attr">"id"</span>: <span class="hljs-number">2</span>,
+		<span class="hljs-attr">"name"</span>: <span class="hljs-string">"bb"</span>,
+		<span class="hljs-attr">"class"</span>: [<span class="hljs-string">"CLASS_03"</span>],
+	},
+    {...}]
+}
+</div></code></pre>
+<ol start="4">
+<li>管理员获取所有班级名单(带学生老师名单)</li>
+</ol>
+<ul>
+<li>请求方法: POST</li>
+<li>请求地址: <code>/api/get_class_info</code></li>
+<li>请求参数:</li>
+</ul>
+<pre class="hljs"><code><div>{
+    'session': &lt;会话ID&gt;,
+    'timestamp': &lt;整数时间戳&gt;
+}
+</div></code></pre>
+<ul>
+<li>正确返回结果:</li>
+</ul>
+<pre class="hljs"><code><div>{
+	<span class="hljs-attr">"code"</span>: <span class="hljs-string">"ok"</span>,
+	<span class="hljs-attr">"data"</span>: [{
+		<span class="hljs-attr">"cid"</span>: <span class="hljs-string">"C_001"</span>,
+		<span class="hljs-attr">"name"</span>: <span class="hljs-string">"aa"</span>,
+        <span class="hljs-attr">"teacher_id"</span>: <span class="hljs-string">"T_001"</span>,
+		<span class="hljs-attr">"students_id"</span>: [<span class="hljs-string">"S_001"</span>, <span class="hljs-string">"S_002"</span>],
+	},
+    {...}]
+}
+</div></code></pre>
+<h2 id="%E6%95%99%E5%B8%88%E6%8E%A5%E5%8F%A3">教师接口</h2>
+<ol>
+<li>查看负责班级的学生名单</li>
+</ol>
+<ul>
+<li>与管理员-获取全部学生接口相同</li>
+</ul>
+<ol start="2">
+<li>查看所有阶段</li>
+</ol>
+<ul>
+<li>请求方法: POST</li>
+<li>请求地址: <code>/api/get_stage</code></li>
+<li>请求参数:</li>
+</ul>
+<pre class="hljs"><code><div>{
+    'session': &lt;会话ID&gt;,
+    'timestamp': &lt;整数时间戳&gt;
+}
+</div></code></pre>
+<ul>
+<li>正确返回结果:</li>
+</ul>
+<pre class="hljs"><code><div>{
+	<span class="hljs-attr">"code"</span>: <span class="hljs-string">"ok"</span>,
+	<span class="hljs-attr">"data"</span>: [{
+		<span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>,
+		<span class="hljs-attr">"name"</span>: <span class="hljs-string">"阶段一"</span>,
+		<span class="hljs-attr">"teacher_id"</span>: <span class="hljs-string">"T_001"</span>,
+	}, {
+		<span class="hljs-attr">"id"</span>: <span class="hljs-number">2</span>,
+		<span class="hljs-attr">"name"</span>: <span class="hljs-string">"阶段二"</span>,
+		<span class="hljs-attr">"teacher_id"</span>: <span class="hljs-string">"T_001"</span>,
+	},
+    {...}]
+}
+</div></code></pre>
+<ol start="3">
+<li>为阶段添加任务</li>
+</ol>
+<ul>
+<li>请求方法: POST</li>
+<li>请求地址: <code>/api/push_mission</code></li>
+<li>请求参数:</li>
+</ul>
+<pre class="hljs"><code><div>{
+    {
+    &quot;session&quot;: &lt;会话ID&gt;,
+    &quot;timestamp&quot;: &lt;整数时间戳&gt;,
+    &quot;stage_id&quot;: &lt;阶段ID&gt;,
+    &quot;mission&quot;: {
+        &quot;text&quot;: &quot;&lt;阶段文本内容&gt;&quot;,
+        &quot;file&quot;: &quot;&lt;附件Base64编码&gt;&quot;
+    }
+}
+</div></code></pre>
+<ul>
+<li>正确返回结果:</li>
+</ul>
+<pre class="hljs"><code><div>{
+	<span class="hljs-attr">"code"</span>: <span class="hljs-string">"ok"</span>,
+	<span class="hljs-attr">"data"</span>: <span class="hljs-string">"&lt;任务ID&gt;"</span>
+}
+</div></code></pre>
+<ol start="4">
+<li>查看某一任务的所有文档</li>
+</ol>
+<ul>
+<li>请求方法: POST</li>
+<li>请求地址: <code>/api/check_mission</code></li>
+<li>请求参数:</li>
+</ul>
+<pre class="hljs"><code><div>{
+    &quot;session&quot;: &lt;会话ID&gt;,
+    &quot;timestamp&quot;: &lt;整数时间戳&gt;,
+    &quot;mission_id&quot;: &lt;整数任务ID&gt;
+}
+</div></code></pre>
+<ul>
+<li>正确返回结果:</li>
+</ul>
+<pre class="hljs"><code><div>{
+	<span class="hljs-attr">"code"</span>: <span class="hljs-string">"ok"</span>,
+	<span class="hljs-attr">"data"</span>: [
+        {
+            <span class="hljs-attr">"id"</span>: <span class="hljs-string">"D_001"</span>,
+            <span class="hljs-attr">"text"</span>: <span class="hljs-string">"第一次作业......."</span>,
+            <span class="hljs-attr">"file"</span>: <span class="hljs-string">"http://0.0.0.0/a.txt"</span>,
+            <span class="hljs-attr">"student_name"</span>: <span class="hljs-string">"aaaaaaa"</span>,
+            <span class="hljs-attr">"score"</span>: <span class="hljs-number">85</span>
+        },{
+            <span class="hljs-attr">"id"</span>: <span class="hljs-string">"D_002"</span>,
+            <span class="hljs-attr">"text"</span>: <span class="hljs-string">"第二次作业......."</span>,
+            <span class="hljs-attr">"file"</span>: <span class="hljs-string">"http://0.0.0.0/b.txt"</span>,
+            <span class="hljs-attr">"student_name"</span>: <span class="hljs-string">"bbbbbbb"</span>,
+            <span class="hljs-attr">"score"</span>: <span class="hljs-number">90</span>
+        },
+    ]
+}
+</div></code></pre>
+<ol start="5">
+<li>更新文档(学生的作业)分数</li>
+</ol>
+<ul>
+<li>请求方法: POST</li>
+<li>请求地址: <code>/api/set_score</code></li>
+<li>请求参数:</li>
+</ul>
+<pre class="hljs"><code><div>{
+    &quot;session&quot;: &lt;会话ID&gt;,
+    &quot;timestamp&quot;: &lt;整数时间戳&gt;,
+    &quot;mission_id&quot;: &lt;整数任务ID&gt;,
+    &quot;score&quot;:[
+        {
+            &quot;D_id&quot;: &quot;D_001&quot;,
+            &quot;score&quot;: 95
+        },{
+            &quot;D_id&quot;: &quot;D_002&quot;,
+            &quot;score&quot;: 98
+        },
+    ]
+}
+</div></code></pre>
+<ul>
+<li>正确返回结果:</li>
+</ul>
+<pre class="hljs"><code><div>{
+	<span class="hljs-attr">"code"</span>: <span class="hljs-string">"ok"</span>,
+	<span class="hljs-attr">"data"</span>: <span class="hljs-string">"Updated"</span>
+}
+</div></code></pre>
+<ol start="6">
+<li>获取某一个学生的所有文档(作业)信息</li>
+</ol>
+<ul>
+<li>请求方法: POST</li>
+<li>请求地址: <code>/api/get_students_doc</code></li>
+<li>请求参数:</li>
+</ul>
+<pre class="hljs"><code><div>{
+    &quot;session&quot;: &lt;会话ID&gt;,
+    &quot;timestamp&quot;: &lt;整数时间戳&gt;,
+    &quot;s_id&quot;: &lt;学生学号/ID&gt;
+}
+</div></code></pre>
+<ul>
+<li>正确返回结果:</li>
+</ul>
+<pre class="hljs"><code><div>{
+	<span class="hljs-attr">"code"</span>: <span class="hljs-string">"ok"</span>,
+	<span class="hljs-attr">"data"</span>: [
+        {
+            <span class="hljs-attr">"id"</span>: <span class="hljs-string">"D_001"</span>,
+            <span class="hljs-attr">"text"</span>: <span class="hljs-string">""</span>,
+            <span class="hljs-attr">"file"</span>: <span class="hljs-string">"http://0.0.0.0/a.txt"</span>,
+            <span class="hljs-attr">"score"</span>: <span class="hljs-number">78</span>
+        }, {
+            <span class="hljs-attr">"id"</span>: <span class="hljs-string">"D_002"</span>,
+            <span class="hljs-attr">"text"</span>: <span class="hljs-string">""</span>,
+            <span class="hljs-attr">"file"</span>: <span class="hljs-string">"http://0.0.0.0/b.txt"</span>,
+            <span class="hljs-attr">"score"</span>: <span class="hljs-number">69</span>
+        }
+    ]
+}
+</div></code></pre>
+<h2 id="%E5%AD%A6%E7%94%9F%E6%8E%A5%E5%8F%A3">学生接口</h2>
+<ol>
+<li>查看所有可选项目</li>
+</ol>
+<ul>
+<li>请求方法: POST</li>
+<li>请求地址: <code>/api/get_project_pool</code></li>
+<li>请求参数:</li>
+</ul>
+<pre class="hljs"><code><div>{
+    &quot;session&quot;: &lt;会话ID&gt;,
+    &quot;timestamp&quot;: &lt;整数时间戳&gt;
+}
+</div></code></pre>
+<ul>
+<li>正确返回结果:</li>
+</ul>
+<pre class="hljs"><code><div>{
+	<span class="hljs-attr">"code"</span>: <span class="hljs-string">"ok"</span>,
+	<span class="hljs-attr">"data"</span>: [
+        {
+            <span class="hljs-attr">"id"</span>: <span class="hljs-string">"P_001"</span>,
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"电商网站"</span>,
+            <span class="hljs-attr">"detail"</span>: <span class="hljs-string">"做一个小阿里巴巴"</span>
+        }, {
+            <span class="hljs-attr">"id"</span>: <span class="hljs-string">"P_002"</span>,
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"实训管理系统"</span>,
+            <span class="hljs-attr">"detail"</span>: <span class="hljs-string">"做一个给领导看的虚伪web系统"</span>
+        }, {
+            <span class="hljs-attr">"id"</span>: <span class="hljs-string">"P_003"</span>,
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"毕业设计管理系统"</span>,
+            <span class="hljs-attr">"detail"</span>: <span class="hljs-string">"让系统,搅乱你的毕设"</span>
+        }
+    ]
+}
+</div></code></pre>
+<ol start="2">
+<li>更新学生的项目</li>
+</ol>
+<ul>
+<li>请求方法: POST</li>
+<li>请求地址: <code>/api/set_studentproj</code></li>
+<li>请求参数:</li>
+</ul>
+<pre class="hljs"><code><div>{
+    &quot;session&quot;: &lt;会话ID&gt;,
+    &quot;timestamp&quot;: &lt;整数时间戳&gt;,
+    &quot;proj_id&quot;: &lt;项目ID&gt;
+}
+</div></code></pre>
+<ul>
+<li>正确返回结果:</li>
+</ul>
+<pre class="hljs"><code><div>{
+	<span class="hljs-attr">"code"</span>: <span class="hljs-string">"ok"</span>,
+	<span class="hljs-attr">"data"</span>: <span class="hljs-string">"Success"</span>
+}
+</div></code></pre>
+<ol start="3">
+<li>查看所有的任务(包含已完成任务与未完成任务)</li>
+</ol>
+<ul>
+<li>请求方法: POST</li>
+<li>请求地址: <code>/api/get_missions</code></li>
+<li>请求参数:</li>
+</ul>
+<pre class="hljs"><code><div>{
+    &quot;session&quot;: &lt;会话ID&gt;,
+    &quot;timestamp&quot;: &lt;整数时间戳&gt;
+}
+</div></code></pre>
+<ul>
+<li>正确返回结果:</li>
+</ul>
+<pre class="hljs"><code><div>{
+	<span class="hljs-attr">"code"</span>: <span class="hljs-string">"ok"</span>,
+	<span class="hljs-attr">"data"</span>: [
+        {
+            <span class="hljs-attr">"id"</span>: <span class="hljs-string">"M_001"</span>,
+            <span class="hljs-attr">"text"</span>: <span class="hljs-string">"作业一"</span>,
+            <span class="hljs-attr">"file"</span>: <span class="hljs-string">"http://0.0.0.0/a.txt"</span>, 
+            <span class="hljs-attr">"deadline"</span>: <span class="hljs-number">1563349746</span>
+        }, {
+            <span class="hljs-attr">"id"</span>: <span class="hljs-string">"M_002"</span>,
+            <span class="hljs-attr">"text"</span>: <span class="hljs-string">"作业二"</span>,
+            <span class="hljs-attr">"file"</span>: <span class="hljs-string">"http://0.0.0.0/b.txt"</span>, 
+            <span class="hljs-attr">"deadline"</span>: <span class="hljs-number">1563346789</span>
+        }, 
+    ]
+}
+</div></code></pre>
+<ol start="4">
+<li>为某个任务提交文档(仅包含附件,文字留空)</li>
+</ol>
+<ul>
+<li>请求方法: POST</li>
+<li>请求地址: <code>/api/push_doc</code></li>
+<li>请求参数:</li>
+</ul>
+<pre class="hljs"><code><div>{
+    &quot;session&quot;: &lt;会话ID&gt;,
+    &quot;timestamp&quot;: &lt;整数时间戳&gt;,
+    &quot;text&quot;: &quot;文字描述&quot;,
+    &quot;file&quot;: &quot;&lt;文件base64值&gt;&quot;
+}
+</div></code></pre>
+<ul>
+<li>正确返回结果:</li>
+</ul>
+<pre class="hljs"><code><div>{
+	<span class="hljs-attr">"code"</span>: <span class="hljs-string">"ok"</span>,
+	<span class="hljs-attr">"data"</span>: [
+        {
+            <span class="hljs-attr">"id"</span>: <span class="hljs-string">"M_001"</span>,
+            <span class="hljs-attr">"text"</span>: <span class="hljs-string">"作业一"</span>,
+            <span class="hljs-attr">"file"</span>: <span class="hljs-string">"http://0.0.0.0/a.txt"</span>, 
+            <span class="hljs-attr">"deadline"</span>: <span class="hljs-number">1563349746</span>
+        }, {
+            <span class="hljs-attr">"id"</span>: <span class="hljs-string">"M_002"</span>,
+            <span class="hljs-attr">"text"</span>: <span class="hljs-string">"作业二"</span>,
+            <span class="hljs-attr">"file"</span>: <span class="hljs-string">"http://0.0.0.0/b.txt"</span>, 
+            <span class="hljs-attr">"deadline"</span>: <span class="hljs-number">1563346789</span>
+        }, 
+    ]
+}
+</div></code></pre>
+<ol start="5">
+<li>获取所有的文档信息(包含得分)</li>
+</ol>
+<ul>
+<li>请求方法: POST</li>
+<li>请求地址: <code>/api/get_docs</code></li>
+<li>请求参数:</li>
+</ul>
+<pre class="hljs"><code><div>{
+    &quot;session&quot;: &lt;会话ID&gt;,
+    &quot;timestamp&quot;: &lt;整数时间戳&gt;
+}
+</div></code></pre>
+<ul>
+<li>正确返回结果:</li>
+</ul>
+<pre class="hljs"><code><div>{
+	<span class="hljs-attr">"code"</span>: <span class="hljs-string">"ok"</span>,
+	<span class="hljs-attr">"data"</span>: [
+        {
+            <span class="hljs-attr">"id"</span>: <span class="hljs-string">"D_001"</span>,
+            <span class="hljs-attr">"text"</span>: <span class="hljs-string">""</span>,
+            <span class="hljs-attr">"file"</span>: <span class="hljs-string">"http://0.0.0.0/a.txt"</span>,
+            <span class="hljs-attr">"score"</span>: <span class="hljs-number">78</span>
+        }, {
+            <span class="hljs-attr">"id"</span>: <span class="hljs-string">"D_002"</span>,
+            <span class="hljs-attr">"text"</span>: <span class="hljs-string">""</span>,
+            <span class="hljs-attr">"file"</span>: <span class="hljs-string">"http://0.0.0.0/b.txt"</span>,
+            <span class="hljs-attr">"score"</span>: <span class="hljs-number">69</span>
+        }
+    ]
+}
+</div></code></pre>
+
+</body>
+</html>
