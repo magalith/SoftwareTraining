@@ -35,6 +35,7 @@ urlpatterns = [
     re_path(r"admin_teacher/?", views.admin_teacher),
     re_path(r"admin_student/?", views.admin_student),
     re_path(r"admin_Class_Page/?", views.class_page),
+    re_path(r"stu_doc_check/?", views.doc_check),
 
     # 配置静态资源,可以直接通过url访问static目录下的文件,!!!需要放置在最后一条路由规则!!!
     re_path(r"(?P<path>.*)", serve, {"document_root": settings.PUBLIC_ROOT}),

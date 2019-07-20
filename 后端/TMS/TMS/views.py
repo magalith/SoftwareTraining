@@ -56,3 +56,7 @@ def class_page(request):
 
 def admin_student(request):
     return render(request, 'admin_student.html', {})
+
+
+def doc_check(request):
+    return render(request, 'student_score.html', {})

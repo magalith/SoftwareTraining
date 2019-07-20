@@ -27,12 +27,13 @@ var data = [{
 }]
 
 $(function(){
-    $.post("", {'session': 1, 'timestamp': 123}, function(data){}, "json");
-    load_teacherlist();
+    $.post("/api/get_teachers", {'timestamp': 123}, function(data){
+        load_teacherlist(data);
+    }, "json");
     $('#addlist').on("click", addtext_to_list)
 })
 
-function load_teacherlist(){
+function load_teacherlist(data){
     var html = '';
     for ( var i = 0; i < data.length; i++) {//循环json对象，拼接tr,td的html
         html = html + '<tr>';
@@ -64,13 +65,9 @@ function addtext_to_list(){
         $('#table_test').append(html);
         $('#username').val("")
         $('#guanliclass').val("")
-
     } else {
         alert("请输入完整添加内容")
         $('#username').val("")
         $('#guanliclass').val("")
-
     }
-
-
 }
