@@ -79,3 +79,7 @@ class Doc(models.Model):
     score = models.PositiveSmallIntegerField(default=0)
     # 对应任务的ID
     mission_id = models.ForeignKey("Mission", on_delete=models.SET_NULL, blank=True, null=True)
+    # 文稿提交用户
+    user_id = models.ForeignKey("User", on_delete=models.SET_NULL, blank=True, null=True)
+    # 文稿提交时间
+    upload_time = models.DateTimeField(auto_now_add=True)
