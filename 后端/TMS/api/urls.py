@@ -55,5 +55,5 @@ urlpatterns = [
     # 为某个任务提交文档(仅包含附件,文字留空)
     re_path("push_doc/?", views.test),
     # 获取所有的文档信息(包含得分)
-    re_path("get_docs/?", views.test),
+    re_path("get_docs/?", views.get_docs),
 ]
