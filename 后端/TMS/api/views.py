@@ -5,6 +5,7 @@
 from django.shortcuts import render, HttpResponse
 import time
 import json
+from . import lzh_api
 
 
 # api版本视图
@@ -27,3 +28,9 @@ def test(request):
         "data": "Success!",
     }
     return HttpResponse(json.dumps(ans))
+
+
+# 获取所有文档api
+def get_docs(request):
+    ans = lzh_api.get_all_doc()
+    return HttpResponse(json.dumps(ans, ensure_ascii=False))
