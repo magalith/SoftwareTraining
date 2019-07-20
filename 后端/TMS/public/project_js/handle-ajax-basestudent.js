@@ -35,4 +35,5 @@ $('#table_test').append(html);
 
 function deleteItem(obj){
     $(obj).parent().parent().remove();
+    $.post("/api")
 }
