@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加文档到文档池中</title>
+</head>
+<body>
+
+<form action="./add_doc" method="post" enctype="multipart/form-data">
+    文稿文本:<br>
+    <textarea name="text" rows="8" cols="50" placeholder="在此处输入内容"></textarea>
+    <br><br>
+    文稿附件:<br>
+    <div >
+        <input type="file" name="file" multiple="multiple" />
+    </div>
+    <br><br>
+    文稿提交用户:<br>
+    <select name="uid">
+        {% for user in user_list %}
+            <option value ="{{ user.id }}">{{ user.name }}</option>
+        {% endfor %}
+    </select><br>
+
+    <br><br>
+    文稿所属任务:<br>
+    <select name="mid">
+        <option value ="0">&lt;空&gt;</option>
+        {% for mission in mission_list %}
+            <option value ="{{ mission.id }}">{{ mission.detail }}</option>
+        {% endfor %}
+    </select><br>
+    <input type="submit" value="提交">
+</form>
+
+</body>
+</html>

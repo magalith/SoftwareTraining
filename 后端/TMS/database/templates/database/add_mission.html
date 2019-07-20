@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加任务</title>
+</head>
+<body>
+
+<form action="./add_mission" method="post" enctype="multipart/form-data">
+    <div>
+        任务介绍:<br>
+        <textarea name="text" rows="8" cols="50" placeholder="在此处输入内容"></textarea>
+        <br><br>
+        任务附件:<br>
+        <div >
+            <input type="file" name="file" multiple="multiple" />
+        </div>
+        <br><br>
+{#        提交用户:<br>#}
+{#        <select name="uid">#}
+{#            {% for user in teacher_list %}#}
+{#                <option value ="{{ user.id }}">{{ user.name }}</option>#}
+{#            {% endfor %}#}
+{#        </select><br>#}
+    </div>
+
+    任务所属阶段:<br>
+    <select name="sid">
+        {% for stage in stage_list %}
+            <option value ="{{ stage.id }}">{{ stage.name}}</option>
+        {% endfor %}
+    </select><br>
+    任务所属截止时间:<br>
+    <input type="text" name="endtime" placeholder="截止日期">
+    <br>
+    <input type="submit" value="提交">
+</form>
+
+</body>
+</html>
