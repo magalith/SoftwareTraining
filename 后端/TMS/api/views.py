@@ -32,5 +32,14 @@ def test(request):
 
 # 获取所有文档api
 def get_docs(request):
-    ans = lzh_api.get_all_doc()
-    return HttpResponse(json.dumps(ans, ensure_ascii=False))
+    try:
+        uid = request.session.get("uid")
+        if not uid:
+            return HttpResponse(json.dumps(lzh_api.error_with_code(1001), ensure_ascii=False))
+        ans = lzh_api.get_all_doc(uid)
+        # 正确的返回结果
+        return HttpResponse(json.dumps(ans, ensure_ascii=False))
+    except Exception as e:
+        # 若执行过程报错,则返回通用错误.
+        print(e)
+        return HttpResponse(json.dumps(lzh_api.error_with_code(0), ensure_ascii=False))

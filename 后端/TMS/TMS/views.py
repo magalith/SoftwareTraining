@@ -13,6 +13,12 @@ def index(request):
 
 # 登陆视图
 def login(request):
+    # 不同权限登陆后跳转的url
+    views = {
+        "R": "/admin_student/",
+        "T": "//",
+        "S": "//",
+    }
     # POST方法
     if request.method == 'POST':
         login_info = {
@@ -24,20 +30,18 @@ def login(request):
         # 获取用户ID
         user = models.User.objects.filter(id=login_info['username'])[0]
         if login_info['password'] == user.passwd:
-            request.session["id"] = user.id
+            request.session["uid"] = user.id
             request.session["name"] = user.name
             request.session["gender"] = user.gender
             request.session["group"] = user.group
         else:
             # 用户名错误,需要重新输入
             return redirect("/login/")
-        views = {
-            "R": "/admin_student/",
-            "T": redirect("//"),
-            "S": redirect("//"),
-        }
         return HttpResponse(views[request.session.get("group")])
     # GET方法,返回登录渲染界面
+    group = request.session.get("group")
+    if group:
+        return redirect(views[group])
     return render(request, "login.html", {})
 
 
