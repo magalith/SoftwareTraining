@@ -17,12 +17,12 @@ def login(request):
     if request.method == 'POST':
         login_info = {
             # user_name表示编号
-            "username": request.POST.get("user_name"),
+            "username": int(request.POST.get("user_name")),
             "password": request.POST.get("password"),
             "timestamp": request.POST.get("timestamp"),
         }
         # 获取用户ID
-        user = models.User.objects.filter(id=login_info['username'])
+        user = models.User.objects.filter(id=login_info['username'])[0]
         if login_info['password'] == user.passwd:
             request.session["id"] = user.id
             request.session["name"] = user.name
@@ -32,11 +32,11 @@ def login(request):
             # 用户名错误,需要重新输入
             return redirect("/login/")
         views = {
-            "R": redirect("/admin_student/"),
+            "R": "/admin_student/",
             "T": redirect("//"),
             "S": redirect("//"),
         }
-        return views[request.session.get("group")]
+        return HttpResponse(views[request.session.get("group")])
     # GET方法,返回登录渲染界面
     return render(request, "login.html", {})
 
