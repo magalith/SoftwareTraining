@@ -53,7 +53,7 @@ urlpatterns = [
     # 查看所有的任务(包含已完成任务与未完成任务)
     re_path("get_missions/?", views.test),
     # 为某个任务提交文档(仅包含附件,文字留空)
-    re_path("push_doc/?", views.test),
+    re_path("push_doc/?", views.update_doc),
     # 获取所有的文档信息(包含得分)
     re_path("get_docs/?", views.get_docs),
 ]

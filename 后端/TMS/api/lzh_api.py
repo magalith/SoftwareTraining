@@ -4,6 +4,7 @@
 
 from django.shortcuts import render, redirect, HttpResponse
 from database import models
+from tools import OSS
 import json
 import os
 
@@ -21,6 +22,8 @@ def error_with_code(code):
             2001: {"type": "网络错误", "detail": "POST参数错误"},
             2002: {"type": "网络错误", "detail": "错误的数据格式"},
             2003: {"type": "网络错误", "detail": "附件超过指定大小"},
+            2004: {"type": "网络错误", "detail": "错误的请求方法,该接口仅支持POST方法"},
+            2005: {"type": "网络错误", "detail": "错误的请求方法,该接口仅支持GET方法"},
             3001: {"type": "会话错误", "detail": "会话已过期,或遭到中间人攻击"},
             3002: {"type": "会话错误", "detail": "会话异常,请重新登陆后尝试"},
             4001: {"type": "服务异常", "detail": "数据库访问异常"},
@@ -50,4 +53,27 @@ def get_all_doc(uid):
             "score": doc.score,
         }
         ans['data'].append(temp)
+    return ans
+
+
+# 为已有的任务添加文档
+def add_doc_for_mission(uid, mid, file, text=""):
+    ans = {
+        "code": "ok",
+        "data": {}
+    }
+    file_url = OSS.upload_to_bucket(file)
+    # 获取提交用户对象
+    user = models.User.objects.filter(id=uid)[0]
+    # 获取指定任务对象
+    mission = models.Mission.objects.filter(id=mid)[0]
+    # 新建的文稿对象
+    doc = models.Doc(text=text, file=file_url, user_id=user, mission_id=mission)
+    doc.save()
+    ans["data"] = {
+        "id": doc.id,
+        "text": doc.text,
+        "file": doc.file,
+        "deadline": mission.deadline,
+    }
     return ans

@@ -30,16 +30,49 @@ def test(request):
     return HttpResponse(json.dumps(ans))
 
 
+###########################################################################
+########################     @Lizhenghao       ############################
+########################       Data API        ############################
+########################  2019-07-20 20:20:04  ############################
+###########################################################################
+
+
 # 获取所有文档api
 def get_docs(request):
-    try:
-        uid = request.session.get("uid")
-        if not uid:
-            return HttpResponse(json.dumps(lzh_api.error_with_code(1001), ensure_ascii=False))
-        ans = lzh_api.get_all_doc(uid)
-        # 正确的返回结果
-        return HttpResponse(json.dumps(ans, ensure_ascii=False))
-    except Exception as e:
-        # 若执行过程报错,则返回通用错误.
-        print(e)
-        return HttpResponse(json.dumps(lzh_api.error_with_code(0), ensure_ascii=False))
+    if request.method == "POST":
+        try:
+            uid = request.session.get("uid")
+            if not uid:
+                return HttpResponse(json.dumps(lzh_api.error_with_code(1001), ensure_ascii=False))
+            ans = lzh_api.get_all_doc(uid)
+            # 正确的返回结果
+            return HttpResponse(json.dumps(ans, ensure_ascii=False))
+        except Exception as e:
+            # 若执行过程报错,则返回通用错误.
+            print(e)
+            return HttpResponse(json.dumps(lzh_api.error_with_code(0), ensure_ascii=False))
+    else:
+        # GET方法请求本接口,服务拒绝.
+        return HttpResponse(json.dumps(lzh_api.error_with_code(2004), ensure_ascii=False))
+
+
+# 为指定任务提交文档
+def update_doc(request):
+    if request.method == "POST":
+        try:
+            uid = request.session.get("uid")
+            if not uid:
+                return HttpResponse(json.dumps(lzh_api.error_with_code(1001), ensure_ascii=False))
+            timestamp = int(request.POST.get("timestamp"))
+            mid = int(request.POST.get("mission_id"))
+            text = request.POST.get("text")
+            file = request.FILES.get("file")
+            ans = lzh_api.add_doc_for_mission(uid=uid, mid=mid, file=file, text=text)
+            # 正确的返回结果
+            return HttpResponse(json.dumps(ans, ensure_ascii=False))
+        except Exception as e:
+            # 若执行过程报错,则返回通用错误.
+            print(e)
+            return HttpResponse(json.dumps(lzh_api.error_with_code(0), ensure_ascii=False))
+    else:
+        return HttpResponse("")
