@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加阶段</title>
+</head>
+<body>
+
+<form action="./add_stage" method="post">
+    阶段名称:<br>
+    <input type="text" name="name" placeholder="阶段名称"><br>
+    阶段所属教师:<br>
+    <select name="tid">
+        {% for teacher in teacher_list %}
+            <option value ="{{ teacher.id }}">{{ teacher.name}}</option>
+        {% endfor %}
+    </select><br>
+    <input type="submit" value="提交">
+</form>
+
+</body>
+</html>
