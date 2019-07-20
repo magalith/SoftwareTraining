@@ -30,4 +30,7 @@ def upload_to_bucket(file):
     out = bucket.put_object(str("TMS/" + filename), file.file)
     # out = bucket.put_object_from_file(filename, temp_file_path)
     # print(out.resp.response.url)
-    return str(out.resp.response.url)
+
+    # 将连接中的转义符号转换为正常的Slash
+    file_url = str(out.resp.response.url).replace("%2F", "/")
+    return file_url
