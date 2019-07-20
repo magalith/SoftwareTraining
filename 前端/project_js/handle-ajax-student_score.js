@@ -36,7 +36,7 @@ for (var i=0; i<data.length; i++){
         html += '<tr>';
         html += '<td>' + data[i].id + '</td>';
         html += '<td>' + data[i].text + '</td>';
-        html += '<td><span class="label label-success">点击上传</span></td>';
+        html += '<td><input type="file"></input></td>';
         html += '<td>' + data[i].score + '</td>';
         html += '</tr>';
         $('#check_untask').append(html)
