@@ -98,6 +98,11 @@ DATABASES = {
         'HOST': 'cd-cdb-5w9d2w14.sql.tencentcdb.com',
         # 数据库端口号,MySQL默认使用3306号
         'PORT': '62949',
+        # 设置mysql严格模式
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            'charset': 'utf8',
+        },
     }
 }
 
