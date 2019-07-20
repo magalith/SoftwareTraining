@@ -103,3 +103,11 @@ def get_all_project(request):
     timestamp = request.POST.get("timestamp")
     ans = lzh_api.check_all_project()
     return HttpResponse(json.dumps(ans, ensure_ascii=False))
+
+
+# 教师查看某一学生提交的所有文档
+def get_all_student_docs(request):
+    timestamp = request.POST.get("timestamp")
+    sid = int(request.POST.get("s_id"))
+    ans = lzh_api.get_all_doc_of_student(sid)
+    return HttpResponse(json.dumps(ans, ensure_ascii=False))

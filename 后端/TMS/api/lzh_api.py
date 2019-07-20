@@ -137,3 +137,24 @@ def check_all_project():
         data.append(temp)
     ans["data"] = data
     return ans
+
+
+# 学生查看所有可选项目
+def get_all_doc_of_student(sid):
+    ans = {
+        "code": "ok",
+        "data": {},
+    }
+    student = models.User.objects.filter(id=sid, group="S")[0]
+    docs = models.Doc.objects.filter(user_id=student)
+    data = []
+    for doc in docs:
+        temp = {
+            "id": doc.id,
+            "text": doc.text,
+            "file": doc.file,
+            "score": doc.score,
+        }
+        data.append(temp)
+    ans["data"] = data
+    return ans
