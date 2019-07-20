@@ -81,19 +81,23 @@ DATABASES = {
     # @Lizhenghao
     # 设置mysql数据库
     # 2019年07月16日10:05:53
+    #########################
+    # @Lizhenghao
+    # 重新配置mysql数据库,更新至腾讯云数据库
+    # 2019-07-20 08:47:37
     'default': {
         # 数据库引擎名称, 此处使用MySQL
         'ENGINE': 'django.db.backends.mysql',
         # 数据库名称,与数据库内部有关
         'NAME': 'django_TMS',
         # 数据库用户名,敏感信息,不要轻易暴露
-        'USER': 'django_TMS_user',
+        'USER': 'user_TMS',
         # 数据库密码,敏感信息,不要轻易暴露
         'PASSWORD': 'qweqwe123',
         # 数据库所在地址,若数据库在本地则使用localhost
-        'HOST': '129.204.114.145',
+        'HOST': 'cd-cdb-5w9d2w14.sql.tencentcdb.com',
         # 数据库端口号,MySQL默认使用3306号
-        'PORT': '3306',
+        'PORT': '62949',
     }
 }
 
