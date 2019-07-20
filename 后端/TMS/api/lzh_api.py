@@ -77,3 +77,63 @@ def add_doc_for_mission(uid, mid, file, text=""):
         "deadline": mission.deadline,
     }
     return ans
+
+
+# 查看学生所属教师布置的所有任务,以及自己的完成情况
+def get_all_mission_status(student_id):
+    ans = {
+        "code": "ok",
+    }
+    # 获取当前学生用户
+    student = models.User.objects.filter(id=student_id, group="S")[0]
+    # 获取学生的指导教师
+    teacher = models.User.objects.filter(group="T", class_id=student.class_id)[0]
+    # 获取教师的所有任务
+    missions = []
+    for m in models.Mission.objects.all():
+        if m.doc_id.user_id.id == teacher.id:
+            missions.append(m)
+    # 将教师布置的任务信息放置在data列表中
+    data = []
+    for i in missions:
+        temp = {
+            "id": i.id,
+            "text": i.doc_id.text,
+            "file": i.doc_id.file,
+            "deadline": i.deadline,
+        }
+        data.append(temp)
+    ans["data"] = data
+    return ans
+
+
+# 更新学生的项目
+def update_student_project(sid, pid):
+    ans = {
+        "code": "ok",
+        "data": "Success",
+    }
+    student = models.User.objects.filter(id=sid, group="S")[0]
+    project = models.ProjectPool.objects.filter(id=pid)[0]
+    student.project_id = project
+    student.save()
+    return ans
+
+
+# 学生查看所有可选项目
+def check_all_project():
+    ans = {
+        "code": "ok",
+        "data": {},
+    }
+    project = models.ProjectPool.objects.all()
+    data = []
+    for i in project:
+        temp = {
+            "id": i.id,
+            "name": i.name,
+            "detail": i.content,
+        }
+        data.append(temp)
+    ans["data"] = data
+    return ans

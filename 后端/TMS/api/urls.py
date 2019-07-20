@@ -47,11 +47,11 @@ urlpatterns = [
     #  学生接口  #
     #############
     # 查看所有可选项目
-    re_path("get_project_pool/?", views.test),
+    re_path("get_project_pool/?", views.get_all_project),
     # 更新学生选择的项目
-    re_path("set_studentproj/?", views.test),
+    re_path("set_studentproj/?", views.update_student_project),
     # 查看所有的任务(包含已完成任务与未完成任务)
-    re_path("get_missions/?", views.test),
+    re_path("get_missions/?", views.get_all_mission),
     # 为某个任务提交文档(仅包含附件,文字留空)
     re_path("push_doc/?", views.update_doc),
     # 获取所有的文档信息(包含得分)

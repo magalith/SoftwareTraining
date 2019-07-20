@@ -57,6 +57,11 @@ def get_docs(request):
 
 
 # 为指定任务提交文档
+# TODO 未检查数据合法性
+# 暂时未检查所属任务是否为指导老师所出,这个问题可能会造成数据泄露或不规范
+# 若有时间,则需要对此问题进行修复
+# TODO 非常紧急,返回值字段缺失
+# 返回结果中,应当添加字段,表示自己提交的文稿信息.但是返回结果中没有包含该字段
 def update_doc(request):
     if request.method == "POST":
         try:
@@ -75,4 +80,26 @@ def update_doc(request):
             print(e)
             return HttpResponse(json.dumps(lzh_api.error_with_code(0), ensure_ascii=False))
     else:
-        return HttpResponse("")
+        # GET方法访问,拒绝请求.
+        return HttpResponse(json.dumps(lzh_api.error_with_code(2004), ensure_ascii=False))
+
+
+# 查看指导教师布置的所有任务信息
+def get_all_mission(request):
+    ans = lzh_api.get_all_mission_status(int(request.session.get("uid")))
+    return HttpResponse(json.dumps(ans, ensure_ascii=False))
+
+
+# 更新学生所选的项目信息
+def update_student_project(request):
+    timestamp = request.POST.get("timestamp")
+    pid = int(request.POST.get("proj_id"))
+    ans = lzh_api.update_student_project(int(request.session.get("uid")), pid)
+    return HttpResponse(json.dumps(ans, ensure_ascii=False))
+
+
+# 查看所有可选项目
+def get_all_project(request):
+    timestamp = request.POST.get("timestamp")
+    ans = lzh_api.check_all_project()
+    return HttpResponse(json.dumps(ans, ensure_ascii=False))
