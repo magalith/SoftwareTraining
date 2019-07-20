@@ -14,7 +14,7 @@ urlpatterns = [
     # 添加阶段
     re_path(r"add_stage/?", views.add_stage),
     # 添加任务
-    re_path(r"add_mission/?", views.add_project),
+    re_path(r"add_mission/?", views.add_mission),
     # 添加文稿
-    re_path(r"add_doc/?", views.add_project),
+    re_path(r"add_doc/?", views.add_doc),
 ]
