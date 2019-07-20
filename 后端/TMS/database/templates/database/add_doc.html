@@ -27,7 +27,7 @@
     <select name="mid">
         <option value ="0">&lt;空&gt;</option>
         {% for mission in mission_list %}
-            <option value ="{{ mission.id }}">{{ mission.detail }}</option>
+            <option value ="{{ mission.id }}">{{ mission.name }}</option>
         {% endfor %}
     </select><br>
     <input type="submit" value="提交">

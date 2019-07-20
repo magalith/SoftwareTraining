@@ -4,6 +4,11 @@ from . import models
 from tools.OSS import upload_to_bucket
 
 
+# 跳转界面
+def index(request):
+    return render(request, "database/index.html", {})
+
+
 # 测试注册界面
 # http://0.0.0.0:8800/database/register
 def register(request):
@@ -182,9 +187,9 @@ def add_doc(request):
 
     m = {'mission_list': [], 'user_list': []}
     for i in mission_list:
-        temp = models.Doc.objects.filter(id=i.doc_id)[0]
+        temp = models.Doc.objects.filter(id=i.doc_id.id)[0]
         print(i.id, temp.text)
-        m['mission_list'].append({'id': i.id, 'name': i.name})
+        m['mission_list'].append({'id': i.id, 'name': i.doc_id.text})
 
     user_list = models.User.objects.all()
     for j in user_list:

@@ -5,6 +5,8 @@ from django.urls import path, re_path
 from . import views
 
 urlpatterns = [
+    # 主界面,用于快速跳转
+    path(r"", views.index),
     # 注册用户
     re_path(r"register/?", views.register),
     # 创建班级

@@ -10,10 +10,12 @@ def index(requests):
     return render(requests, "index.html", {})
 
 
+# 登陆视图
 def login(requests):
     return render(requests, "login.html", {})
 
 
+#
 def admin_teacher(requests):
     return render(requests, "admin_teacher.html", {})
 
