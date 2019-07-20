@@ -19,8 +19,8 @@ class User(models.Model):
     class_id = models.ForeignKey("Class", on_delete=models.SET_NULL, blank=True, null=True)
     # 用户选择项目ID
     project_id = models.ForeignKey("ProjectPool", on_delete=models.SET_NULL, blank=True, null=True)
-    # 所属分组
-    group = models.CharField(max_length=1, default='s')
+    # 所属分组,R=管理员;T=教师;S=Student
+    group = models.CharField(max_length=1, default='S')
 
 
 # 班级表
