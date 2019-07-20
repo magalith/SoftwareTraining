@@ -1,7 +1,7 @@
 var data = [{
     "id": 1,
     "stuname": "aa",
-    "class": 2,
+    "class": '',
     "teacher": "aa",
     "note": ""
 },
@@ -240,9 +240,24 @@ function addDataToList(){
 }
 
 function divideClass() {
-    var nClass = $(this).text();
-    console.log(nClass);
-    var nStudent = data.length;
-    console.log(nStudent);
-    console.log(parseInt(nStudent/nClass))
+    if(data[0].class === ''){
+        var nClass = $(this).text();
+        console.log(nClass);
+        var nPerClass = parseInt(data.length/nClass);
+        var html = '<p>将所有学生划分为<b>' + nClass + '</b>个班级, 每个班级大致包含<b>' + nPerClass;
+        html += '</b>名同学，请注意班级数不可修改，请谨慎确认!</p>';
+        $(".modal-body").eq(0).append(html);
+        $('#cancel_class_divide').on("click", function(){
+            $('.modal-body').eq(0).html('');
+            return ;
+        })
+        $('#confirm_class_divide').on("click", function(){
+            data[0].class = 1;
+        $('#table_test').html('<tbody><tr><th>序号</th><th>姓名</th><th>从属班级</th><th>老师</th><th>备注</th></tr></tbody>');
+        loadStudentList();
+        $('#divide_class').css("display", "none");
+        })
+    } else {
+        $('#divide_class').css("display", "none");
+    }
 }

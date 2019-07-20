@@ -27,6 +27,7 @@ var data = [{
 }]
 
 $(function(){
+    $.post("", {'session': 1, 'timestamp': 123}, function(data){}, "json");
     load_teacherlist();
     $('#addlist').on("click", addtext_to_list)
 })

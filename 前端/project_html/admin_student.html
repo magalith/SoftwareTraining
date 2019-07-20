@@ -121,7 +121,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		<div class="content-wrapper">
 
 			<!-- Main content -->
-			<section class="content container-fluid">
+			<section class="content container-fluid" style="height: 2000px">
 				<div class="row">
 					<div class="col-xs-12">
 						<div class="box">
@@ -149,13 +149,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						<div class="row" style="margin-top: 10px">
 							<!--分班功能-->
 							<div class="box-tools col-md-2">
-								<div class="btn-group dropup">
+								<div class="btn-group">
 									<button type="button" class="btn btn-info">分为几班</button>
 									<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
 										<span class="caret"></span>
 										<span class="sr-only">Toggle Dropdown</span>
 									</button>
-									<ul class="dropdown-menu" role="menu" id="divide_class" style="background-color: #F3F3F3">
+									<ul class="dropdown-menu" role="menu" id="divide_class">
 										<li><a href="#" data-toggle="modal" data-target="#modal_class">1</a></li>
 										<li><a href="#" data-toggle="modal" data-target="#modal_class">2</a></li>
 										<li><a href="#" data-toggle="modal" data-target="#modal_class">3</a></li>
@@ -177,9 +177,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-default"
-													data-dismiss="modal">Close</button>
+													data-dismiss="modal" id="cancel_class_divide">Cancel</button>
 												<button type="button" class="btn btn-primary"
-													data-dismiss="modal">save</button>
+													data-dismiss="modal" id="confirm_class_divide">Confirm</button>
 											</div>
 										</div>
 									</div>
