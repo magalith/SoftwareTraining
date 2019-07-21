@@ -53,11 +53,11 @@ function getStuMission(data) {
     data = data.data;
     var html = ''
     for (i=0; i<data.length; i++) {
-        if (data[i].period_id === 1) {
+        if (data[i].stage_number === 0) {
             html += '<li><a><h3>' + data[i].text + '</h3></a></li><li>' + data[i].deadline + '</li>';
             $('.missionlist').eq(0).append(html);
             html = ''
-        } else if (data[i].period_id === 2) {
+        } else if (data[i].stage_number === 1) {
             html += '<li><a><h3>' + data[i].text + '</h3></a></li><li>' + data[i].deadline + '</li>';
             $('.missionlist').eq(1).append(html);
             html = ''
