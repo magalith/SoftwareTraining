@@ -305,6 +305,7 @@ def get_all_projects():
             "id": proj.id if proj else 0,
             "name": proj.name if proj else "",
             "content": proj.content if proj else "",
+            "count": len(models.User.objects.filter(project_id=proj)),
         }
         data.append(temp)
     ans["data"] = data
