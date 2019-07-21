@@ -12,9 +12,7 @@ from aliyunsdkcore.request import CommonRequest
 
 
 def sent_sms_with_phone(phone_number):
-    ans = {
-        "code": "ok",
-    }
+    ans = {}
     client = AcsClient('LTAICNrMCIXkVv7O', 'XQGp8NBdcs7OBtgY1TrvrTpbZwPUdp', 'default')
 
     request = CommonRequest()
@@ -25,17 +23,17 @@ def sent_sms_with_phone(phone_number):
     request.set_version('2017-05-25')
     request.set_action_name('SendSms')
 
-    request.add_query_param('PhoneNumbers', int(phone_number))
+    request.add_query_param('PhoneNumbers', str(phone_number))
     request.add_query_param('TemplateCode', "SMS_144152200")
     request.add_query_param('SignName', "智能医保")
+    # 获取随机验证码
     code = str(get_random_number_str(6))
     request.add_query_param('TemplateParam', "{\"code\": \"%s\"}" % code)
 
     response = client.do_action(request)
-    # python2:  print(response)
-    print(str(response, encoding='utf-8'))
 
-    ans["data"] = code
+    ans["code"] = code
+    ans["data"] = str(response, encoding='utf-8')
     return ans
 
 
