@@ -32,7 +32,7 @@ urlpatterns = [
     re_path(r"file/(?P<path>.*)", serve, {"document_root": settings.FILE_ROOT}),
 
     path('login', views.login),
-    re_path(r"logout/?$", views.logout),
+    re_path(r"logout/?$", views.logout)
     re_path(r"admin_teacher/?", views.admin_teacher),
     re_path(r"admin_student/?", views.admin_student),
     re_path(r"admin_Class_Page/?", views.class_page),
