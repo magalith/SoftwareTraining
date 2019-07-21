@@ -262,3 +262,32 @@ def add_mission_in_stage(uid):
         data.append(temp)
     ans["data"] = data
     return ans
+
+
+# 用户获取自己的信息
+def get_self_information(uid):
+    ans = {
+        "code": "ok",
+    }
+    user = models.User.objects.filter(id=int(uid))[0]
+    class_dic = {
+        "id": user.class_id.id if user.class_id else 0,
+        "name": user.class_id.name if user.class_id else "",
+        "classroom": user.class_id.room if user.class_id else "",
+    }
+    project_dic = {
+            "id": user.project_id.id if user.project_id else 0,
+            "name": user.project_id.name if user.project_id else "",
+            "content": user.project_id.content if user.project_id else "",
+    }
+    data = {
+        "id": user.id,
+        "name": user.name,
+        "gender": {"M": "男性", "F": "女性", "U": "位置", }[user.gender],
+        "class": class_dic,
+        "group": {"R": "管理员", "T": "教师", "S": "学生", }[user.group],
+        "project": project_dic,
+        "score": 0,
+    }
+    ans["data"] = data
+    return ans

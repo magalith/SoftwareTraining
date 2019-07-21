@@ -14,7 +14,7 @@ urlpatterns = [
     # 测试界面,用于测试服务是否可用
     re_path("test/?$", views.test),
     # 查看自己的信息
-    re_path("get_self_info/?$", views.test),
+    re_path("get_self_info/?$", views.get_self_information),
 
     ############
     # 管理员接口 #
