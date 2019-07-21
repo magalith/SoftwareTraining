@@ -45,6 +45,12 @@ def login(request):
     return render(request, "login.html", {})
 
 
+# 登出视图
+def logout(request):
+    request.session.flush()
+    return redirect("/login")
+
+
 #
 def admin_teacher(request):
     return render(request, "admin_teacher.html", {})
