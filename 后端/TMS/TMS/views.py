@@ -60,3 +60,11 @@ def admin_student(request):
 
 def doc_check(request):
     return render(request, 'student_score.html', {})
+
+
+def select_project(request):
+    return render(request, 'student_project.html', {})
+
+
+def check_task(request):
+    return render(request, 'student_checkTask.html', {})
