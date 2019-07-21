@@ -7,6 +7,7 @@ from api.lichen.get_students import get_students
 from api.lichen.get_teachers import get_teachers
 from api.lichen.upgrade_class_info import upgrade_class
 from api.lichen.get_class_info import class_info
+from tools import SMS
 from . import lzh_api
 import time
 import json
@@ -193,4 +194,48 @@ def check_missions_docs(request):
     # 学生文档列表
     mid = int(request.POST.get("mission_id"))
     ans = lzh_api.check_all_mission_doc(mid=mid)
+    return HttpResponse(json.dumps(ans, ensure_ascii=False))
+
+
+# 2.3 教师为自己的阶段添加任务
+# TODO 该方法未经过验证,需要经过前端测试才能够稳定使用
+def add_mission(request):
+    timestamp = request.POST.get("timestamp")
+    # 学生文档列表
+    sid = int(request.POST.get("stage_id"))
+    mission_data = json.loads(request.POST.get("mission"))
+    ans = lzh_api.add_mission_in_stage(uid=int(request.session.get("uid")), stage_id=sid, missions_data=mission_data)
+    return HttpResponse(json.dumps(ans, ensure_ascii=False))
+
+
+# 2.2 教师查看自己负责的所有阶段
+def get_all_self_stage(request):
+    timestamp = request.POST.get("timestamp")
+    # 学生文档列表
+    uid = int(request.session.get("uid"))
+    ans = lzh_api.teacher_check_all_stage(uid=uid)
+    return HttpResponse(json.dumps(ans, ensure_ascii=False))
+
+
+# 通用接口 用户查看自己的信息
+def get_self_information(request):
+    timestamp = request.POST.get("timestamp")
+    # 学生文档列表
+    uid = int(request.session.get("uid"))
+    ans = lzh_api.get_self_information(uid=uid)
+    return HttpResponse(json.dumps(ans, ensure_ascii=False))
+
+
+# 通用接口 获取所有项目
+def get_all_user_project(request):
+    timestamp = request.POST.get("timestamp")
+    # 学生文档列表
+    ans = lzh_api.get_all_projects()
+    return HttpResponse(json.dumps(ans, ensure_ascii=False))
+
+
+# 发送短信接口
+def send_sms(request):
+    phone_number = request.POST.get("phone")
+    ans = SMS.sent_sms_with_phone(phone_number)
     return HttpResponse(json.dumps(ans, ensure_ascii=False))

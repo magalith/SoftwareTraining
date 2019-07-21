@@ -14,7 +14,11 @@ urlpatterns = [
     # 测试界面,用于测试服务是否可用
     re_path("test/?$", views.test),
     # 查看自己的信息
-    re_path("get_self_info/?$", views.test),
+    re_path("get_self_info/?$", views.get_self_information),
+    # 获取项目池中所有项目
+    re_path("get_all_project/?$", views.get_all_user_project),
+    # 发送短信
+    re_path("send_sms/?$", views.send_sms),
 
     ############
     # 管理员接口 #
@@ -34,9 +38,9 @@ urlpatterns = [
     # 查看负责班级的学生名单
     # re_path("get_classinfo/?$", views.test),
     # 查看所有阶段
-    re_path("get_stage/?$", views.test),
+    re_path("get_stage/?$", views.get_all_self_stage),
     # 为阶段添加任务
-    re_path("push_mission/?$", views.test),
+    re_path("push_mission/?$", views.add_mission),
     # 查看某一任务的所有文档
     re_path("check_mission/?$", views.check_missions_docs),
     # 更新文档(学生的作业)分数

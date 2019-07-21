@@ -21,6 +21,8 @@ class User(models.Model):
     project_id = models.ForeignKey("ProjectPool", on_delete=models.SET_NULL, blank=True, null=True)
     # 所属分组,R=管理员;T=教师;S=Student
     group = models.CharField(max_length=1, default='S')
+    # 用户手机号,手机号只能被一个用户所绑定
+    phone = models.CharField(max_length=15, blank=True, null=True, unique=True)
 
 
 # 班级表
@@ -85,3 +87,21 @@ class Doc(models.Model):
     user_id = models.ForeignKey("User", on_delete=models.SET_NULL, blank=True, null=True)
     # 文稿提交时间
     upload_time = models.DateTimeField(auto_now_add=True)
+
+
+# 验证码池
+class VerificationCode(models.Model):
+    # 验证码ID
+    id = models.AutoField(primary_key=True)
+    # 对应手机号
+    phone = models.CharField(max_length=15)
+    # 功能.U:通用,L:登陆
+    method = models.CharField(max_length=2)
+    # 验证码
+    code = models.CharField(max_length=10)
+    # 验证码创建时间
+    create_time = models.DateTimeField(auto_now_add=True)
+    # 验证码报废时间
+    waste_time = models.DateTimeField(auto_now_add=True)
+    # 验证码是否使用过
+    used = models.BooleanField(default=False)

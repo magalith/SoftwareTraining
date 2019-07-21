@@ -4,7 +4,8 @@
 
 from django.shortcuts import render, redirect, HttpResponse
 from database import models
-from tools import OSS
+from tools import OSS, SMS
+import time
 import json
 import os
 
@@ -113,12 +114,19 @@ def get_all_mission_status(student_id):
 def update_student_project(sid, pid):
     ans = {
         "code": "ok",
-        "data": "Success",
     }
     student = models.User.objects.filter(id=sid, group="S")[0]
     project = models.ProjectPool.objects.filter(id=pid)[0]
     student.project_id = project
     student.save()
+    data = {
+        "project":{
+            "id": project.id,
+            "name": project.name,
+            "detail": project.content,
+        }
+    }
+    ans["data"] = data
     return ans
 
 
@@ -209,4 +217,132 @@ def check_all_mission_doc(mid):
         }
         data.append(temp)
     ans["data"] = data
+    return ans
+
+
+# 教师为属于自己的阶段添加任务
+def add_mission_in_stage(uid, stage_id, missions_data):
+    ans = {
+        "code": "ok",
+    }
+    # 获取教师
+    teacher = models.User.objects.filter(id=int(uid), group="T")[0]
+    # 获取教师从属阶段
+    stage = models.Stage.objects.filter(id=int(stage_id), teacher_id=teacher)[0]
+
+    # 将文件上传至文件服务器
+    file = missions_data["file"]
+    file_url = OSS.upload_to_bucket(file) if file else ""
+    missions_data["file"] = file_url
+    m = missions_data
+    # 新建文档
+    doc = models.Doc(text=m["text"], file=m["file"])
+    doc.save()
+    deadline = int(m["deadline"])
+    # 新建任务
+    mission = models.Mission(doc_id=doc, stage_id=stage, deadline=deadline)
+    mission.save()
+    # 为文档关联任务
+    doc.mission_id = mission
+    doc.save()
+
+    ans["data"] = mission.id
+    return ans
+
+
+# 教师查看自己负责的所有阶段
+# TODO 未进行权限认证
+def teacher_check_all_stage(uid):
+    ans = {
+        "code": "ok",
+    }
+    # 获取教师对象
+    teacher = models.User.objects.filter(id=int(uid), group="T")[0]
+    # 获取所有阶段
+    stages = models.Stage.objects.filter(teacher_id=teacher)
+    # stage数据列表
+    data = []
+    for stage in stages:
+        temp = {
+            "id": stage.id,
+            "stage_number": stage.stage_number,
+            "name": stage.name,
+            "teacher_id": stage.teacher_id.id,
+            "missions": [],
+        }
+        missions = models.Mission.objects.filter(stage_id=stage)
+        missions_list = []
+        for m in missions:
+            temp_mission = {
+                "id": m.id,
+                "text": m.doc_id.text,
+                "file": m.doc_id.file,
+                "deadline": m.deadline,
+                # "creat_time": m.create_time,
+                # "creat_time": time.mktime(m.create_time.timetuple()),
+                "creat_time": m.create_time.strftime("%Y-%m-%d"),
+            }
+            missions_list.append(temp_mission)
+        temp["missions"] = missions_list
+        data.append(temp)
+    ans["data"] = data
+    return ans
+
+
+# 用户获取自己的信息
+def get_self_information(uid):
+    ans = {
+        "code": "ok",
+    }
+    user = models.User.objects.filter(id=int(uid))[0]
+    class_dic = {
+        "id": user.class_id.id if user.class_id else 0,
+        "name": user.class_id.name if user.class_id else "",
+        "classroom": user.class_id.room if user.class_id else "",
+    }
+    project_dic = {
+            "id": user.project_id.id if user.project_id else 0,
+            "name": user.project_id.name if user.project_id else "",
+            "content": user.project_id.content if user.project_id else "",
+    }
+    data = {
+        "id": user.id,
+        "name": user.name,
+        "gender": {"M": "男性", "F": "女性", "U": "位置", }[user.gender],
+        "class": class_dic,
+        "group": {"R": "管理员", "T": "教师", "S": "学生", }[user.group],
+        "project": project_dic,
+        "score": 0,
+    }
+    ans["data"] = data
+    return ans
+
+
+# 获取所有可选项目
+def get_all_projects():
+    ans = {
+        "code": "ok",
+    }
+    projects = models.ProjectPool.objects.all()
+    data = []
+    for proj in projects:
+        temp = {
+            "id": proj.id if proj else 0,
+            "name": proj.name if proj else "",
+            "content": proj.content if proj else "",
+            "count": len(models.User.objects.filter(project_id=proj)),
+        }
+        data.append(temp)
+    ans["data"] = data
+    return ans
+
+
+# 为手机号获取手机验证码
+def get_verification_code_for_phone(phone_number, method):
+    ans = {
+        "code": "ok",
+    }
+    SMS_Info = SMS.sent_sms_with_phone(phone_number)
+    code = SMS_Info["code"]
+    models.VerificationCode(phone=str(phone_number), method=method, code=code)
     return ans
