@@ -38,7 +38,7 @@ urlpatterns = [
     # 为阶段添加任务
     re_path("push_mission/?$", views.test),
     # 查看某一任务的所有文档
-    re_path("check_mission/?$", views.test),
+    re_path("check_mission/?$", views.check_missions_docs),
     # 更新文档(学生的作业)分数
     re_path("set_score/?$", views.update_student_docs),
     # 获取某一个学生的所有文档(作业)信息

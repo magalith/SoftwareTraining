@@ -184,3 +184,29 @@ def update_doc_score(score_list):
     for doc in doc_list:
         doc.save()
     return ans
+
+
+# 教师查看自己布置的某一任务的所有文档
+def check_all_mission_doc(mid):
+    ans = {
+        "code": "ok",
+        "data": {},
+    }
+    mission = models.Mission.objects.filter(id=int(mid))[0]
+    all_doc = models.Doc.objects.all()
+    doc_of_mission = []
+    for doc in all_doc:
+        if doc.mission_id is not None and doc.mission_id.id == mission.id and doc.id != mission.doc_id.id:
+            doc_of_mission.append(doc)
+    data = []
+    for doc in doc_of_mission:
+        temp = {
+            "id": doc.id,
+            "text": doc.text,
+            "file": doc.file,
+            "sid": doc.user_id.id,
+            "score": doc.score,
+        }
+        data.append(temp)
+    ans["data"] = data
+    return ans

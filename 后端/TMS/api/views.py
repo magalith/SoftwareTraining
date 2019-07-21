@@ -131,9 +131,19 @@ def get_all_student_docs(request):
 
 
 # 2.5 教师更新学生作业(文档)分数
+# TODO 该接口未经过测试,需要在后续版本中进行测试
 def update_student_docs(request):
     timestamp = request.POST.get("timestamp")
     # 学生文档列表
     score_list = json.loads(request.POST.get("score"))
     ans = lzh_api.update_doc_score(score_list=score_list)
+    return HttpResponse(json.dumps(ans, ensure_ascii=False))
+
+
+# 2.4 教师查看某一任务的所有文档
+def check_missions_docs(request):
+    timestamp = request.POST.get("timestamp")
+    # 学生文档列表
+    mid = int(request.POST.get("mission_id"))
+    ans = lzh_api.check_all_mission_doc(mid=mid)
     return HttpResponse(json.dumps(ans, ensure_ascii=False))
