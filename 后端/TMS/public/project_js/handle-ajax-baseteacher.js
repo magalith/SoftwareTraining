@@ -3,7 +3,7 @@ $(function(){
     $.post("/api/get_teachers", {"timestamp": 123}, function(data){
         loadTeacherList(data);
     }, "json");
-    $('#addlist').on("click", addtext_to_list)
+    $('#add_list').on("click", addtext_to_list)
 })
 
 function loadTeacherList(data){
@@ -28,6 +28,8 @@ function deleteItem(obj){
 function addtext_to_list(){
     var username = $('#username').val();
     var guanliclass = $('#guanliclass').val();
+    console.log(username);
+    console.log(guanliclass)
     if(username != "" && username != null && guanliclass != "" && guanliclass != null ){
         console.log(username);
         html = '';
