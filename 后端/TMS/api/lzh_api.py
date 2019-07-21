@@ -101,6 +101,7 @@ def get_all_mission_status(student_id):
             "text": i.doc_id.text,
             "file": i.doc_id.file,
             "deadline": i.deadline,
+            "stage_id": i.stage_id.stage_number,
         }
         data.append(temp)
     ans["data"] = data
@@ -139,7 +140,7 @@ def check_all_project():
     return ans
 
 
-# 学生查看所有可选项目
+# 教师获得某个学生的所有文档
 def get_all_doc_of_student(sid):
     ans = {
         "code": "ok",
@@ -157,4 +158,13 @@ def get_all_doc_of_student(sid):
         }
         data.append(temp)
     ans["data"] = data
+    return ans
+
+
+# 教师更新学生作业(文档)的分数
+def update_doc_score(score_list):
+    ans = {
+        "code": "ok",
+        "data": "Updated",
+    }
     return ans
