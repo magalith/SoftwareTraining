@@ -114,12 +114,19 @@ def get_all_mission_status(student_id):
 def update_student_project(sid, pid):
     ans = {
         "code": "ok",
-        "data": "Success",
     }
     student = models.User.objects.filter(id=sid, group="S")[0]
     project = models.ProjectPool.objects.filter(id=pid)[0]
     student.project_id = project
     student.save()
+    data = {
+        "project":{
+            "id": project.id,
+            "name": project.name,
+            "content": project.content,
+        }
+    }
+    ans["data"] = data
     return ans
 
 
@@ -328,3 +335,8 @@ def get_all_projects():
         data.append(temp)
     ans["data"] = data
     return ans
+
+
+# 为手机号获取手机验证码
+def get_verification_code_for_phone(phone_number):
+    pass
