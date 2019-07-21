@@ -258,6 +258,7 @@ def teacher_check_all_stage(uid):
     for stage in stages:
         temp = {
             "id": stage.id,
+            "stage_number": stage.stage_number,
             "name": stage.name,
             "teacher_id": stage.teacher_id.id,
             "missions": [],
