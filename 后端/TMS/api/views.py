@@ -152,3 +152,14 @@ def check_missions_docs(request):
     mid = int(request.POST.get("mission_id"))
     ans = lzh_api.check_all_mission_doc(mid=mid)
     return HttpResponse(json.dumps(ans, ensure_ascii=False))
+
+
+# 2.3 教师为自己的阶段添加任务
+# TODO 该方法未经过验证,需要经过前端测试才能够稳定使用
+def add_mission(request):
+    timestamp = request.POST.get("timestamp")
+    # 学生文档列表
+    sid = int(request.POST.get("stage_id"))
+    mission_data = json.loads(request.POST.get("mission"))
+    ans = lzh_api.add_mission_in_stage(uid=int(request.session.get("uid")), stage_id=sid, missions_data=mission_data)
+    return HttpResponse(json.dumps(ans, ensure_ascii=False))

@@ -210,3 +210,33 @@ def check_all_mission_doc(mid):
         data.append(temp)
     ans["data"] = data
     return ans
+
+
+# 教师为属于自己的阶段添加任务
+def add_mission_in_stage(uid, stage_id, missions_data):
+    ans = {
+        "code": "ok",
+    }
+    # 获取教师
+    teacher = models.User.objects.filter(id=int(uid), group="T")[0]
+    # 获取教师从属阶段
+    stage = models.Stage.objects.filter(id=int(stage_id), teacher_id=teacher)[0]
+
+    # 将文件上传至文件服务器
+    file = missions_data["file"]
+    file_url = OSS.upload_to_bucket(file) if file else ""
+    missions_data["file"] = file_url
+    m = missions_data
+    # 新建文档
+    doc = models.Doc(text=m["text"], file=m["file"])
+    doc.save()
+    deadline = int(m["deadline"])
+    # 新建任务
+    mission = models.Mission(doc_id=doc, stage_id=stage, deadline=deadline)
+    mission.save()
+    # 为文档关联任务
+    doc.mission_id = mission
+    doc.save()
+
+    ans["data"] = mission.id
+    return ans
