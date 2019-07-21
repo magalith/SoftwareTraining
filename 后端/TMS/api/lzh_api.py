@@ -166,6 +166,21 @@ def get_all_doc_of_student(sid):
 def update_doc_score(score_list):
     ans = {
         "code": "ok",
-        "data": "Updated",
+        "data": "Success",
     }
+    # 文档对象列表
+    doc_list = []
+    try:
+        for i in score_list:
+            doc = models.Doc.objects.filter(id=int(i["did"]))[0]
+            # 此处应当判断,分数是否在1~100之间
+            doc.score = int(i["score"])
+            doc_list.append(doc)
+    except Exception as e:
+        print("文档ID异常,数据库检索错误.错误: %s" % str(e))
+        ans["code"] = 4001
+        ans["data"] = "Fail"
+    # 保存数据
+    for doc in doc_list:
+        doc.save()
     return ans

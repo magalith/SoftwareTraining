@@ -128,3 +128,12 @@ def get_all_student_docs(request):
     sid = int(request.POST.get("s_id"))
     ans = lzh_api.get_all_doc_of_student(sid)
     return HttpResponse(json.dumps(ans, ensure_ascii=False))
+
+
+# 2.5 教师更新学生作业(文档)分数
+def update_student_docs(request):
+    timestamp = request.POST.get("timestamp")
+    # 学生文档列表
+    score_list = json.loads(request.POST.get("score"))
+    ans = lzh_api.update_doc_score(score_list=score_list)
+    return HttpResponse(json.dumps(ans, ensure_ascii=False))

@@ -40,7 +40,7 @@ urlpatterns = [
     # 查看某一任务的所有文档
     re_path("check_mission/?$", views.test),
     # 更新文档(学生的作业)分数
-    re_path("set_score/?$", views.test),
+    re_path("set_score/?$", views.update_student_docs),
     # 获取某一个学生的所有文档(作业)信息
     re_path("get_students_doc/?$", views.get_all_student_docs),
 
