@@ -1,0 +1,4 @@
+django == 2.2.2
+mysqlclient
+oss2
+aliyun-python-sdk-core-v3

@@ -4,6 +4,7 @@
 
 from django.shortcuts import render, HttpResponse
 from api.lichen.get_students import get_students
+from tools import SMS
 from . import lzh_api
 import time
 import json
@@ -188,4 +189,11 @@ def get_all_user_project(request):
     timestamp = request.POST.get("timestamp")
     # 学生文档列表
     ans = lzh_api.get_all_projects()
+    return HttpResponse(json.dumps(ans, ensure_ascii=False))
+
+
+# 发送短信接口
+def send_sms(request):
+    phone_number = request.POST.get("phone")
+    ans = SMS.sent_sms_with_phone(phone_number)
     return HttpResponse(json.dumps(ans, ensure_ascii=False))

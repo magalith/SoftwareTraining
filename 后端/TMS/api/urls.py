@@ -17,6 +17,8 @@ urlpatterns = [
     re_path("get_self_info/?$", views.get_self_information),
     # 获取项目池中所有项目
     re_path("get_all_project/?$", views.get_all_user_project),
+    # 发送短信
+    re_path("send_sms/?$", views.send_sms),
 
     ############
     # 管理员接口 #
