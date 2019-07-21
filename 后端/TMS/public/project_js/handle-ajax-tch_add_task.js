@@ -39,7 +39,7 @@ function addtext_to_list(){
             console.log(data.data);
         })
         var html = '';
-        html += '<li style="font-size: 20px"><a href="teacher_file_check.html"><h3>任务名称：' + title +'</h3></a></li>';
+        html += '<li style="font-size: 20px"><a href="/tch_check_studoc"><h3>任务名称：' + title +'</h3></a></li>';
         html += '<li>详细描述：' + discription + '</li>';
         html += '<li>截止日期：' + deadline + '</li>';
         $('.missionlist').eq(stage_id).append(html)
