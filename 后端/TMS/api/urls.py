@@ -15,6 +15,8 @@ urlpatterns = [
     re_path("test/?$", views.test),
     # 查看自己的信息
     re_path("get_self_info/?$", views.get_self_information),
+    # 获取项目池中所有项目
+    re_path("get_all_project/?$", views.get_all_user_project),
 
     ############
     # 管理员接口 #

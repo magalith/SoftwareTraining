@@ -291,3 +291,21 @@ def get_self_information(uid):
     }
     ans["data"] = data
     return ans
+
+
+# 获取所有可选项目
+def get_all_projects():
+    ans = {
+        "code": "ok",
+    }
+    projects = models.ProjectPool.objects.all()
+    data = []
+    for proj in projects:
+        temp = {
+            "id": proj.id if proj else 0,
+            "name": proj.name if proj else "",
+            "content": proj.content if proj else "",
+        }
+        data.append(temp)
+    ans["data"] = data
+    return ans

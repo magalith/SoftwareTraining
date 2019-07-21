@@ -174,10 +174,18 @@ def get_all_self_stage(request):
     return HttpResponse(json.dumps(ans, ensure_ascii=False))
 
 
-# 通用 用户查看自己的信息
+# 通用接口 用户查看自己的信息
 def get_self_information(request):
     timestamp = request.POST.get("timestamp")
     # 学生文档列表
     uid = int(request.session.get("uid"))
     ans = lzh_api.get_self_information(uid=uid)
+    return HttpResponse(json.dumps(ans, ensure_ascii=False))
+
+
+# 通用接口 获取所有项目
+def get_all_user_project(request):
+    timestamp = request.POST.get("timestamp")
+    # 学生文档列表
+    ans = lzh_api.get_all_projects()
     return HttpResponse(json.dumps(ans, ensure_ascii=False))
