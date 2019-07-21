@@ -17,7 +17,7 @@ def login(request):
     views = {
         "R": "/admin_student/",
         "T": "//",
-        "S": "//",
+        "S": "/stu_select_pro/",
     }
     # POST方法
     if request.method == 'POST':

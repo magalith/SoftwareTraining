@@ -36,15 +36,20 @@ def test(request):
 ###########################################################################
 
 
+
 # 管理员获取所有学生列表
 def get_students_list(request):
     data = get_students()
     if request.method == "POST":
         ans = {
             "code": "ok",
-            "data": data
+            "data": data['students_list']
         }
-    return HttpResponse(json.dumps(ans))
+        return HttpResponse(json.dumps(ans, ensure_ascii=False))
+    return render(request, "login.html", {})
+# return HttpResponse(json.dumps(ans))
+# def upgrade_class_info(request):
+
 
 
 ###########################################################################
