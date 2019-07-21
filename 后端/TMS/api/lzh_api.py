@@ -101,7 +101,8 @@ def get_all_mission_status(student_id):
             "text": i.doc_id.text,
             "file": i.doc_id.file,
             "deadline": i.deadline,
-            "stage_id": i.stage_id.stage_number,
+            "stage_id": i.stage_id.id,
+            "stage_number": i.stage_id.stage_number,
         }
         data.append(temp)
     ans["data"] = data
