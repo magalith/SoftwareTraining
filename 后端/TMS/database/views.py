@@ -163,7 +163,7 @@ def add_doc(request):
             'uid': int(request.POST.get("uid")),
             'mid': int(request.POST.get("mid")),
         }
-        file_url = upload_to_bucket(ans['file'])
+        file_url = upload_to_bucket(ans['file']) if ans['file'] else ""
         ans['file'] = file_url
         print(ans)
 
