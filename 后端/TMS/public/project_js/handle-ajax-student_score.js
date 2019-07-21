@@ -23,7 +23,7 @@ function loadDocumentList(data) {
             html += '<td>' + data[i].id + '</td>';
             html += '<td>' + data[i].text + '</td>';
             html += '<td><a href="' + data[i].file + '">下载附件</a></td>';
-            html += '<td>' + data[i].score + '</td>';
+            html += '<td><button type="submit" class="btn btn-primary btn-flat btn-sm">submit</button></td>';
             html += '</tr>';
             $('#check_task').append(html)
             html = ''
