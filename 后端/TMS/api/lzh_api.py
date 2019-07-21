@@ -4,7 +4,7 @@
 
 from django.shortcuts import render, redirect, HttpResponse
 from database import models
-from tools import OSS
+from tools import OSS, SMS
 import time
 import json
 import os
@@ -123,7 +123,7 @@ def update_student_project(sid, pid):
         "project":{
             "id": project.id,
             "name": project.name,
-            "content": project.content,
+            "detail": project.content,
         }
     }
     ans["data"] = data
@@ -338,5 +338,11 @@ def get_all_projects():
 
 
 # 为手机号获取手机验证码
-def get_verification_code_for_phone(phone_number):
-    pass
+def get_verification_code_for_phone(phone_number, method):
+    ans = {
+        "code": "ok",
+    }
+    SMS_Info = SMS.sent_sms_with_phone(phone_number)
+    code = SMS_Info["code"]
+    models.VerificationCode(phone=str(phone_number), method=method, code=code)
+    return ans
