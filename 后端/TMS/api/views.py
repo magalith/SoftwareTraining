@@ -4,6 +4,9 @@
 
 from django.shortcuts import render, HttpResponse
 from api.lichen.get_students import get_students
+from api.lichen.get_teachers import get_teachers
+from api.lichen.upgrade_class_info import upgrade_class
+from api.lichen.get_class_info import class_info
 from . import lzh_api
 import time
 import json
@@ -47,8 +50,47 @@ def get_students_list(request):
         }
         return HttpResponse(json.dumps(ans, ensure_ascii=False))
     return render(request, "login.html", {})
-# return HttpResponse(json.dumps(ans))
-# def upgrade_class_info(request):
+
+# 管理员更新班级列表
+def upgrade_class_info(request):
+
+    if request.method == "POST":
+        test = request.POST.get("class")
+        dir_post = request.POST.get('classes', [{"class_name": "CLASS_01", "room": "基教A212", "teacher": "admin", "students": [1, 2, 3]}])
+        # if (dir_post is None):
+        re_data = upgrade_class(dir_post)
+        ans = {
+            "code": "ok",
+            "data": re_data
+        }
+        return HttpResponse(json.dumps(ans, ensure_ascii=False))
+    return render(request, "login.html", {})
+
+# 管理员获取所有老师列表
+def get_teachers_list(request):
+    data = get_teachers()
+    if request.method == "POST":
+        ans = {
+            "code": "ok",
+            "data": data['teachers_list']
+        }
+        return HttpResponse(json.dumps(ans, ensure_ascii=False))
+    return render(request, "login.html", {})
+
+# 获取所有班级信息
+def get_class_info(request):
+
+    data = class_info()
+    if request.method == "POST":
+        ans = {
+            "code": "ok",
+            "data": data['class_list']
+        }
+        return HttpResponse(json.dumps(ans, ensure_ascii=False))
+    return render(request, "login.html", {})
+
+
+
 
 
 
