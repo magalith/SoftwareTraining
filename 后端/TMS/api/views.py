@@ -163,3 +163,12 @@ def add_mission(request):
     mission_data = json.loads(request.POST.get("mission"))
     ans = lzh_api.add_mission_in_stage(uid=int(request.session.get("uid")), stage_id=sid, missions_data=mission_data)
     return HttpResponse(json.dumps(ans, ensure_ascii=False))
+
+
+# 2.2 教师查看自己负责的所有阶段
+def get_all_self_stage(request):
+    timestamp = request.POST.get("timestamp")
+    # 学生文档列表
+    uid = int(request.session.get("uid"))
+    ans = lzh_api.add_mission_in_stage(uid=uid)
+    return HttpResponse(json.dumps(ans, ensure_ascii=False))

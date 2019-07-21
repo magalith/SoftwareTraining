@@ -34,9 +34,9 @@ urlpatterns = [
     # 查看负责班级的学生名单
     # re_path("get_classinfo/?$", views.test),
     # 查看所有阶段
-    re_path("get_stage/?$", views.test),
+    re_path("get_stage/?$", views.get_all_self_stage),
     # 为阶段添加任务
-    re_path("push_mission/?$", views.test),
+    re_path("push_mission/?$", views.add_mission),
     # 查看某一任务的所有文档
     re_path("check_mission/?$", views.check_missions_docs),
     # 更新文档(学生的作业)分数

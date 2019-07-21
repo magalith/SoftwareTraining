@@ -240,3 +240,25 @@ def add_mission_in_stage(uid, stage_id, missions_data):
 
     ans["data"] = mission.id
     return ans
+
+
+# 教师查看自己负责的所有阶段
+def add_mission_in_stage(uid):
+    ans = {
+        "code": "ok",
+    }
+    # 获取教师对象
+    teacher = models.User.objects.filter(id=int(uid))[0]
+    # 获取所有阶段
+    stages = models.Stage.objects.filter(teacher_id=teacher)
+    # stage数据列表
+    data = []
+    for stage in stages:
+        temp = {
+            "id": stage.id,
+            "name": stage.name,
+            "teacher_id": stage.teacher_id.id,
+        }
+        data.append(temp)
+    ans["data"] = data
+    return ans
