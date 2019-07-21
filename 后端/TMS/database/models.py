@@ -51,6 +51,8 @@ class Stage(models.Model):
     name = models.CharField(max_length=128)
     # 阶段从属教师ID
     teacher_id = models.ForeignKey("User", on_delete=models.CASCADE)
+    # 阶段编号,0,1,2号.该字段仅在初期开发时使用,若有时间,则会释放该字段
+    stage_number = models.PositiveSmallIntegerField(default=0, blank=True, null=True)
 
 
 # 任务表
