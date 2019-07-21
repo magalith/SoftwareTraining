@@ -5,6 +5,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from database import models
 from tools import OSS
+import time
 import json
 import os
 
@@ -259,7 +260,22 @@ def teacher_check_all_stage(uid):
             "id": stage.id,
             "name": stage.name,
             "teacher_id": stage.teacher_id.id,
+            "missions": [],
         }
+        missions = models.Mission.objects.filter(stage_id=stage)
+        missions_list = []
+        for m in missions:
+            temp_mission = {
+                "id": m.id,
+                "text": m.doc_id.text,
+                "file": m.doc_id.file,
+                "deadline": m.deadline,
+                # "creat_time": m.create_time,
+                # "creat_time": time.mktime(m.create_time.timetuple()),
+                "creat_time": m.create_time.strftime("%Y-%m-%d"),
+            }
+            missions_list.append(temp_mission)
+        temp["missions"] = missions_list
         data.append(temp)
     ans["data"] = data
     return ans
