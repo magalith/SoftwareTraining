@@ -1,24 +1,3 @@
-var data = [{
-    "id": 1,
-    "stuname": "aa",
-    "class": 2,
-    "teacher": "aa",
-    "note": ""
-},
-{
-    "id": 1,
-    "stuname": "aa",
-    "class": 2,
-    "teacher": "aa",
-    "note": ""
-},
-{
-    "id": 1,
-    "stuname": "aa",
-    "class": 2,
-    "teacher": "aa",
-    "note": ""
-}]
 
 $(function() {
     $.post("/api/get_students", {"timestamp": 123}, function(data){
