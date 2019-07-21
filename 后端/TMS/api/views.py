@@ -3,9 +3,10 @@
 
 
 from django.shortcuts import render, HttpResponse
+from api.lichen.get_students import get_students
+from . import lzh_api
 import time
 import json
-from api.lichen.get_students import get_students
 
 
 # api版本视图
