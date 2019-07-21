@@ -243,12 +243,13 @@ def add_mission_in_stage(uid, stage_id, missions_data):
 
 
 # 教师查看自己负责的所有阶段
-def add_mission_in_stage(uid):
+# TODO 未进行权限认证
+def teacher_check_all_stage(uid):
     ans = {
         "code": "ok",
     }
     # 获取教师对象
-    teacher = models.User.objects.filter(id=int(uid))[0]
+    teacher = models.User.objects.filter(id=int(uid), group="T")[0]
     # 获取所有阶段
     stages = models.Stage.objects.filter(teacher_id=teacher)
     # stage数据列表

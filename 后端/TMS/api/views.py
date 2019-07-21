@@ -170,7 +170,7 @@ def get_all_self_stage(request):
     timestamp = request.POST.get("timestamp")
     # 学生文档列表
     uid = int(request.session.get("uid"))
-    ans = lzh_api.add_mission_in_stage(uid=uid)
+    ans = lzh_api.teacher_check_all_stage(uid=uid)
     return HttpResponse(json.dumps(ans, ensure_ascii=False))
 
 
