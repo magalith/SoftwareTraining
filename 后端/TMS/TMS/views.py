@@ -74,3 +74,17 @@ def select_project(request):
 
 def check_task(request):
     return render(request, 'student_checkTask.html', {})
+
+
+def tch_add_task(request):
+    return render(request, 'teacher_missionpage.html', {})
+
+
+def tch_check_doc(request):
+    return render(request, 'teacher_file_check.html', {})
+
+
+def tch_check_stulist(request):
+    return render(request, 'teacher_studentlist.html', {})
+
+
