@@ -19,6 +19,8 @@ urlpatterns = [
     re_path("get_all_project/?$", views.get_all_user_project),
     # 发送短信
     re_path("send_sms/?$", views.send_sms),
+    # 使用手机号验证码登陆
+    re_path("login_phone/?$", views.phone_login),
 
     ############
     # 管理员接口 #
