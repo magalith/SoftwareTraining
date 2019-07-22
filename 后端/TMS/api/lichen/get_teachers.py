@@ -11,11 +11,13 @@ def get_teachers():
         if (i.class_id is None):
             values['teachers_list'].append({'id': i.id,
                                             'name': i.name,
+                                            "gender": i.gender,
                                             'class': "NULL"
                                             })
         else:
             values['teachers_list'].append({'id': i.id,
                                             'name': i.name,
+                                            "gender": i.gender,
                                             'class': i.class_id.name
                                             })
     return values

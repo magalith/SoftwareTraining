@@ -13,6 +13,7 @@ def get_students():
         if (i.class_id is None):
             values['students_list'].append({'id': i.id,
                                             'stuname': i.name,
+                                            "gender": i.gender,
                                             'class': "NULL",#i.class_id.name,
                                             'teacher': "NULL",
                                             "note": "" # i.project_id.name
@@ -20,6 +21,7 @@ def get_students():
         else:
             values['students_list'].append({'id': i.id,
                                             'stuname': i.name,
+                                            "gender": i.gender,
                                             'class': i.class_id.name,
                                             'teacher': "NULL",
                                             "note": ""  # i.project_id.name
