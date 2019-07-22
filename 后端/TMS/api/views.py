@@ -48,8 +48,8 @@ def get_students_list(request):
             group = request.session.get("group") # group
             if not group:
                 return HttpResponse(json.dumps(lzh_api.error_with_code(1001), ensure_ascii=False))
-            elif(group == "T" or group == "S"):
-                # 非管理员权限请求，返回权限错误
+            elif(group == "S"):
+                # 学生权限请求，返回权限错误
                 return HttpResponse(json.dumps(lzh_api.error_with_code(1002), ensure_ascii=False))
             else:
                 data = get_students()
