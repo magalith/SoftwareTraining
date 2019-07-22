@@ -4,7 +4,7 @@ from database.models import User
 def get_teachers():
 
     # 获取老师列表
-    teachers_list = User.objects.filter(group='T')
+    teachers_list = User.objects.filter(group='T', exist=True)
     values = {'teachers_list': []}
     for i in teachers_list:
         # temp_class = Class.objects.filter(id=i.class_id.id)[0]

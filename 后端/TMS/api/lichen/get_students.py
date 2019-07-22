@@ -4,8 +4,8 @@ from database.models import User
 def get_students():
 
     # 获取学生列表
-    students_list = User.objects.filter(group='S')
-    teachers_list = User.objects.filter(group='T')
+    students_list = User.objects.filter(group='S', exist=True)
+    teachers_list = User.objects.filter(group='T', exist=True)
     values = {'students_list': []}
     count = 0
     for i in students_list:
