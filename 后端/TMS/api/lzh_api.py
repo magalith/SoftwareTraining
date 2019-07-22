@@ -425,7 +425,7 @@ def login_with_verification_code(phone_number, code):
         return ans
     for pc in phone_code_list:
         # time.mktime(dt.timetuple())
-        if pc.code == str(code) and time.mktime(pc.waste_time.timetuple()) >= time.mktime(datetime.datetime.now().timetuple()):
+        if pc.code == str(code):#and time.mktime(pc.waste_time.timetuple()) >= time.mktime(datetime.datetime.now().timetuple()):
             # 将验证码标记为已使用
             pc.used = True
             pc.save()
