@@ -5,6 +5,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from database import models
 from tools import OSS, SMS
+import datetime
 import time
 import json
 import os
@@ -120,7 +121,7 @@ def update_student_project(sid, pid):
     student.project_id = project
     student.save()
     data = {
-        "project":{
+        "project": {
             "id": project.id,
             "name": project.name,
             "detail": project.content,
@@ -337,6 +338,51 @@ def get_all_projects():
     return ans
 
 
+# 管理员管理学生名单
+def operate_student_list(method, user_list):
+    ans = {
+        "code": "ok",
+    }
+
+    # 添加学生方法
+    def add_user(ulist):
+        out_data = "添加成功"
+        for u in ulist:
+            try:
+                user = models.User(
+                    name=u.get("name"),
+                    passwd=u.get("password"),
+                    gender=u.get("gender"),
+                    group=u.get("group"),
+                    phone=u.get("phone"),
+                )
+                user.save()
+            except Exception as e:
+                out_data = "添加失败\t" + str(e)
+        return out_data
+
+    # 删除学生方法
+    def del_user(ulist):
+        out_data = "删除成功"
+        for uid in ulist:
+            try:
+                user = models.User.objects.get(id=int(uid))
+                user.exist = False
+                user.save()
+            except Exception as e:
+                out_data = "删除失败\t" + str(e)
+        return out_data
+
+    method_dic = {
+        "add": add_user,
+        "del": del_user,
+    }
+    operate = method_dic[str(method).lower()]
+    data = operate(user_list)
+    ans["data"] = data
+    return ans
+
+
 # 为手机号获取手机验证码
 def get_verification_code_for_phone(phone_number, method):
     ans = {
@@ -344,5 +390,11 @@ def get_verification_code_for_phone(phone_number, method):
     }
     SMS_Info = SMS.sent_sms_with_phone(phone_number)
     code = SMS_Info["code"]
-    models.VerificationCode(phone=str(phone_number), method=method, code=code)
+    v_code = models.VerificationCode(phone=str(phone_number), method=method, code=code)
+    v_code.save()
+    # 验证码三分钟后报废
+    wast_time = v_code.create_time + datetime.timedelta(minutes=3)
+    # 更新验证码作废时间
+    v_code.waste_time = wast_time
+    v_code.save()
     return ans

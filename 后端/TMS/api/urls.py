@@ -31,6 +31,8 @@ urlpatterns = [
     re_path("get_teachers/?$", views.get_teachers_list),
     # 管理员获取所有班级名单(带学生老师名单)
     re_path("get_class_info/?$", views.get_class_info),
+    # 管理员更新用户名单
+    re_path("update_user_list/?$", views.update_user_info),
 
     #############
     #  教师接口  #

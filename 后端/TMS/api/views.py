@@ -236,6 +236,17 @@ def get_all_user_project(request):
     return HttpResponse(json.dumps(ans, ensure_ascii=False))
 
 
+# 管理员接口 更新用户名单
+def update_user_info(request):
+    timestamp = request.POST.get("timestamp")
+    # 用户操作方法
+    method = request.POST.get("method")
+    # 用户列表
+    user_list = json.loads(request.POST.get("user_list"))
+    ans = lzh_api.operate_student_list(method="", user_list=user_list)
+    return HttpResponse(json.dumps(ans, ensure_ascii=False))
+
+
 # 发送短信接口
 def send_sms(request):
     phone_number = request.POST.get("phone")
