@@ -43,54 +43,97 @@ def test(request):
 
 # 管理员获取所有学生列表
 def get_students_list(request):
-    data = get_students()
     if request.method == "POST":
-        ans = {
-            "code": "ok",
-            "data": data['students_list']
-        }
-        return HttpResponse(json.dumps(ans, ensure_ascii=False))
-    return render(request, "login.html", {})
+        try:
+            group = request.session.get("group") # group
+            if not group:
+                return HttpResponse(json.dumps(lzh_api.error_with_code(1001), ensure_ascii=False))
+            elif(group == "T" or group == "S"):
+                # 非管理员权限请求，返回权限错误
+                return HttpResponse(json.dumps(lzh_api.error_with_code(1002), ensure_ascii=False))
+            else:
+                data = get_students()
+                ans = {"code": "ok","data": data['students_list']}
+                # 正确的返回结果
+                return HttpResponse(json.dumps(ans, ensure_ascii=False))
+        except Exception as e:
+            # 若执行过程报错,则返回通用错误.
+            print(e)
+            return HttpResponse(json.dumps(lzh_api.error_with_code(0), ensure_ascii=False))
+    else:
+        # GET方法请求本接口,服务拒绝.
+        return HttpResponse(json.dumps(lzh_api.error_with_code(2004), ensure_ascii=False))
+
 
 # 管理员更新班级列表
 def upgrade_class_info(request):
-
     if request.method == "POST":
-        print(request.POST.get("class"))
-        dir_post =json.loads(request.POST.get("class"))
+        try:
+            group = request.session.get("group") # group
+            if not group:
+                return HttpResponse(json.dumps(lzh_api.error_with_code(1001), ensure_ascii=False))
+            elif(group == "T" or group == "S"):
+                return HttpResponse(json.dumps(lzh_api.error_with_code(1002), ensure_ascii=False))
+            else:
+                dir_post =json.loads(request.POST.get("class"))
+                re_data = upgrade_class(dir_post)
+                ans = {"code": "ok","data": re_data}
+                # 正确的返回结果
+                return HttpResponse(json.dumps(ans, ensure_ascii=False))
+        except Exception as e:
+            # 若执行过程报错,则返回通用错误.
+            print(e)
+            return HttpResponse(json.dumps(lzh_api.error_with_code(0), ensure_ascii=False))
+    else:
+        # GET方法请求本接口,服务拒绝.
+        return HttpResponse(json.dumps(lzh_api.error_with_code(2004), ensure_ascii=False))
 
-        # dir_post = request.POST.get('classes', [{"class_name": "CLASS_01", "room": "基教A212", "teacher": "admin", "students": [1, 2, 3]}])
-        # if (dir_post is None):
-        re_data = upgrade_class(dir_post)
-        ans = {
-            "code": "ok",
-            "data": re_data
-        }
-        return HttpResponse(json.dumps(ans, ensure_ascii=False))
-    return render(request, "login.html", {})
 
 # 管理员获取所有老师列表
 def get_teachers_list(request):
-    data = get_teachers()
     if request.method == "POST":
-        ans = {
-            "code": "ok",
-            "data": data['teachers_list']
-        }
-        return HttpResponse(json.dumps(ans, ensure_ascii=False))
-    return render(request, "login.html", {})
+        try:
+            group = request.session.get("group") # group
+            if not group:
+                return HttpResponse(json.dumps(lzh_api.error_with_code(1001), ensure_ascii=False))
+            elif(group == "T" or group == "S"):
+                return HttpResponse(json.dumps(lzh_api.error_with_code(1002), ensure_ascii=False))
+            else:
+                data = get_teachers()
+                ans = {"code": "ok","data": data['teachers_list']}
+                # 正确的返回结果
+                return HttpResponse(json.dumps(ans, ensure_ascii=False))
+        except Exception as e:
+            # 若执行过程报错,则返回通用错误.
+            print(e)
+            return HttpResponse(json.dumps(lzh_api.error_with_code(0), ensure_ascii=False))
+    else:
+        # GET方法请求本接口,服务拒绝.
+        return HttpResponse(json.dumps(lzh_api.error_with_code(2004), ensure_ascii=False))
+
 
 # 获取所有班级信息
 def get_class_info(request):
-
-    data = class_info()
     if request.method == "POST":
-        ans = {
-            "code": "ok",
-            "data": data['class_list']
-        }
-        return HttpResponse(json.dumps(ans, ensure_ascii=False))
-    return render(request, "login.html", {})
+        try:
+            group = request.session.get("group") # group
+            if not group:
+                return HttpResponse(json.dumps(lzh_api.error_with_code(1001), ensure_ascii=False))
+            elif(group == "T" or group == "S"):
+                return HttpResponse(json.dumps(lzh_api.error_with_code(1002), ensure_ascii=False))
+            else:
+                data = class_info()
+                ans = {"code": "ok","data": data['class_list']}
+                # 正确的返回结果
+                return HttpResponse(json.dumps(ans, ensure_ascii=False))
+        except Exception as e:
+            # 若执行过程报错,则返回通用错误.
+            print(e)
+            return HttpResponse(json.dumps(lzh_api.error_with_code(0), ensure_ascii=False))
+    else:
+        # GET方法请求本接口,服务拒绝.
+        return HttpResponse(json.dumps(lzh_api.error_with_code(2004), ensure_ascii=False))
+
 
 
 
@@ -108,7 +151,7 @@ def get_class_info(request):
 def get_docs(request):
     if request.method == "POST":
         try:
-            uid = request.session.get("uid")
+            uid = request.session.get("uid") # group
             if not uid:
                 return HttpResponse(json.dumps(lzh_api.error_with_code(1001), ensure_ascii=False))
             ans = lzh_api.get_all_doc(uid)
