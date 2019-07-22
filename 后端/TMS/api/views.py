@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse
 from api.lichen.get_students import get_students
 from api.lichen.get_teachers import get_teachers
 from api.lichen.upgrade_class_info import upgrade_class
@@ -293,5 +293,26 @@ def operate_user_info(request):
 # 发送短信接口
 def send_sms(request):
     phone_number = request.POST.get("phone")
-    ans = SMS.sent_sms_with_phone(phone_number)
+    ans = lzh_api.get_verification_code_for_phone(phone_number=phone_number, method="L")
     return HttpResponse(json.dumps(ans, ensure_ascii=False))
+
+
+# 使用手机号+验证码登陆
+def phone_login(request):
+    phone_number = request.POST.get("phone")
+    v_code = request.POST.get("code")
+    ans = lzh_api.login_with_verification_code(phone_number=str(phone_number), code=str(v_code))
+    if ans.get("code") == "ok":
+        # 登陆成功,跳转到登陆界面
+        views = {
+            "R": "/admin_student/",
+            "T": "/tch_check_studoc/",
+            "S": "/stu_select_pro/",
+        }
+        session_info = ans.get("data")
+        request.session["uid"] = session_info.get("uid")
+        request.session["name"] = session_info.get("name")
+        request.session["gender"] = session_info.get("gender")
+        request.session["group"] = session_info.get("group")
+        return HttpResponse(views[request.session.get("group")])
+    return redirect("/login?view=phone&type=error")

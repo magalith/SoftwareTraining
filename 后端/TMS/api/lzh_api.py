@@ -388,13 +388,54 @@ def get_verification_code_for_phone(phone_number, method):
     ans = {
         "code": "ok",
     }
+    # 获取所有未使用的登陆手机验证码
+    phone_code = models.VerificationCode.objects.filter(phone=str(phone_number), method=str(method).upper(), used=False)
+    # 将所有未使用的登陆手机验证码失效
+    for pc in phone_code:
+        pc.used = True
+        pc.save()
+    # 获取新的手机验证码
     SMS_Info = SMS.sent_sms_with_phone(phone_number)
     code = SMS_Info["code"]
+    wast_time_dic = {
+        "L": 5,
+        "U": 2,
+    }
+    term_of_validity = datetime.timedelta(minutes=wast_time_dic[str(method).upper()])
+    # 在数据库中,保存手机验证码
     v_code = models.VerificationCode(phone=str(phone_number), method=method, code=code)
     v_code.save()
     # 验证码三分钟后报废
-    wast_time = v_code.create_time + datetime.timedelta(minutes=3)
+    wast_time = v_code.create_time + term_of_validity
     # 更新验证码作废时间
     v_code.waste_time = wast_time
     v_code.save()
+    return ans
+
+
+# 为手机号与手机验证码进行登录
+def login_with_verification_code(phone_number, code):
+    ans = {
+        "code": "ok",
+    }
+    phone_code_list = models.VerificationCode.objects.filter(phone=str(phone_number), method="L", used=False)# .order_by("id")
+    if len(phone_code_list) == 0:
+        ans["code"] = 2001
+        ans["data"] = "手机号未获取验证码,或验证码已过期"
+        return ans
+    for pc in phone_code_list:
+        if pc.code == str(code) and pc.waste_time >= datetime.datetime.now():
+            pc.used = True
+            pc.save()
+            user = models.User.objects.filter(phone=str(phone_number))[0]
+            session_info = {
+                "uid": user.id,
+                "name": user.name,
+                "gender": user.gender,
+                "group": user.group,
+            }
+            ans["data"] = session_info
+            return ans
+    ans["code"] = 2002
+    ans["data"] = "验证码输入不正确,请重新输入"
     return ans
