@@ -34,7 +34,8 @@ function addtext_to_list(){
     var discription = $('.discription').eq(stage_id).val();
     var deadline = $('.deadline').eq(stage_id).val();
     if(title != "" && title != null && discription != "" && discription != null && deadline != "" && deadline != null) {
-        data = {"timestamp": 1, "stage_id": stage_id, "mission": '{"text": title+discription, file: "", deadline: "2019-7-30"}'}
+        data = {"timestamp": 1, "stage_id": stage_id, "mission": {"text": title+discription, file: "", deadline: "2019-7-30"}}
+        console.log(data)
         $.post("/api/push_mission", data, function(data){
             console.log(data.data);
         })
