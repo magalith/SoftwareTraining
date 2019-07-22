@@ -18,38 +18,13 @@
   <!-- iCheck -->
   <link rel="stylesheet" href="../plugins/iCheck/square/blue.css">
 
-  <style type="text/css">
-    .tab{
-      width: 320px;
-      height: 36px;
-    }
-    .tab li {
-      float: left;
-      width: 140px;
-      height: 34px;
-      line-height: 34px;
-      text-align: center;
-      cursor: pointer;
-      border-top: 4px solid #fff;
-    }
-    .tab li.active{
-      border-top: 1px solid gray;
-    }
-    .login_form .noshow {
-      display:none;
-    }
-    .login_form .noshow.selected {
-      display: block;
-    }
-  </style>
 
 </head>
 <!-- <body > -->
 
-<!-- <body background="http://www.w3school.com.cn/clouds.gif"> -->
+  <!-- <body background="http://www.w3school.com.cn/clouds.gif"> -->
 
-<body class="hold-transition login-page"
-  style="background-repeat: no-repeat; background-size: cover; background-image: url(../dist/img/background.jpg)">
+<body class="hold-transition login-page" style="background-repeat: no-repeat; background-size: cover; background-image: url(../dist/img/background.jpg)">
   <div class="login-box">
     <div class="login-logo">
       <a href="../index2.html"><b>实训管理</b></a>
@@ -57,63 +32,35 @@
     <!-- /.login-logo -->
     <div class="login-box-body">
       <p class="login-box-msg">Sign in to start your session</p>
-      <div class="wrapper">
-        <ul class="tab" style="list-style: none">
-          <li class="tab-item active">用户名登录</li>
-          <li class="tab-item">验证码登录</li>
-        </ul>
-        <div class="login_form">
-          <form class="noshow selected">
-            <div class="form-group has-feedback">
-              <input type="email" class="form-control" placeholder="User_name" id="username">
-              <span class="glyphicon glyphicon-user form-control-feedback"></span>
-            </div>
-            <div class="form-group has-feedback">
-              <input type="password" class="form-control" placeholder="Password" id="password">
-              <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
-            <div class="row">
-              <div class="col-xs-8">
-                <div class="checkbox icheck">
-                  <label>
-                    <input type="checkbox"> Remember Me
-                  </label>
-                </div>
-              </div>
-              <!-- /.col -->
-              <div class="col-xs-4">
-                <button type="button" class="btn btn-primary btn-block btn-flat" id="userSignIn">Sign In</button>
-              </div>
-              <!-- /.col -->
-            </div>
-          </form>
-          <form class="noshow">
-            <div class="form-group has-feedback">
-              <input type="text" class="form-control" placeholder="Phone_number" id="phone_num">
-              <span class="glyphicon glyphicon-phone form-control-feedback"></span>
-            </div>
-            <div class="form-group has-feedback">
-              <input type="text" class="form-control" placeholder="Captcha" id="captcha">
-              <button type="button" class="btn btn-primary btn-block btn-flat" id="getCaptcha">获取验证码</button>
-              <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
-            <div class="row">
-              <div class="col-xs-8">
-                <div class="checkbox icheck">
-                  <label>
-                    <input type="checkbox"> Remember Me
-                  </label>
-                </div>
-              </div>
-              <!-- /.col -->
-              <div class="col-xs-4">
-                <button type="button" class="btn btn-primary btn-block btn-flat" id="captchaSignIn">Sign In</button>
-              </div>
-              <!-- /.col -->
-            </div>
-          </form>
+
+      <form>
+        <div class="form-group has-feedback">
+          <input type="email" class="form-control" placeholder="User_name" id="username">
+          <span class="glyphicon glyphicon-user form-control-feedback"></span>
         </div>
-      </div>
+        <div class="form-group has-feedback">
+          <input type="password" class="form-control" placeholder="Password" id="password">
+          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        </div>
+        <div class="row">
+          <div class="col-xs-8">
+            <div class="checkbox icheck">
+              <label>
+                <input type="checkbox"> Remember Me
+              </label>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-xs-4">
+            <button type="button" class="btn btn-primary btn-block btn-flat" id="signIn">Sign In</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+
+      <a href="#"> </a><br>
+      <!-- <a href="#">I forgot my password</a><br> -->
 
     </div>
     <!-- /.login-box-body -->
