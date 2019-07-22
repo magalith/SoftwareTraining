@@ -1,16 +1,23 @@
 
 $(function(){
     $.post("/api/get_stage", {"timestamp": 1}, function(data){
+        data = data.data;
+
         load_missionlist(data)
+        // addtext_to_list(data)
     }, "json")
+
     $('.addlist').on("click", addtext_to_list)
+
 })
 
 
 function load_missionlist(data){
-    data = data.data;
+    
     for (var i=0; i<data.length; i++){
-        console.log(data[i].missions)
+        title = '<h4 class="title_hidden">' + data[i].id + '</h4>'
+        $('.missionlist').eq(data[i].stage_number).append(title)
+        // console.log(data[i].missions)
         if (data[i].missions.length !== 0) {
             for (var j=0; j<data[i].missions.length; j++) {
                 task_name = data[i].missions[j].text.split("\n")[0];
@@ -24,21 +31,24 @@ function load_missionlist(data){
             }
         }
     }
+    
 }
 
 
 function addtext_to_list(){
-    stage_id = $('.addlist').index(this);
-    console.log(stage_id)
+    stage_id = $('.addlist').index(this)
+    // id = data[stage_id].id;
+    id = $('.title_hidden').eq(stage_id).text();
+    console.log(id)
+    $('.addlist').on("click", addtext_to_list)
+
     var title = $('.title').eq(stage_id).val();
     var discription = $('.discription').eq(stage_id).val();
     var deadline = $('.deadline').eq(stage_id).val();
     if(title != "" && title != null && discription != "" && discription != null && deadline != "" && deadline != null) {
-        data = {"timestamp": 1, "stage_id": stage_id, "mission": {"text": title+discription, file: "", deadline: "2019-7-30"}}
-        console.log(data)
-        $.post("/api/push_mission", data, function(data){
-            console.log(data.data);
-        })
+        datap = {"timestamp": 1, "stage_id": id, "mission": '{"text": "title+discription", "file": "", "deadline": "30"}'}
+        console.log(datap)
+        $.post("/api/push_mission", datap)
         var html = '';
         html += '<li style="font-size: 20px"><a href="/tch_check_studoc"><h3>任务名称：' + title +'</h3></a></li>';
         html += '<li>详细描述：' + discription + '</li>';
