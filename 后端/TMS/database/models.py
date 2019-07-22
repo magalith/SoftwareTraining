@@ -3,6 +3,8 @@
 
 
 from django.db import models
+import datetime
+import json
 
 
 # 用户表
@@ -25,6 +27,54 @@ class User(models.Model):
     phone = models.CharField(max_length=15, blank=True, null=True, unique=True)
     # 判断记录是否存在
     exist = models.BooleanField(default=True)
+    # 最后一次的登陆时间
+    last_login_time = models.DateTimeField(auto_now_add=True)
+
+    # Unicode字符串
+    def __unicode__(self):
+        return json.dumps(self.information())
+
+    # 登录用户时,需要调用次函数,完成最后登陆时间、手机验证码清空等功能
+    def login(self):
+        # 重设最后登陆时间
+        self.last_login_time = datetime.datetime.now()
+        # 获取用户的所有未使用的手机登陆验证码记录
+        code_records = VerificationCode.objects.filter(phone=str(self.phone), method="L", used=False)
+        for code in code_records:
+            # 将所有用户手机号登陆记录标记为已使用
+            code.used = True
+            code.save()
+        return True
+
+    # 获取字典格式的用户信息
+    def information(self):
+        info = {
+            "id": self.id,
+            "name": self.name,
+            "gender": {
+                "M": "男",
+                "F": "女",
+                "U": "未知",
+            }[self.gender],
+            "class": {
+                "id": self.class_id.id,
+                "name": self.class_id.name,
+                "room": self.class_id.room,
+            },
+            "project": {
+                "id": self.project_id.id,
+                "name": self.project_id.name,
+                "content": self.project_id.content,
+            },
+            "group": {
+                "R": "管理员",
+                "T": "教师",
+                "S": "学生",
+            }[self.group],
+            "phone": self.phone,
+            "last_login_time": self.last_login_time.strftime("%Y-%m-%d"),
+        }
+        return info
 
 
 # 班级表
