@@ -421,10 +421,10 @@ def login_with_verification_code(phone_number, code):
     phone_code_list = models.VerificationCode.objects.filter(phone=str(phone_number), method="L", used=False)# .order_by("id")
     if len(phone_code_list) == 0:
         ans["code"] = 2001
-        ans["data"] = "错误,该手机号未获取验证码"
+        ans["data"] = "手机号未获取验证码,或验证码已过期"
         return ans
     for pc in phone_code_list:
-        if pc.code == str(code):
+        if pc.code == str(code) and pc.waste_time >= datetime.datetime.now():
             pc.used = True
             pc.save()
             user = models.User.objects.filter(phone=str(phone_number))[0]
