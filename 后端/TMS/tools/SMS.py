@@ -13,7 +13,9 @@ from aliyunsdkcore.request import CommonRequest
 
 def sent_sms_with_phone(phone_number):
     ans = {}
-    client = AcsClient('LTAICNrMCIXkVv7O', 'XQGp8NBdcs7OBtgY1TrvrTpbZwPUdp', 'default')
+    # client = AcsClient('LTAICNrMCIXkVv7O', 'XQGp8NBdcs7OBtgY1TrvrTpbZwPUdp', 'default')
+    # 短信验证码,@maglith 友情提供
+    client = AcsClient('LTAIvOKVFOootzEk', 'psEqWjHnX3B4CCxA6X1g4XiFMCz5BC', 'default')
 
     request = CommonRequest()
     request.set_accept_format('json')
@@ -24,8 +26,8 @@ def sent_sms_with_phone(phone_number):
     request.set_action_name('SendSms')
 
     request.add_query_param('PhoneNumbers', str(phone_number))
-    request.add_query_param('TemplateCode', "SMS_144152200")
-    request.add_query_param('SignName', "智能医保")
+    request.add_query_param('TemplateCode', "SMS_171113335")
+    request.add_query_param('SignName', "实训管理系统")
     # 获取随机验证码
     code = str(get_random_number_str(6))
     request.add_query_param('TemplateParam', "{\"code\": \"%s\"}" % code)
