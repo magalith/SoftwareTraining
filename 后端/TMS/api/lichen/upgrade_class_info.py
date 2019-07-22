@@ -16,13 +16,13 @@ def upgrade_class(dir_post):
         # new_class_id = ["C001","C002", "C003"]
 
         # 更新老师班级id
-        teacher = User.objects.filter(name = i['teacher'])[0]
+        teacher = User.objects.filter(name=i['teacher'])[0]
         teacher.class_id = temp_id
 
 
         # 更新学生班级id
         for j in i['students']:
-            student = User.objects.filter(id = j )[0]
+            student = User.objects.filter(id=int(j))[0]
             student.class_id = temp_id
 
     return new_class_id

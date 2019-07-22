@@ -14,32 +14,21 @@ def get_students():
             values['students_list'].append({'id': i.id,
                                             'stuname': i.name,
                                             'class': "NULL",#i.class_id.name,
-                                            'teacher': True,
-                                            "note": "" ,#i.project_id.name
+                                            'teacher': "NULL",
+                                            "note": "" # i.project_id.name
                                             })
-            if (i.project_id is None):
-                values['students_list'].append({'id': i.id,
-                                                'stuname': i.name,
-                                                'class': "NULL",  # i.class_id.name,
-                                                'teacher': True,
-                                                "note": "NULL",  # i.project_id.name
-                                                })
-            else:
-                values['students_list'].append({'id': i.id,
-                                                'stuname': i.name,
-                                                'class': "NULL",
-                                                'teacher': True,
-                                                "note": i.project_id.name,
-                                                # ProjectPool.objects.filter(id=i.project_id.id)[0].name
-                                                })
         else:
             values['students_list'].append({'id': i.id,
                                             'stuname': i.name,
                                             'class': i.class_id.name,
-                                            'teacher': True,
-                                            "note": i.project_id.name,
-                                            # ProjectPool.objects.filter(id=i.project_id.id)[0].name
+                                            'teacher': "NULL",
+                                            "note": ""  # i.project_id.name
                                             })
+
+        if (i.project_id is None):
+            values['students_list'][count]['note'] = 'NULL'
+        else:
+            values['students_list'][count]['note'] = i.project_id.name
 
         for j in teachers_list:
             if(i.class_id == j.class_id):

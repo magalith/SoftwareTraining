@@ -56,8 +56,10 @@ def get_students_list(request):
 def upgrade_class_info(request):
 
     if request.method == "POST":
-        test = request.POST.get("class")
-        dir_post = request.POST.get('classes', [{"class_name": "CLASS_01", "room": "基教A212", "teacher": "admin", "students": [1, 2, 3]}])
+        print(request.POST.get("class"))
+        dir_post =json.loads(request.POST.get("class"))
+
+        # dir_post = request.POST.get('classes', [{"class_name": "CLASS_01", "room": "基教A212", "teacher": "admin", "students": [1, 2, 3]}])
         # if (dir_post is None):
         re_data = upgrade_class(dir_post)
         ans = {
