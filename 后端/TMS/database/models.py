@@ -23,6 +23,8 @@ class User(models.Model):
     group = models.CharField(max_length=1, default='S')
     # 用户手机号,手机号只能被一个用户所绑定
     phone = models.CharField(max_length=15, blank=True, null=True, unique=True)
+    # 判断记录是否存在
+    exist = models.BooleanField(default=True)
 
 
 # 班级表
