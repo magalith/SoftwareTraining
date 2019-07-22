@@ -315,4 +315,4 @@ def phone_login(request):
         request.session["gender"] = session_info.get("gender")
         request.session["group"] = session_info.get("group")
         return HttpResponse(views[request.session.get("group")])
-    return redirect("/login/p?view=phone&type=error")
+    return redirect("/login?view=phone&type=error")
