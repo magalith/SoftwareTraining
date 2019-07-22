@@ -424,10 +424,15 @@ def login_with_verification_code(phone_number, code):
         ans["data"] = "手机号未获取验证码,或验证码已过期"
         return ans
     for pc in phone_code_list:
-        if pc.code == str(code) and pc.waste_time >= datetime.datetime.now():
+        # time.mktime(dt.timetuple())
+        if pc.code == str(code) and time.mktime(pc.waste_time.timetuple()) >= time.mktime(datetime.datetime.now().timetuple()):
+            # 将验证码标记为已使用
             pc.used = True
             pc.save()
+            # 通过手机号获取用户
             user = models.User.objects.filter(phone=str(phone_number))[0]
+            # 触发用户Login方法
+            user.login()
             session_info = {
                 "uid": user.id,
                 "name": user.name,

@@ -30,6 +30,8 @@ def login(request):
         # 获取用户ID
         user = models.User.objects.filter(id=login_info['username'])[0]
         if login_info['password'] == user.passwd:
+            # 触发用户Login方法
+            user.login()
             request.session["uid"] = user.id
             request.session["name"] = user.name
             request.session["gender"] = user.gender
