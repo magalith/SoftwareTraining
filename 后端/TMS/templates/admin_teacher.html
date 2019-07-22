@@ -141,6 +141,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							<th>ID</th>
 							<th>姓名</th>
 							<th>管理班级</th>
+							<th>性别</th>
                             <th></th>
 						</tr>
 						</tbody>
@@ -151,7 +152,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				<div class="row" style="margin-top: 10px">
 					<div class="col-md-8"></div>
 					<div class="col-md-2"><button type="button" class="btn btn-block btn-default" data-toggle="modal" data-target="#modal-add"><b>Add</b></button></div>
-					<div class="col-md-2"><button type="button" class="btn btn-block btn-success"><b>Confirm</b></button></div>
+					<div class="col-md-2"><button type="button" class="btn btn-block btn-success" id="confirm_tchlist"><b>Confirm</b></button></div>
 				</div>
 				<div class="modal fade" id="modal-add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<div class="modal-dialog" role="document">
@@ -165,18 +166,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								<div class="box-body">
 									<div class="form-group">
 										<label for="exampleInputPassword1">姓名</label>
-										<input type="text" class="form-control" id="username" placeholder="姓名">
+										<input type="text" class="form-control" id="tch_name" placeholder="姓名">
 									</div>
 									<div class="form-group">
-										<label for="exampleInputEmail1">管理班级</label>
-										<input type="text" class="form-control" id="guanliclass" placeholder="管理班级">
+										<label for="exampleInputPassword1">密码</label>
+										<input type="text" class="form-control" id="tch_password" placeholder="密码">
+									</div>
+									<div class="form-group">
+										<label for="exampleInputPassword1">性别</label>
+										<input type="text" class="form-control" id="tch_gender" placeholder="性别">
+									</div>
+									<div class="form-group">
+										<label for="exampleInputEmail1">手机号</label>
+										<input type="text" class="form-control" id="phone_num" placeholder="手机号">
 									</div>
 								</div>
 							</form>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-primary" id="add_list" data-dismiss="modal">Add</button>
+							<button type="button" class="btn btn-primary" data-dismiss="modal" id="add_tch">Add</button>
 						</div>
 						</div>
 					</div>
