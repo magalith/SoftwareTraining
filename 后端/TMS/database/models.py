@@ -130,7 +130,8 @@ class Class(models.Model):
                     u.class_id = None
                     u.save()
             return True
-        return False
+        except:
+            return False
 
 
 
