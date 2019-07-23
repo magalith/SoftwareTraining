@@ -244,7 +244,7 @@ def add_mission_in_stage(uid, stage_id, missions_data):
     missions_data["file"] = file_url
     m = missions_data
     # 新建文档
-    doc = models.Doc(text=m["text"], file=m["file"])
+    doc = models.Doc(text=m["text"], file=m["file"], user_id=teacher)
     doc.save()
     deadline = int(m["deadline"])
     # 新建任务
