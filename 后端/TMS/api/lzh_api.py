@@ -48,12 +48,7 @@ def get_all_doc(uid):
     user = models.User.objects.filter(id=uid)[0]
     docs = models.Doc.objects.filter(user_id=user)
     for doc in docs:
-        temp = {
-            "id": doc.id,
-            "text": doc.text,
-            "file": doc.file,
-            "score": doc.score,
-        }
+        temp = doc.information()
         ans['data'].append(temp)
     return ans
 
