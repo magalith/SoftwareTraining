@@ -164,3 +164,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # 设置文稿池路径
 FILE_ROOT = os.path.join(MEDIA_ROOT, 'file/')
+
+# 设置会话缓存策略
+SESSION_SAVE_EVERY_REQUEST = True
+# 设置会话30分钟有效
+SESSION_COOKIE_AGE = 60 * 30
+# 关闭浏览器，则COOKIE失效
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
