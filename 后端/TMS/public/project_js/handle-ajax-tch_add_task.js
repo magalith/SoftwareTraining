@@ -13,8 +13,9 @@ $(function(){
 
 
 function load_missionlist(data){
-    
+
     for (var i=0; i<data.length; i++){
+        $('.boxtitle').eq(i).text(data[i].name);
         title = '<h4 class="title_hidden">' + data[i].id + '</h4>'
         $('.missionlist').eq(data[i].stage_number).append(title)
         // console.log(data[i].missions)

@@ -55,5 +55,5 @@ function addTchList(){
 function confirmTchList(){
     console.log(user_list.toString())
     $.post("/api/update_user_list", {"timestamp": 123, "method": "add", "user_list": '['+ user_list + ']'});
-    window.location.replace("http://127.0.0.1:8000/admin_teacher/")
+    window.location.replace("/admin_teacher")
 }

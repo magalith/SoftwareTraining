@@ -8,7 +8,7 @@ $(function () {
 
 
 function get_username(data) {
-console.log(data)
-$(".user_name").append(":"+ data.name )
-
+  console.log(data)
+  $(".user_name").append(":"+ data.name )
+  $('#user_id').html("ID:" + data.id)
 }

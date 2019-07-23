@@ -89,6 +89,7 @@ def get_all_mission_status(student_id):
     # 获取当前学生用户
     student = models.User.objects.filter(id=student_id, group="S")[0]
     # print(student)
+    # print(student)
     # 获取学生的指导教师
     teacher = models.User.objects.filter(group="T", class_id=student.class_id)[0]
     # print(teacher.id)
@@ -104,11 +105,15 @@ def get_all_mission_status(student_id):
 
     # 将教师布置的任务信息放置在data列表中
     data = []
+
     for i in missions:
-        if i.doc_id.user_id.id == student_id:
-            if_hand_in = True
-        else:
-            if_hand_in = False
+        # 获取该任务所有相关文档
+        te = models.Doc.objects.filter(mission_id=i.id)
+        for j in te:
+            if j.user_id.id == student_id:
+                if_hand_in = True
+            else:
+                if_hand_in = False
 
         temp = {
                 "id": i.id,
@@ -118,7 +123,7 @@ def get_all_mission_status(student_id):
                 "stage_id": i.stage_id.id,
                 "stage_number": i.stage_id.stage_number,
                 "doc_hand": if_hand_in
-        }
+            }
         data.append(temp)
     ans["data"] = data
     return ans
