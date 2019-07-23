@@ -1,5 +1,6 @@
 $(function(){
-    mission_id = window.location.search.slice(-1);
+    mission_id = window.location.href.split("?")[1];
+    console.log(window.location.href.split("?")[1])
     $.post("/api/check_mission", {"timestamp": 123, "mission_id": mission_id}, function(data){
         data = JSON.parse(data);
         data = data.data;

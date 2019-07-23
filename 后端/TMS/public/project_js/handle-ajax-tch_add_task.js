@@ -25,7 +25,7 @@ function load_missionlist(data){
                 task_detail = data[i].missions[j].text.split(";;;")[1];
                 task_ddl = data[i].missions[j].deadline;
                 var html = '';
-                html += '<li style="font-size: 20px"><a href="/tch_check_studoc"><h3>任务名称：' + task_name + '</h3></a></li>';
+                html += '<li style="font-size: 20px"><a href="/tch_check_studoc?' + data[i].missions[j].id + '"><h3>任务名称：' + task_name + '</h3></a></li>';
                 html += '<li>详细描述：' + task_detail + '</li>';
                 html += '<li>截止日期：' + task_ddl + '</li>';
                 $('.missionlist').eq(data[i].stage_number).append(html)
@@ -50,15 +50,19 @@ function addtext_to_list(){
     if(title != "" && title != null && discription != "" && discription != null && deadline != "" && deadline != null) {
         datap = {"timestamp": 1, "stage_id": id, "mission": '{"text":"' + title+';;;'+discription + '", "file": "", "deadline": "30"}'}
         console.log(datap)
-        $.post("/api/push_mission", datap)
-        var html = '';
-        html += '<li style="font-size: 20px"><a href="/tch_check_studoc"><h3>任务名称：' + title +'</h3></a></li>';
-        html += '<li>详细描述：' + discription + '</li>';
-        html += '<li>截止日期：' + deadline + '</li>';
-        $('.missionlist').eq(stage_id).append(html)
-        $('.title').val("");
-        $('.discription').val("");
-        $('.deadline').val("");
+        $.post("/api/push_mission", datap, function(data){
+            data = JSON.parse(data);
+            m_id = data.data;
+            var html = '';
+            html += '<li style="font-size: 20px"><a href="/tch_check_studoc?' + m_id + '"><h3>任务名称：' + title +'</h3></a></li>';
+            html += '<li>详细描述：' + discription + '</li>';
+            html += '<li>截止日期：' + deadline + '</li>';
+            $('.missionlist').eq(stage_id).append(html)
+            $('.title').val("");
+            $('.discription').val("");
+            $('.deadline').val("");
+        })
+        
     } else{
         alert("请输入完整添加内容")
         $('.title').val("")

@@ -3,7 +3,7 @@ $(function() {
     $.post("/api/get_self_info", {"timestamp": 123}, function(data){
         data = JSON.parse(data);
         console.log(data.data.project);
-        if($.isEmptyObject(data.data.project) == true){
+        if(data.data.project.id == 0){
             $.post("/api/get_project_pool", {"timestamp": 1}, function(data){
                 selectProject(data.data);
             }, "json")
@@ -27,9 +27,11 @@ function selectProject(data) {
 function submitPro(obj) {
     var proj_id = $(obj).parent().parent().find(".pro_title").text()[0]
     $.post("/api/set_studentproj", {"proj_id":proj_id, "timestamp":1}, function(data){
-        $.post("/api/get_self_info", {"timestamp": 123}, function(data){       
+        $.post("/api/get_self_info", {"timestamp": 123}, function(data){
+            data = JSON.parse(data);
+            console.log(data)
             html = ' <h2>已选项目</h2><div class="col-md-4"><div class="box box-warning box-solid"><div class="box-header with-border"><h3 class="boxtitle pro_title">' + data.data.project.id + data.data.project.name + '</h3>';
-            html = html + '</div><div class="box-body pro_detail" style><h4>' + data.data.project.content +'   </h4>   </div>        </div>    </div>';
+            html = html + '</div><div class="box-body pro_detail" style><h4>' + data.data.project.content +'</h4></div></div></div>';
             $("#showProject").html(html)
         }) 
     })
