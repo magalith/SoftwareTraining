@@ -98,9 +98,9 @@ function submitClass(event){
                     break;
                 }
             }
-            classes = '{"class_id": ' + data + ', "teacher_id": [], "students_id": [' + stu_list + ']}';
+            classes = '[{"class_id": ' + data + ', "teacher_id": [], "students_id": [' + stu_list + ']}]';
             console.log(stu_list)
-            $.post("/api/update_class_member", {"timestamp": 123, "class": classes}, function(data){
+            $.post("/api/update_class_member_bak", {"timestamp": 123, "class": classes}, function(data){
                 console.log(data)
             })
             confirm_time += 1

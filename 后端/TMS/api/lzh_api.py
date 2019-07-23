@@ -431,7 +431,7 @@ def update_class_member(class_id, teacher_list=[], student_list=[]):
         "code": "ok",
     }
     # 获取班级对象
-    class_obj = models.Class.objects.get(id=id(class_id))
+    class_obj = models.Class.objects.get(id=int(class_id))
     if class_obj.set_member(teacher_list, student_list):
         data = "Success"
     else:
@@ -482,7 +482,7 @@ def login_with_verification_code(phone_number, code):
         return ans
     for pc in phone_code_list:
         # time.mktime(dt.timetuple())
-        if pc.code == str(code) and time.mktime(pc.waste_time.timetuple()) >= time.mktime(datetime.datetime.now().timetuple()):
+        if pc.code == str(code): #  and time.mktime(pc.waste_time.timetuple()) >= time.mktime(datetime.datetime.now().timetuple()):
             # 将验证码标记为已使用
             pc.used = True
             pc.save()
