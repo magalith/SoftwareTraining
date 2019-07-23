@@ -38,10 +38,6 @@ urlpatterns = [
     # 2019年07月23日09:15:20
     # 管理员创建班级
     re_path("operate_class/?$", views.operate_class_info),
-    #
-
-
-
     # 管理员更新已有班级成员信息
     re_path("update_class_member/?$", views.upgrade_member_info),
 

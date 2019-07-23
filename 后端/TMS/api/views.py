@@ -7,6 +7,7 @@ from api.lichen.get_students import get_students
 from api.lichen.get_teachers import get_teachers
 from api.lichen.upgrade_class_info import upgrade_class
 from api.lichen.get_class_info import class_info
+from api.lichen.upgrade_member_info import upgrade_member_informa
 from tools import SMS
 from . import lzh_api
 import time
@@ -76,7 +77,7 @@ def upgrade_class_info(request):
                 return HttpResponse(json.dumps(lzh_api.error_with_code(1002), ensure_ascii=False))
             else:
                 dir_post =json.loads(request.POST.get("class"))
-                re_data = upgrade_class(dir_post)
+                re_data = upgrade_class(dir_post[0])
                 ans = {"code": "ok","data": re_data}
                 # 正确的返回结果
                 return HttpResponse(json.dumps(ans, ensure_ascii=False))
@@ -139,15 +140,13 @@ def upgrade_member_info(request):
     if request.method == "POST":
         try:
             group = request.session.get("group") # group
-            print(group)
             if not group:
                 return HttpResponse(json.dumps(lzh_api.error_with_code(1001), ensure_ascii=False))
             elif group == "S":
                 return HttpResponse(json.dumps(lzh_api.error_with_code(1002), ensure_ascii=False))
             else:
-                dir_post = json.loads(request.POST.get("class"))
-                print(dir_post)
-                judge = upgrade_member_info(dir_post)
+                dir_post = json.loads(request.POST.get("class"))["class"]
+                judge = upgrade_member_informa(dir_post[0])
                 if judge == False:
                     return HttpResponse(json.dumps(lzh_api.error_with_code(2001), ensure_ascii=False))
                 elif judge == True:
