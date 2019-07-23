@@ -222,13 +222,7 @@ def check_all_mission_doc(mid):
             doc_of_mission.append(doc)
     data = []
     for doc in doc_of_mission:
-        temp = {
-            "id": doc.id,
-            "text": doc.text,
-            "file": doc.file,
-            "sid": doc.user_id.id,
-            "score": doc.score,
-        }
+        temp = doc.information()
         data.append(temp)
     ans["data"] = data
     return ans
