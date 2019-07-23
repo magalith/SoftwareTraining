@@ -3,6 +3,8 @@ $(function(){
     $.post("/api/get_docs", {'timestamp': 1}, function(data){
         loadDocumentList(data);
     }, "json")
+
+
 })
 
 function loadDocumentList(data) {
@@ -13,10 +15,12 @@ function loadDocumentList(data) {
             html += '<tr>';
             html += '<td>' + data[i].id + '</td>';
             html += '<td>' + data[i].text + '</td>';
-            html += '<form id="uploadForm" enctype="multipart/form-data"><td><input id="file" type="file" name="file"/></td>'
-            html += '<td><button id="upload" type="button" class="btn btn-default btn-sm" onclick="submitFile()">上传文件</button></td></form>'
+            html += '<form id="uploadForm" enctype="multipart/form-data"><td><input id="file_submit" type="file" multiple="multiple"/></td>'
+          
+            html += '<td><button id="file_upload" type="button" class="btn btn-default btn-sm submit" onclick="upload()">上传文件</button></td></form>'
             html += '</tr>';
             $('#check_untask').append(html);
+
             html = ''
         }else{
             html += '<tr>';
@@ -30,22 +34,27 @@ function loadDocumentList(data) {
         }
     }
 }
-//未完成
-function submitFile() {
-    $.ajax({
-        url: '/api/push_doc',
-        type: 'POST',
-        cache: false,
-        data: new FormData($('#uploadForm')[0]),
-        processData: false,
-        contentType: false
-    }).done(function(res){
-        console.log(res)
-    })
-    // var file=$("#submit_file").files()
-    // $.post("/api/push_doc", {"timestamp": 1, "mission_id": "mi_01", "text": "", "file": file})
-}
 
 
 
 
+
+	function uploadFormData(){
+		if($("#file_submit").val() == ''){
+			alert('请先选择文件！');
+		}else{
+			upload();
+		}
+    }
+
+
+	//创建ajax对象，发送上传请求
+	function upload(){
+		var file = document.getElementById('file_submit').files[0];
+        console.log(file)
+        $.post('/api/push_doc', {"timestamp":1, "mission_id":1, "text":"text", "file":file}, false, function(data){
+            console.log("文档当前位置是："+data);
+            document.cookie = "url="+data;
+            console.log('文件上传成功，地址是：<a href="'+data+'" target="_blank">'+data+'</a>');
+        })
+    }
