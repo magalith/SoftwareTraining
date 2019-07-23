@@ -93,8 +93,10 @@ def get_all_mission_status(student_id):
     # 获取教师的所有任务
     missions = []
     for m in models.Mission.objects.all():
-        if m.doc_id.user_id.id == teacher.id:
-            missions.append(m)
+        # 紧急修复,修复无用户提交文档
+        if m.doc_id.user_id:
+            if m.doc_id.user_id.id == teacher.id:
+                missions.append(m)
     # 将教师布置的任务信息放置在data列表中
     data = []
     for i in missions:

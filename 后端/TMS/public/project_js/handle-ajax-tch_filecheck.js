@@ -1,35 +1,38 @@
-var data = [
+// var data = [
     
-    {
-        "id": "D_001",
-        "text": "第一次作业.......",
-        "file": "http://0.0.0.0/a.txt",
-        "student_name": "aaaaaaa",
-        "score": ''
-    },
-    {
-        "id": "D_002",
-        "text": "第二次作业.......",
-        "file": "http://0.0.0.0/b.txt",
-        "student_name": "bbbbbbb",
-        "score": 90
-    },
-    {
-    "id": "D_001",
-        "text": "第一次作业.......",
-        "file": "http://0.0.0.0/a.txt",
-        "student_name": "aaaaaaa",
-        "score": 85
-    },
-    {
-        "id": "D_002",
-        "text": "第二次作业.......",
-        "file": "http://0.0.0.0/b.txt",
-        "student_name": "bbbbbbb",
-        "score": 90
-    }
-    ]
+//     {
+//         "id": "D_001",
+//         "text": "第一次作业.......",
+//         "file": "http://0.0.0.0/a.txt",
+//         "student_name": "aaaaaaa",
+//         "score": ''
+//     },
+//     {
+//         "id": "D_002",
+//         "text": "第二次作业.......",
+//         "file": "http://0.0.0.0/b.txt",
+//         "student_name": "bbbbbbb",
+//         "score": 90
+//     },
+//     {
+//     "id": "D_001",
+//         "text": "第一次作业.......",
+//         "file": "http://0.0.0.0/a.txt",
+//         "student_name": "aaaaaaa",
+//         "score": 85
+//     },
+//     {
+//         "id": "D_002",
+//         "text": "第二次作业.......",
+//         "file": "http://0.0.0.0/b.txt",
+//         "student_name": "bbbbbbb",
+//         "score": 90
+//     }
+//     ]
 
+$(function(){
+    $(document).ready(showScore())
+})
 
 function showScore(){
     var html = '';
@@ -41,7 +44,7 @@ function showScore(){
         html += '<td><span class="label label-success">' + data[i].file + '</span></td>';
         html += '<td>' + data[i].score + '</td>';
         html += '<td><form action="#" method="post">'
-        html += '<input type="text" name="message" placeholder="score" class="form-control" style="width: 60px" onchange="handleScoreChange(this)">'
+        html += '<input type="text" name="message" placeholder="score" class="form-control score_submit" style="width: 60px" onchange="handleScoreChange(this)">'
         html += '</form></td>';
         html += '</tr>';
     }
@@ -55,5 +58,9 @@ function handleScoreChange(obj){
     console.log($(obj).parent().parent().prev().text())
 }
 
-$(document).ready(showScore())
 
+
+function submit_score(){
+    sdata =  {"timestamp":1, "mission_id":01, "score":30}
+    $.post("/api/set_score",sdata)
+}
