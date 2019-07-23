@@ -6,10 +6,16 @@
 
 
 <script type="text/javascript">
-    var s = 3;
-    for (var i=0;i<s;i++)
+    for (var i=5;i>=0;i++)
     {
-        document.write(cars[i] + "<br>");
+        setTimeout(
+            function(){
+                // alert("Hello");
+                var time_span = document.getElementById("time")
+                time_span.title = i;
+                },
+            1000
+        );
     }
     window.location.replace("/login")
 </script>
