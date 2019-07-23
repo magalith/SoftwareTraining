@@ -19,7 +19,7 @@ function loadStuList(data){
         html = html + '<td>' + data[i].class + '</td>';
         html = html + '<td><span class="label label-success">' + data[i].teacher + '</span></td>';
         html = html + '<td>' + data[i].note + '</td>';
-        html = html + '<td><span class="glyphicon glyphicon-trash" onclick="deleteItem(this)"></span></td>';
+        html = html + '<td><span class="glyphicon glyphicon-trash delete_stulist" onclick="deleteItem(this)"></span></td>';
         html = html + '</tr>';
     }
     $('#table_test').append(html);
@@ -36,8 +36,8 @@ function deleteItem(obj){
 // 定义全局变量user_list，两个函数进行调用
 user_list = []
 function addStuList(){
+    $('.delete_stulist').removeAttr("onclick");
     var name = $('#stu_name').val();
-    console.log(typeof(name));
     var password = $('#stu_password').val();
     var gender = $('#stu_gender').val();
     var phone_num = $('#phone_num').val();
@@ -76,7 +76,7 @@ function divideClass(event){
     content += '将班级划分为' + n_class + '个，每班约含' + per_class_n + '个学生，班级不可修改，请谨慎确认！';
     $('#divide_class_info').html(content);
     // 为划分班级绑定方法
-    var obj = {stulist: data, classnum: n_class}
+    var obj = {stulist: data, classnum: n_class, n_stu: per_class_n}
     $('#confirm_class').click(obj, submitClass);
 }
 
@@ -85,6 +85,14 @@ function submitClass(event){
     $('#divide_n_class').css("display", "none");
     var classNum = event.data.classnum;
     var stuList = event.data.stulist;
+    var n_stu = event.data.n_stu;
+    var confirm_time = 0;
+    for(var i=0; i<classNum; i++){
+        $.post("/api/add_class", {"timestamp": 1, "classes": '{class_name: "CLASS_' + i + '","class_room": "10' + i + '"}'}, function(data){
+            confirm_time += 1
+            console.log(confirm_time)
+        })
+    }
     console.log(classNum);
     console.log(stuList);
 }
