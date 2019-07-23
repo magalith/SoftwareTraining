@@ -56,8 +56,8 @@ class User(models.Model):
                 "F": "女",
                 "U": "未知",
             }[self.gender],
-            "class": self.class_id.base_information(),
-            "project": self.project_id.information(),
+            "class": self.class_id.base_information() if self.class_id else {},
+            "project": self.project_id.information() if self.project_id else {},
             "group": {
                 "R": "管理员",
                 "T": "教师",
@@ -150,7 +150,7 @@ class Stage(models.Model):
         info = {
             "id": self.id,
             "name": self.name,
-            "teacher": self.teacher_id.information(),
+            "teacher": self.teacher_id.information() if self.teacher_id else {},
             "number": self.stage_number,
         }
         return info
@@ -179,8 +179,8 @@ class Mission(models.Model):
             "id": self.id,
             "text": self.doc_id.text,
             "file": self.doc_id.file,
-            "stage": self.stage_id.information(),
-            "teacher": self.stage_id.teacher_id.information(),
+            "stage": self.stage_id.information() if self.stage_id else {},
+            "teacher": self.stage_id.teacher_id.information() if self.stage_id.teacher_id else {},
             "deadline": self.deadline,
             "create_time": self.create_time.strftime("%Y-%m-%d"),
         }
