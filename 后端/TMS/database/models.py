@@ -104,6 +104,21 @@ class Class(models.Model):
         }
         return info
 
+    # 设置成员
+    def set_member(self, teacher_list=[], student_list=[]):
+        try:
+            teachers = [User.objects.get(id=tid, group="T") for tid in teacher_list]
+            students = [User.objects.get(id=sid, group="S") for sid in student_list]
+        except:
+            return False
+        for t in teachers:
+            t.class_id = self
+            t.save()
+        for s in students:
+            s.class_id = self
+            s.save()
+        return True
+
 
 # 可选项目池
 class ProjectPool(models.Model):
