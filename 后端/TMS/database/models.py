@@ -109,6 +109,8 @@ class Class(models.Model):
         try:
             teachers = [User.objects.get(id=tid, group="T") for tid in teacher_list]
             students = [User.objects.get(id=sid, group="S") for sid in student_list]
+            if self.clear_all_member() is False:
+                raise Exception("清空班级成员错误")
         except:
             return False
         for t in teachers:
@@ -118,6 +120,19 @@ class Class(models.Model):
             s.class_id = self
             s.save()
         return True
+
+    # 清空班级成员
+    def clear_all_member(self):
+        try:
+            general_users = list(User.objects.filter(group="T")) + list(User.objects.filter(group="S"))
+            for u in general_users:
+                if u.class_id == self:
+                    u.class_id = None
+                    u.save()
+            return True
+        except:
+            return False
+
 
 
 # 可选项目池
