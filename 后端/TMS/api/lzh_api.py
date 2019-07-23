@@ -390,6 +390,35 @@ def operate_student_list(method, user_list):
     return ans
 
 
+# 通过方法操作班级
+def operate_class_with_method(method="add", class_list=[]):
+    ans = {
+        "code": "ok",
+    }
+
+    def add_class(classes):
+        class_id = []
+        for i in classes:
+            c = models.Class(name=i["name"], room=i["room"])
+            c.save()
+            class_id.append(c.id)
+        return class_id
+
+    def del_class(classes):
+        for i in classes:
+            c = models.Class.objects.get(id=int(i["cid"]))
+            c.delete()
+        return "删除成功"
+
+    operate = {
+        "add": add_class,
+        "del": del_class,
+    }[method.lower()]
+    data = operate(class_list)
+    ans["data"] = data
+    return ans
+
+
 # 为手机号获取手机验证码
 def get_verification_code_for_phone(phone_number, method):
     ans = {
