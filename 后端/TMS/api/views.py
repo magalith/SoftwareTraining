@@ -351,3 +351,14 @@ def operate_class_info(request):
     class_list = json.loads(class_json) if class_json else []
     ans = lzh_api.operate_class_with_method(method=method, class_list=class_list)
     return HttpResponse(json.dumps(ans, ensure_ascii=False))
+
+
+def root_update_single_class_member(request):
+    class_info = request.POST.get("class")
+    class_list = json.loads(class_info) if class_info else []
+    first_class = class_list[0] if class_list else {}
+    class_id = first_class["class_id"]
+    teachers_id = first_class["teacher_id"]
+    students_id = first_class["students_id"]
+    ans = lzh_api.update_class_member(int(class_id), teachers_id, students_id)
+    return HttpResponse(json.dumps(ans, ensure_ascii=False))
