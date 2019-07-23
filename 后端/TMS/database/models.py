@@ -186,6 +186,15 @@ class Mission(models.Model):
         }
         return info
 
+    # 该任务下学生提交的所有文档
+    def student_docs(self):
+        docs = Doc.objects.filter(mission_id=self)
+        ans = []
+        for doc in docs:
+            if not self.doc_id.id == doc.id:
+                ans.append(doc.information())
+        return ans
+
 
 # 文稿表
 class Doc(models.Model):
