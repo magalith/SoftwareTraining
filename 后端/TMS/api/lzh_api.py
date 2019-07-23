@@ -210,7 +210,7 @@ def check_all_mission_doc(mid):
             "id": doc.id,
             "text": doc.text,
             "file": doc.file,
-            "sid": doc.user_id.id,
+            "student": doc.user_id.information(),
             "score": doc.score,
         }
         data.append(temp)
