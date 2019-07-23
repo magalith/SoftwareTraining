@@ -316,3 +316,12 @@ def phone_login(request):
         request.session["group"] = session_info.get("group")
         return HttpResponse(views[request.session.get("group")])
     return HttpResponse("/login?view=phone&type=error")
+
+
+# 操作班级信息(添加或删除)
+def operate_class_info(request):
+    method = request.POST.get("method")
+    class_json = request.POST.get("class")
+    class_list = json.loads(class_json) if class_json else []
+    ans = lzh_api.operate_class_with_method(method=method, class_list=class_list)
+    return HttpResponse(json.dumps(ans, ensure_ascii=False))
