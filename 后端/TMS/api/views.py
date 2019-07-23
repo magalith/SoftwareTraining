@@ -134,6 +134,33 @@ def get_class_info(request):
         # GET方法请求本接口,服务拒绝.
         return HttpResponse(json.dumps(lzh_api.error_with_code(2004), ensure_ascii=False))
 
+# 管理员更新已有班级成员信息
+def upgrade_member_info(request):
+    if request.method == "POST":
+        try:
+            group = request.session.get("group") # group
+            print(group)
+            if not group:
+                return HttpResponse(json.dumps(lzh_api.error_with_code(1001), ensure_ascii=False))
+            elif group == "S":
+                return HttpResponse(json.dumps(lzh_api.error_with_code(1002), ensure_ascii=False))
+            else:
+                dir_post = json.loads(request.POST.get("class"))
+                print(dir_post)
+                judge = upgrade_member_info(dir_post)
+                if judge == False:
+                    return HttpResponse(json.dumps(lzh_api.error_with_code(2001), ensure_ascii=False))
+                elif judge == True:
+                    ans = {"code": "ok"}
+                    # 正确的返回结果
+                    return HttpResponse(json.dumps(ans, ensure_ascii=False))
+        except Exception as e:
+            # 若执行过程报错,则返回通用错误.
+            print(e)
+            return HttpResponse(json.dumps(lzh_api.error_with_code(0), ensure_ascii=False))
+    else:
+        # GET方法请求本接口,服务拒绝.
+        return HttpResponse(json.dumps(lzh_api.error_with_code(2004), ensure_ascii=False))
 
 
 
