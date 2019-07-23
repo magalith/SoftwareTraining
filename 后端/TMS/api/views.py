@@ -124,7 +124,7 @@ def get_class_info(request):
                 return HttpResponse(json.dumps(lzh_api.error_with_code(1002), ensure_ascii=False))
             else:
                 data = class_info()
-                ans = {"code": "ok","data": data['class_list']}
+                ans = {"code": "ok", "data": data}
                 # 正确的返回结果
                 return HttpResponse(json.dumps(ans, ensure_ascii=False))
         except Exception as e:
