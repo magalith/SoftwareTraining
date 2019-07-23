@@ -14,8 +14,9 @@ $(function () {
 });
 
 function log_in() {
-    var username = $('#username').val();
+    var username = $('#username').val().slice(-3);
     var password = $('#password').val();
+    console.log(username.slice(-3))
     var timestamp = 'dasd';
     if(username != "" && username != null && password != "" && password != null){
         // 执行post指令，向服务器传递用户账号

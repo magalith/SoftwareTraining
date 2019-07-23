@@ -57,8 +57,10 @@ def logout(request):
 
 #
 def admin_teacher(request):
-    if request.session.get("gropu") == "T":
+    if request.session.get("group") == "R":
         return render(request, "admin_teacher.html", {})
+    else:
+        return redirect("/redirect_login")
 
 
 def class_page(request):

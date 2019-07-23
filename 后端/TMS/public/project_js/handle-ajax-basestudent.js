@@ -70,8 +70,7 @@ function divideClass(event){
     var data = event.data.data;
     var index = $('.divide_class').index(this);
     var n_class = $('.divide_class').eq(index).text();
-    console.log(n_class)
-    var per_class_n = parseInt(data.length/n_class);
+    var per_class_n = Math.ceil(data.length/n_class);
     var content = "";
     content += '将班级划分为' + n_class + '个，每班约含' + per_class_n + '个学生，班级不可修改，请谨慎确认！';
     $('#divide_class_info').html(content);
@@ -85,14 +84,27 @@ function submitClass(event){
     $('#divide_n_class').css("display", "none");
     var classNum = event.data.classnum;
     var stuList = event.data.stulist;
-    var n_stu = event.data.n_stu;
+    var n_stu = parseInt(event.data.n_stu);
+    console.log(stuList.length)
     var confirm_time = 0;
     for(var i=0; i<classNum; i++){
         $.post("/api/operate_class", {"method": "add", "timestamp": 1, "class": '[{"name": "CLASS_' + i + '","room": "10' + i + '"}]'}, function(data){
+            data = JSON.parse(data).data[0];
+            stu_list = []
+            for(var j=0; j<n_stu; j++){
+                if(j+confirm_time*n_stu < stuList.length){
+                    stu_list.push(stuList[j+confirm_time*n_stu].id);
+                }else{
+                    break;
+                }
+            }
+            classes = '{"class_id": ' + data + ', "teacher_id": [], "students_id": [' + stu_list + ']}';
+            console.log(stu_list)
+            $.post("/api/update_class_member", {"timestamp": 123, "class": classes}, function(data){
+                console.log(data)
+            })
             confirm_time += 1
             console.log(confirm_time)
         })
     }
-    console.log(classNum);
-    console.log(stuList);
 }
