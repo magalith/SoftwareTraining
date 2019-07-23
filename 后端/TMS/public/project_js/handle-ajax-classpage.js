@@ -3,7 +3,6 @@ $(function(){
     $.post("/api/get_class_info", {"timestamp": 12}, function(data){
         loadClassInfo(data)
     }, "json")
-
 })
 
 function loadClassInfo(data) {
@@ -43,4 +42,5 @@ function loadClassInfo(data) {
 function getTeacher(obj) {
     index = $(obj).parent().index();
     $(obj).parent().parent().siblings().find("span").html(obj.text);
+
 }

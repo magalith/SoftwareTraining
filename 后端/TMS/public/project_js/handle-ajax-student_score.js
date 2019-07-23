@@ -3,29 +3,27 @@ $(function(){
     $.post("/api/get_missions", {'timestamp': 1}, function(data){
         loadDocumentList(data);
     }, "json")
-    // $('.file_upload').click(upload);
-// $("#file_upload").click(upload);
 })
 
 function loadDocumentList(data) {
     data = data.data;
     var html = '';
     for (var i=0; i<data.length; i++){
-        if(data[i].file === "" || data[i].file === null) {
+        if(data[i].docs.length === 0) {
             html += '<tr>';
             html += '<td>' + data[i].id + '</td>';
-            html += '<td>' + data[i].text + '</td>';
+            html += '<td>' + data[i].text.split(";;;")[0] + '</td>';
+            html += '<td>' + data[i].text.split(";;;")[1] + '</td>';
             html += '<form id="uploadForm" enctype="multipart/form-data"><td><input class="my_file" type="file" multiple="multiple"/></td>'
-          
             html += '<td><button id="file_upload" type="button" class="btn btn-default btn-sm submit file_upload" onclick="upload(this)">上传文件</button></td></form>'
             html += '</tr>';
             $('#check_untask').append(html);
-
             html = ''
         }else{
             html += '<tr>';
             html += '<td>' + data[i].id + '</td>';
-            html += '<td>' + data[i].text + '</td>';
+            html += '<td>' + data[i].text.split(";;;")[0] + '</td>';
+            html += '<td>' + data[i].text.split(";;;")[1] + '</td>';
             html += '<td><a href="' + data[i].file + '" download="">下载附件</a></td>';
             html += '<td>' + data[i].score + '</td>';
             html += '</tr>';
@@ -61,4 +59,5 @@ function upload(obj){
         processData: false,
         contentType: false,
     })
+    window.location.replace("/stu_doc_check")
 }
