@@ -24,7 +24,7 @@ function loadDocumentList(data) {
             html += '<td>' + data[i].id + '</td>';
             html += '<td>' + data[i].text.split(";;;")[0] + '</td>';
             html += '<td>' + data[i].text.split(";;;")[1] + '</td>';
-            html += '<td><a href="' + data[i].file + '" download="">下载附件</a></td>';
+            html += '<td><a href="' + data[i].docs[0].file + '" download="">下载附件</a></td>';
             html += '<td>' + data[i].score + '</td>';
             html += '</tr>';
             $('#check_task').append(html);
@@ -59,5 +59,5 @@ function upload(obj){
         processData: false,
         contentType: false,
     })
-    window.location.replace("/stu_doc_check")
+    // window.location.replace("/stu_doc_check")
 }
