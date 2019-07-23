@@ -56,16 +56,8 @@ class User(models.Model):
                 "F": "女",
                 "U": "未知",
             }[self.gender],
-            "class": {
-                "id": self.class_id.id,
-                "name": self.class_id.name,
-                "room": self.class_id.room,
-            },
-            "project": {
-                "id": self.project_id.id,
-                "name": self.project_id.name,
-                "content": self.project_id.content,
-            },
+            "class": self.class_id.base_information() if self.class_id else {},
+            "project": self.project_id.information() if self.project_id else {},
             "group": {
                 "R": "管理员",
                 "T": "教师",
@@ -86,6 +78,32 @@ class Class(models.Model):
     # 上课教室
     room = models.CharField(max_length=128)
 
+    # Unicode字符串
+    def __unicode__(self):
+        return json.dumps(self.information())
+
+    # 获取字典格式的班级信息
+    def information(self):
+        teachers = User.objects.filter(group="T", class_id=self)
+        students = User.objects.filter(group="S", class_id=self)
+        info = {
+            "id": self.id,
+            "name": self.name,
+            "room": self.room,
+            "teachers": [t.information() for t in teachers],
+            "students": [s.information() for s in students],
+        }
+        return info
+
+    # 获取简要的,字典格式的班级信息
+    def base_information(self):
+        info = {
+            "id": self.id,
+            "name": self.name,
+            "room": self.room,
+        }
+        return info
+
 
 # 可选项目池
 class ProjectPool(models.Model):
@@ -95,6 +113,21 @@ class ProjectPool(models.Model):
     name = models.CharField(max_length=128)
     # 可选项目简介
     content = models.TextField(blank=True, null=True)
+
+    # Unicode字符串
+    def __unicode__(self):
+        return json.dumps(self.information())
+
+    # 获取字典格式的项目信息
+    def information(self):
+        users = User.objects.filter(project_id=self)
+        info = {
+            "id": self.id,
+            "name": self.name,
+            "content": self.content,
+            "num_of_chooser": len(users),
+        }
+        return info
 
 
 # 阶段表
@@ -112,12 +145,12 @@ class Stage(models.Model):
     def __unicode__(self):
         return json.dumps(self.information())
 
-    # 获取字典格式的用户信息
+    # 获取字典格式的阶段信息
     def information(self):
         info = {
             "id": self.id,
             "name": self.name,
-            "teacher": self.teacher_id.information(),
+            "teacher": self.teacher_id.information() if self.teacher_id else {},
             "number": self.stage_number,
         }
         return info
@@ -140,14 +173,14 @@ class Mission(models.Model):
     def __unicode__(self):
         return json.dumps(self.information())
 
-    # 获取字典格式的用户信息
+    # 获取字典格式的任务信息
     def information(self):
         info = {
             "id": self.id,
             "text": self.doc_id.text,
             "file": self.doc_id.file,
-            "stage": self.stage_id.information(),
-            "teacher": self.stage_id.teacher_id.information(),
+            "stage": self.stage_id.information() if self.stage_id else {},
+            "teacher": self.stage_id.teacher_id.information() if self.stage_id.teacher_id else {},
             "deadline": self.deadline,
             "create_time": self.create_time.strftime("%Y-%m-%d"),
         }
@@ -175,7 +208,7 @@ class Doc(models.Model):
     def __unicode__(self):
         return json.dumps(self.information())
 
-    # 获取字典格式的用户信息
+    # 获取字典格式的文稿信息
     def information(self):
         info = {
             "id": self.id,

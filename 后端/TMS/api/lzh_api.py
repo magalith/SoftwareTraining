@@ -48,7 +48,12 @@ def get_all_doc(uid):
     user = models.User.objects.filter(id=uid)[0]
     docs = models.Doc.objects.filter(user_id=user)
     for doc in docs:
-        temp = doc.information()
+        temp = {
+            "id": doc.id,
+            "text": doc.text,
+            "file": doc.file,
+            "score": doc.score,
+        }
         ans['data'].append(temp)
     return ans
 
@@ -83,25 +88,36 @@ def get_all_mission_status(student_id):
     }
     # 获取当前学生用户
     student = models.User.objects.filter(id=student_id, group="S")[0]
+    # print(student)
     # 获取学生的指导教师
     teacher = models.User.objects.filter(group="T", class_id=student.class_id)[0]
+    # print(teacher.id)
     # 获取教师的所有任务
     missions = []
     for m in models.Mission.objects.all():
-        # 紧急修复,修复无用户提交文档
-        if m.doc_id.user_id:
+        # print(m.doc_id.user_id)
+        if m.doc_id.user_id is None:
+            pass
+        else:
             if m.doc_id.user_id.id == teacher.id:
                 missions.append(m)
+
     # 将教师布置的任务信息放置在data列表中
     data = []
     for i in missions:
+        if i.doc_id.user_id.id == student_id:
+            if_hand_in = True
+        else:
+            if_hand_in = False
+
         temp = {
-            "id": i.id,
-            "text": i.doc_id.text,
-            "file": i.doc_id.file,
-            "deadline": i.deadline,
-            "stage_id": i.stage_id.id,
-            "stage_number": i.stage_id.stage_number,
+                "id": i.id,
+                "text": i.doc_id.text,
+                "file": i.doc_id.file,
+                "deadline": i.deadline,
+                "stage_id": i.stage_id.id,
+                "stage_number": i.stage_id.stage_number,
+                "doc_hand": if_hand_in
         }
         data.append(temp)
     ans["data"] = data
@@ -206,13 +222,7 @@ def check_all_mission_doc(mid):
             doc_of_mission.append(doc)
     data = []
     for doc in doc_of_mission:
-        temp = {
-            "id": doc.id,
-            "text": doc.text,
-            "file": doc.file,
-            "sid": doc.user_id.id,
-            "score": doc.score,
-        }
+        temp = doc.information()
         data.append(temp)
     ans["data"] = data
     return ans
@@ -422,7 +432,7 @@ def login_with_verification_code(phone_number, code):
         return ans
     for pc in phone_code_list:
         # time.mktime(dt.timetuple())
-        if pc.code == str(code):#and time.mktime(pc.waste_time.timetuple()) >= time.mktime(datetime.datetime.now().timetuple()):
+        if pc.code == str(code) and time.mktime(pc.waste_time.timetuple()) >= time.mktime(datetime.datetime.now().timetuple()):
             # 将验证码标记为已使用
             pc.used = True
             pc.save()
