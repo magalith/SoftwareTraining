@@ -88,13 +88,19 @@ def get_all_mission_status(student_id):
     }
     # 获取当前学生用户
     student = models.User.objects.filter(id=student_id, group="S")[0]
+    # print(student)
     # 获取学生的指导教师
     teacher = models.User.objects.filter(group="T", class_id=student.class_id)[0]
+    # print(teacher.id)
     # 获取教师的所有任务
     missions = []
     for m in models.Mission.objects.all():
-        if m.doc_id.user_id.id == teacher.id:
-            missions.append(m)
+        # print(m.doc_id.user_id)
+        if m.doc_id.user_id is None:
+            pass
+        else:
+            if m.doc_id.user_id.id == teacher.id:
+                missions.append(m)
 
     # 将教师布置的任务信息放置在data列表中
     data = []
