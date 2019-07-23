@@ -147,6 +147,7 @@ class Mission(models.Model):
             "text": self.doc_id.text,
             "file": self.doc_id.file,
             "stage": self.stage_id.information(),
+            "teacher": self.stage_id.teacher_id.information(),
             "deadline": self.deadline,
             "create_time": self.create_time.strftime("%Y-%m-%d"),
         }
@@ -182,7 +183,7 @@ class Doc(models.Model):
             "file": self.file,
             "score": self.score,
             "mission": self.mission_id.information() if self.mission_id else {},
-            "user": self.user_id.information(),
+            "user": self.user_id.information() if self.user_id else {},
             "upload_time": self.upload_time.strftime("%Y-%m-%d"),
         }
         return info
