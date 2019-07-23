@@ -425,6 +425,21 @@ def operate_class_with_method(method="add", class_list=[]):
     return ans
 
 
+# 更新班级成员
+def update_class_member(class_id, teacher_list=[], student_list=[]):
+    ans = {
+        "code": "ok",
+    }
+    # 获取班级对象
+    class_obj = models.Class.objects.get(id=id(class_id))
+    if class_obj.set_member(teacher_list, student_list):
+        data = "Success"
+    else:
+        data = "Fail"
+    ans["data"] = data
+    return ans
+
+
 # 为手机号获取手机验证码
 def get_verification_code_for_phone(phone_number, method):
     ans = {

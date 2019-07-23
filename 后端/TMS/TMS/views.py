@@ -10,15 +10,17 @@ from database import models
 def index(request):
     return render(request, "index.html", {})
 
-
-# 登陆视图
-def login(request):
-    # 不同权限登陆后跳转的url
-    views = {
+login_views_dic = {
         "R": "/admin_student/",
         "T": "/tch_add_task/",
         "S": "/stu_select_pro/",
     }
+
+
+# 登陆视图
+def login(request):
+    # 不同权限登陆后跳转的url
+    views = login_views_dic
     # POST方法
     if request.method == 'POST':
         login_info = {
@@ -55,8 +57,10 @@ def logout(request):
 
 #
 def admin_teacher(request):
-    if request.session.get("gropu") == "T":
+    if request.session.get("group") == "R":
         return render(request, "admin_teacher.html", {})
+    else:
+        return redirect("/redirect_login")
 
 
 def class_page(request):

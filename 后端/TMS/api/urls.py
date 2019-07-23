@@ -40,6 +40,8 @@ urlpatterns = [
     re_path("operate_class/?$", views.operate_class_info),
     # 管理员更新已有班级成员信息
     re_path("update_class_member/?$", views.upgrade_member_info),
+    # 管理员更新已有班级成员信息副本
+    re_path("update_class_member_bak/?$", views.root_update_single_class_member),
 
     #############
     #  教师接口  #
