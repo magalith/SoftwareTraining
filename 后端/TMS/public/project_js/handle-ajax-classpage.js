@@ -3,6 +3,7 @@ $(function(){
     $.post("/api/get_class_info", {"timestamp": 12}, function(data){
         loadClassInfo(data)
     }, "json")
+
 })
 
 function loadClassInfo(data) {
@@ -19,13 +20,23 @@ function loadClassInfo(data) {
         };
         html += '</ul><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">负责老师 <span class="pull-right badge bg-aqua teacher_name">';
         html += data[i].teacher_id + '</span></a>';
-        html += '<ul class="dropdown-menu" style="width: 310px">';
+        html += '<ul class="dropdown-menu tch_list" style="width: 310px">';
         // for (var j = 0; j < data.length; j++) {
         //     html += '<li><a onclick="getTeacher(this)">' + data[j].teacher + '</a></li>';
         // }
         html += '</ul></li></ul></div>';
         $('#class_name_tag').append(html);
         html = ''
+        $.post("/api/get_teachers", {"timestamp": 123}, function(obj){
+            console.log(JSON.parse(obj));
+            data = JSON.parse(obj).data;
+            console.log(data);
+            tch_list = ''
+            for( var j=0; j<data.length; j++){
+                tch_list += '<li><a onclick="getTeacher(this)">' + data[j].name + '</a></li>'
+            }
+            $('.tch_list').append(tch_list)
+        })
     }
 }
 

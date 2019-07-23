@@ -38,6 +38,7 @@ function load_missionlist(data){
 
 function addtext_to_list(){
     stage_id = $('.addlist').index(this)
+    console.log(stage_id);
     // id = data[stage_id].id;
     id = $('.title_hidden').eq(stage_id).text();
     console.log(id)
