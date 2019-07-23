@@ -108,6 +108,20 @@ class Stage(models.Model):
     # 阶段编号,0,1,2号.该字段仅在初期开发时使用,若有时间,则会释放该字段
     stage_number = models.PositiveSmallIntegerField(default=0, blank=True, null=True)
 
+    # Unicode字符串
+    def __unicode__(self):
+        return json.dumps(self.information())
+
+    # 获取字典格式的用户信息
+    def information(self):
+        info = {
+            "id": self.id,
+            "name": self.name,
+            "teacher": self.teacher_id.information(),
+            "number": self.stage_number,
+        }
+        return info
+
 
 # 任务表
 class Mission(models.Model):
@@ -121,6 +135,22 @@ class Mission(models.Model):
     deadline = models.PositiveIntegerField()
     # 任务创建时间,整数时间戳
     create_time = models.DateTimeField(auto_now_add=True)
+
+    # Unicode字符串
+    def __unicode__(self):
+        return json.dumps(self.information())
+
+    # 获取字典格式的用户信息
+    def information(self):
+        info = {
+            "id": self.id,
+            "text": self.doc_id.text,
+            "file": self.doc_id.file,
+            "stage": self.stage_id.information(),
+            "deadline": self.deadline,
+            "create_time": self.create_time.strftime("%Y-%m-%d"),
+        }
+        return info
 
 
 # 文稿表
@@ -139,6 +169,23 @@ class Doc(models.Model):
     user_id = models.ForeignKey("User", on_delete=models.SET_NULL, blank=True, null=True)
     # 文稿提交时间
     upload_time = models.DateTimeField(auto_now_add=True)
+
+    # Unicode字符串
+    def __unicode__(self):
+        return json.dumps(self.information())
+
+    # 获取字典格式的用户信息
+    def information(self):
+        info = {
+            "id": self.id,
+            "text": self.text,
+            "file": self.file,
+            "score": self.score,
+            "mission": self.mission_id.information() if self.mission_id else {},
+            "user": self.user_id.information(),
+            "upload_time": self.upload_time.strftime("%Y-%m-%d"),
+        }
+        return info
 
 
 # 验证码池
