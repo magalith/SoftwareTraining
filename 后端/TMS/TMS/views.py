@@ -55,7 +55,8 @@ def logout(request):
 
 #
 def admin_teacher(request):
-    return render(request, "admin_teacher.html", {})
+    if request.session.get("gropu") == "T":
+        return render(request, "admin_teacher.html", {})
 
 
 def class_page(request):
@@ -90,3 +91,6 @@ def tch_check_stulist(request):
     return render(request, 'teacher_studentlist.html', {})
 
 
+# 导入到重定向界面
+def redirect_login(request):
+    return render(request, "redirect_login.html", {})
