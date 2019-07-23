@@ -9,5 +9,5 @@ def class_info():
     for i in class_list:
         # temp_class = Class.objects.filter(id=i.class_id.id)[0]
         # 查询同一班级的学生与学生id
-        classes_list.append([{"cid":i.information()["id"],"name": i.information()["name"],"teacher_id": i.information()["teachers"],"students_id": i.information()["students"]}])
+        classes_list.append({"cid":i.information()["id"],"name": i.information()["name"],"teacher_id": i.information()["teachers"],"students_id": i.information()["students"]})
     return classes_list
