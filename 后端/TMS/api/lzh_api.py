@@ -249,7 +249,7 @@ def add_mission_in_stage(uid, stage_id, missions_data):
     missions_data["file"] = file_url
     m = missions_data
     # 新建文档
-    doc = models.Doc(text=m["text"], file=m["file"])
+    doc = models.Doc(text=m["text"], file=m["file"], user_id=teacher)
     doc.save()
     deadline = int(m["deadline"])
     # 新建任务
@@ -391,6 +391,35 @@ def operate_student_list(method, user_list):
     }
     operate = method_dic[str(method).lower()]
     data = operate(user_list)
+    ans["data"] = data
+    return ans
+
+
+# 通过方法操作班级
+def operate_class_with_method(method="add", class_list=[]):
+    ans = {
+        "code": "ok",
+    }
+
+    def add_class(classes):
+        class_id = []
+        for i in classes:
+            c = models.Class(name=i["name"], room=i["room"])
+            c.save()
+            class_id.append(c.id)
+        return class_id
+
+    def del_class(classes):
+        for i in classes:
+            c = models.Class.objects.get(id=int(i["cid"]))
+            c.delete()
+        return "删除成功"
+
+    operate = {
+        "add": add_class,
+        "del": del_class,
+    }[method.lower()]
+    data = operate(class_list)
     ans["data"] = data
     return ans
 

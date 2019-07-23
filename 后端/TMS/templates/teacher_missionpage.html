@@ -69,15 +69,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								<!-- The user image in the navbar-->
 								<img src="../dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
 								<!-- hidden-xs hides the username on small devices so only the image appears. -->
-								<span class="hidden-xs">教师</span>
+								<span class="hidden-xs user_name">教师</span>
 							</a>
 							<ul class="dropdown-menu">
 								<!-- The user image in the menu -->
 								<li class="user-header">
 									<img src="../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-									<p>
+									<p class="user_name">
+										<small id="user_id">工号 20121628</small>
 										教师
-										<small>工号 20121628</small>
 									</p>
 								</li>
 								<li class="user-footer">
@@ -110,7 +110,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						<img src="../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 					</div>
 					<div class="pull-left info">
-						<p>教师</p>
+						<p class="user_name">教师</p>
 						<!-- Status -->
 					</div>
 				</div>
@@ -134,15 +134,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				<div class="col-md-4">
 					<div class="box box-warning box-solid collapsed-box">
 						<div class="box-header with-border">
-							<h3 class="boxtitle">阶段一</h3>
+							<h3 class="boxtitle"></h3>
 							<div class="box-tools pull-right">
 								<button type="button" class="btn btn-box-tool" data-widget="collapse"><i
 										class="fa fa-plus"></i>
 								</button>
 							</div>
-						</div>
-						<div class="box-header with-border">
-							<h3 class="box-title">需求分析阶段</h3>
 						</div>
 						<div class="box-body" style="display: none;">
 							<ul class="proList missionlist">
@@ -193,15 +190,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				<div class="col-md-4">
 					<div class="box box-warning box-solid collapsed-box">
 						<div class="box-header with-border">
-							<h3 class="boxtitle">阶段二</h3>
+							<h3 class="boxtitle"></h3>
 							<div class="box-tools pull-right">
 								<button type="button" class="btn btn-box-tool" data-widget="collapse"><i
 										class="fa fa-plus"></i>
 								</button>
 							</div>
-						</div>
-						<div class="box-header with-border">
-							<h3 class="box-title">需求分析阶段</h3>
 						</div>
 						<div class="box-body" style="display: none;">
 							<ul class="proList missionlist">
@@ -252,15 +246,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				<div class="col-md-4">
 					<div class="box box-warning box-solid collapsed-box">
 						<div class="box-header with-border">
-							<h3 class="boxtitle">阶段三</h3>
+							<h3 class="boxtitle"></h3>
 							<div class="box-tools pull-right">
 								<button type="button" class="btn btn-box-tool" data-widget="collapse"><i
 										class="fa fa-plus"></i>
 								</button>
 							</div>
-						</div>
-						<div class="box-header with-border">
-							<h3 class="box-title">需求分析阶段</h3>
 						</div>
 						<div class="box-body" style="display: none;">
 							<ul class="proList missionlist">
@@ -324,6 +315,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<script src="../dist/js/adminlte.min.js"></script>
 
 	<script src="../project_js/handle-ajax-tch_add_task.js"></script>
+
+	<script src="/project_js/user_name.js"></script>
 
 
 	<!-- Optionally, you can add Slimscroll and FastClick plugins.

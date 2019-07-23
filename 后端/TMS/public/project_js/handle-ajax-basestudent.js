@@ -62,7 +62,7 @@ function addStuList(){
 function confirmStuList(){
     console.log(user_list.toString())
     $.post("/api/update_user_list", {"timestamp": 123, "method": "add", "user_list": '['+ user_list + ']'});
-    window.location.replace("http://127.0.0.1:8000/admin_student/")
+    window.location.replace("/admin_student")
 }
 
 // 分班功能
@@ -88,7 +88,7 @@ function submitClass(event){
     var n_stu = event.data.n_stu;
     var confirm_time = 0;
     for(var i=0; i<classNum; i++){
-        $.post("/api/add_class", {"timestamp": 1, "classes": '{class_name: "CLASS_' + i + '","class_room": "10' + i + '"}'}, function(data){
+        $.post("/api/operate_class", {"method": "add", "timestamp": 1, "class": '[{"name": "CLASS_' + i + '","room": "10' + i + '"}]'}, function(data){
             confirm_time += 1
             console.log(confirm_time)
         })

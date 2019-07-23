@@ -1,20 +1,21 @@
 
 $(function(){
-    $.post("/api/get_docs", {'timestamp': 1}, function(data){
+    $.post("/api/get_missions", {'timestamp': 1}, function(data){
         loadDocumentList(data);
     }, "json")
 
-
+// $("#file_upload").click(upload);
 })
 
 function loadDocumentList(data) {
     data = data.data;
     var html = '';
     for (var i=0; i<data.length; i++){
-        if(data[i].file === '') {
+        if(data[i].file === "" || data[i].file === null) {
             html += '<tr>';
             html += '<td>' + data[i].id + '</td>';
-            html += '<td>' + data[i].text + '</td>';
+            html += '<td>' + data[i].text.split(";;;")[0] + '</td>';
+            html += '<td>' + data[i].text.split(";;;")[1] + '</td>';
             html += '<form id="uploadForm" enctype="multipart/form-data"><td><input id="file_submit" type="file" multiple="multiple"/></td>'
           
             html += '<td><button id="file_upload" type="button" class="btn btn-default btn-sm submit" onclick="upload()">上传文件</button></td></form>'
@@ -25,7 +26,8 @@ function loadDocumentList(data) {
         }else{
             html += '<tr>';
             html += '<td>' + data[i].id + '</td>';
-            html += '<td>' + data[i].text + '</td>';
+            html += '<td>' + data[i].text.split(";;;")[0] + '</td>';
+            html += '<td>' + data[i].text.split(";;;")[1] + '</td>';
             html += '<td><a href="' + data[i].file + '" download="">下载附件</a></td>';
             html += '<td>' + data[i].score + '</td>';
             html += '</tr>';
@@ -52,9 +54,19 @@ function loadDocumentList(data) {
 	function upload(){
 		var file = document.getElementById('file_submit').files[0];
         console.log(file)
-        $.post('/api/push_doc', {"timestamp":1, "mission_id":1, "text":"text", "file":file}, false, function(data){
-            console.log("文档当前位置是："+data);
-            document.cookie = "url="+data;
-            console.log('文件上传成功，地址是：<a href="'+data+'" target="_blank">'+data+'</a>');
+        $.ajax({
+			url: '/api/push_doc',
+			// async: true,
+			type: 'post',
+			data: {"timestamp":1, "mission_id":1, "text":"text", "file":""},
+			// processData: false,
+            //  contentType: false
         })
+
+        // $.post('/api/push_doc', {"timestamp":1, "mission_id":1, "text":"text", "file":file}, function(data){
+            // console.log("文档当前位置是："+data);
+            // document.cookie = "url="+data;/
+            // console.log('文件上传成功，地址是：<a href="'+data+'" target="_blank">'+data+'</a>');
+        // })
+   
     }
