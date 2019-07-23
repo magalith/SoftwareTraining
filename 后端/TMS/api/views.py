@@ -306,7 +306,7 @@ def phone_login(request):
         # 登陆成功,跳转到登陆界面
         views = {
             "R": "/admin_student/",
-            "T": "/tch_check_studoc/",
+            "T": "/tch_add_task/",
             "S": "/stu_select_pro/",
         }
         session_info = ans.get("data")

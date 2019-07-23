@@ -16,7 +16,7 @@ def login(request):
     # 不同权限登陆后跳转的url
     views = {
         "R": "/admin_student/",
-        "T": "/tch_check_studoc/",
+        "T": "/tch_add_task/",
         "S": "/stu_select_pro/",
     }
     # POST方法
