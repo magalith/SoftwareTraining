@@ -107,8 +107,8 @@ class Class(models.Model):
     # 设置成员
     def set_member(self, teacher_list=[], student_list=[]):
         try:
-            teachers = [User.objects.get(id=tid, group="T") for tid in teacher_list]
-            students = [User.objects.get(id=sid, group="S") for sid in student_list]
+            teachers = [User.objects.get(id=tid, group="T") for tid in teacher_list] if teacher_list else []
+            students = [User.objects.get(id=sid, group="S") for sid in student_list] if student_list else []
             if self.clear_all_member() is False:
                 raise Exception("清空班级成员错误")
         except:

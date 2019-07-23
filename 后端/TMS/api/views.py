@@ -146,6 +146,7 @@ def upgrade_member_info(request):
                 return HttpResponse(json.dumps(lzh_api.error_with_code(1002), ensure_ascii=False))
             else:
                 dir_post = json.loads(request.POST.get("class"))["class"]
+                print(dir_post[0])
                 judge = upgrade_member_informa(dir_post[0])
                 if judge == False:
                     return HttpResponse(json.dumps(lzh_api.error_with_code(2001), ensure_ascii=False))

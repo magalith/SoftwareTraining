@@ -7,6 +7,7 @@ def upgrade_member_informa(dir_post):
     print(dir_post["teacher_id"], dir_post["students_id"])
     for each_class in all_class:
         temp = each_class.set_member(dir_post["teacher_id"], dir_post["students_id"])
+        print(temp)
         if temp == False:
             out = False
     return out
