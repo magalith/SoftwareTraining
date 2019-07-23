@@ -35,6 +35,10 @@ urlpatterns = [
     re_path("get_class_info/?$", views.get_class_info),
     # 管理员更新用户名单
     re_path("update_user_list/?$", views.operate_user_info),
+    # 2019年07月23日09:15:20
+    # 管理员创建班级
+    # re_path("add_class/?$", views.operate_user_info),
+    #
 
     #############
     #  教师接口  #
