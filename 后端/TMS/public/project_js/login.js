@@ -21,7 +21,7 @@ function log_in() {
         // 执行post指令，向服务器传递用户账号
         $.post("../login", { "user_name": username, "password":password, "timestamp":timestamp }, function(data){
             // console.log(href + data);
-            window.location.replace("http://127.0.0.1:8000" + data)
+            window.location.replace(data)
         })
     }else {
         alert("请填写完整")
@@ -38,6 +38,6 @@ function captchaLogin(){
   var code = $('#captcha').val();
   $.post("/api/login_phone", {"timestamp": 123, "phone": phone_num, "code": code}, function(data){
     console.log(data);
-    window.location.replace("http://127.0.0.1:8000" + data)
+    window.location.replace(data)
   })
 }

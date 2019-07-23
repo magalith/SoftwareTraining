@@ -1,66 +1,50 @@
-// var data = [
-    
-//     {
-//         "id": "D_001",
-//         "text": "第一次作业.......",
-//         "file": "http://0.0.0.0/a.txt",
-//         "student_name": "aaaaaaa",
-//         "score": ''
-//     },
-//     {
-//         "id": "D_002",
-//         "text": "第二次作业.......",
-//         "file": "http://0.0.0.0/b.txt",
-//         "student_name": "bbbbbbb",
-//         "score": 90
-//     },
-//     {
-//     "id": "D_001",
-//         "text": "第一次作业.......",
-//         "file": "http://0.0.0.0/a.txt",
-//         "student_name": "aaaaaaa",
-//         "score": 85
-//     },
-//     {
-//         "id": "D_002",
-//         "text": "第二次作业.......",
-//         "file": "http://0.0.0.0/b.txt",
-//         "student_name": "bbbbbbb",
-//         "score": 90
-//     }
-//     ]
-
 $(function(){
-    $(document).ready(showScore())
+    mission_id = window.location.search.slice(-1);
+    $.post("/api/check_mission", {"timestamp": 123, "mission_id": mission_id}, function(data){
+        data = JSON.parse(data);
+        data = data.data;
+        showScore(data);
+        obj = {M_id: mission_id, data: data}
+        $('#submit_score').click(obj, submitScore);
+    })
 })
 
-function showScore(){
+
+function showScore(data){
     var html = '';
     for ( var i = 0; i < data.length; i++) {//循环json对象，拼接tr,td的html
-        html += '<tr>';
+        html += '<tr class="stu_score">';
         html += '<td>' + data[i].id + '</td>';
-        html += '<td>' + data[i].student_name + '</td>';
+        html += '<td>' + data[i].user.name + '</td>';
         html += '<td>' + data[i].text + '</td>';
         html += '<td><span class="label label-success">' + data[i].file + '</span></td>';
-        html += '<td>' + data[i].score + '</td>';
-        html += '<td><form action="#" method="post">'
-        html += '<input type="text" name="message" placeholder="score" class="form-control score_submit" style="width: 60px" onchange="handleScoreChange(this)">'
-        html += '</form></td>';
-        html += '</tr>';
+        html += '<td class="score">' + data[i].score + '</td>';
+        html += '<td><input type="text" name="message" placeholder="score" class="form-control" style="width: 60px" onchange="handleScoreChange(this)">'
+        html += '</td></tr>';
     }
     $('#table_filecheck').append(html);
 }
 
 function handleScoreChange(obj){
     const value = obj.value;
-    console.log(value);
-    $(obj).parent().parent().prev().text(value);
-    console.log($(obj).parent().parent().prev().text())
+    $(obj).parent().prev().text(value);
 }
 
-
-
-function submit_score(){
-    sdata =  {"timestamp":1, "mission_id":01, "score":30}
-    $.post("/api/set_score",sdata)
+function submitScore(event){
+    data = event.data.data;
+    M_id = event.data.M_id;
+    console.log(data);
+    console.log(M_id);
+    score = []
+    for(var i=0; i<data.length; i++){
+        stu_score = $('.stu_score').eq(i).find('.score').text();
+        score.push('{"did": ' + data[i].id + ',"score":' + stu_score + '}')
+    }
+    score = score.toString();
+    console.log(score.toString())
+    trans_data = '{"timestamp": 123, "mission_id": ' + M_id + ', "score": [' + score + ']}';
+    $.post("/api/set_score", {"timestamp": 123, "mission_id": M_id , "score": '[' + score + ']'}, function(data){
+        console.log(data);
+    })
 }
+
