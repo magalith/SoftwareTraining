@@ -397,10 +397,12 @@ def operate_class_with_method(method="add", class_list=[]):
     }
 
     def add_class(classes):
+        class_id = []
         for i in classes:
             c = models.Class(name=i["name"], room=i["room"])
             c.save()
-        return "添加成功"
+            class_id.append(c.id)
+        return class_id
 
     def del_class(classes):
         for i in classes:
