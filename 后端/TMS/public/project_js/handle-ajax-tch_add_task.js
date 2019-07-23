@@ -20,8 +20,8 @@ function load_missionlist(data){
         // console.log(data[i].missions)
         if (data[i].missions.length !== 0) {
             for (var j=0; j<data[i].missions.length; j++) {
-                task_name = data[i].missions[j].text.split("\n")[0];
-                task_detail = data[i].missions[j].text.split("\n")[1];
+                task_name = data[i].missions[j].text.split(";;;")[0];
+                task_detail = data[i].missions[j].text.split(";;;")[1];
                 task_ddl = data[i].missions[j].deadline;
                 var html = '';
                 html += '<li style="font-size: 20px"><a href="/tch_check_studoc"><h3>任务名称：' + task_name + '</h3></a></li>';
@@ -46,7 +46,7 @@ function addtext_to_list(){
     var discription = $('.discription').eq(stage_id).val();
     var deadline = $('.deadline').eq(stage_id).val();
     if(title != "" && title != null && discription != "" && discription != null && deadline != "" && deadline != null) {
-        datap = {"timestamp": 1, "stage_id": id, "mission": '{"text": "title+discription", "file": "", "deadline": "30"}'}
+        datap = {"timestamp": 1, "stage_id": id, "mission": '{"text":"' + title+';;;'+discription + '", "file": "", "deadline": "30"}'}
         console.log(datap)
         $.post("/api/push_mission", datap)
         var html = '';

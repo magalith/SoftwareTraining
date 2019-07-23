@@ -52,18 +52,19 @@ function loadDocumentList(data) {
 	function upload(){
 		var file = document.getElementById('file_submit').files[0];
         console.log(file)
-        // $.ajax({
-		// 	url: '/api/push_doc',
-		// 	async: true,
-		// 	type: 'post',
-		// 	data: {"timestamp":1, "mission_id":1, "text":"text", "file":""},
-		// 	processData: false,
- 		// 	contentType: false})
+        $.ajax({
+			url: '/api/push_doc',
+			// async: true,
+			type: 'post',
+			data: {"timestamp":1, "mission_id":1, "text":"text", "file":""},
+			// processData: false,
+            //  contentType: false
+        })
 
-        $.post('/api/push_doc', {"timestamp":1, "mission_id":1, "text":"text", "file":file}, function(data){
+        // $.post('/api/push_doc', {"timestamp":1, "mission_id":1, "text":"text", "file":file}, function(data){
             // console.log("文档当前位置是："+data);
             // document.cookie = "url="+data;/
             // console.log('文件上传成功，地址是：<a href="'+data+'" target="_blank">'+data+'</a>');
-        })
+        // })
    
     }

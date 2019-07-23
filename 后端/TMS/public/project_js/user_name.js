@@ -9,6 +9,6 @@ $(function () {
 
 function get_username(data) {
 console.log(data)
-$(".user_name").html("管理员:"+ data.name )
+$(".user_name").append(":"+ data.name )
 
 }
