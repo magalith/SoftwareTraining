@@ -9,23 +9,25 @@ function loadClassInfo(data) {
     data = data.data;
     html = ''
     for (var i = 0; i < data.length; i++) {//将班级名称加入列表中
-        html += '<div class="col-md-4"><div class="box box-widget widget-user-2"><div class="widget-user-header bg-blue"><h5 class="widget-user-username class_name_tag">';
-        html += data[i].cid + '|班';
-        html += '</h5></div><div class="box-footer no-padding"><ul class="nav nav-stacked"><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">学生人数<span class="pull-right badge bg-blue">';
-        html += data[i].students_id.length + '</span></a>';
-        html += '<ul class="dropdown-menu" style = "width:310px"><li><b>学生名单</b></li>';
-        for (var j = 0; j < data[i].students_id.length; j++) {
-            html += '<li><a>' + data[i].students_id[j].id + data[i].students_id[j].name + '</a></li>'
-        };
-        html += '</ul><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">负责老师 <span class="pull-right badge bg-aqua teacher_name">';
-        tch_name = data[i].teacher_id;
-        if (data[i].teacher_id.length != 0){
-            html += data[i].teacher_id[0].name;
+        if (data[i].students_id.length != 0){
+            html += '<div class="col-md-4"><div class="box box-widget widget-user-2"><div class="widget-user-header bg-blue"><h5 class="widget-user-username class_name_tag">';
+            html += data[i].cid + '|班';
+            html += '</h5></div><div class="box-footer no-padding"><ul class="nav nav-stacked"><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">学生人数<span class="pull-right badge bg-blue">';
+            html += data[i].students_id.length + '</span></a>';
+            html += '<ul class="dropdown-menu" style = "width:310px"><li><b>学生名单</b></li>';
+            for (var j = 0; j < data[i].students_id.length; j++) {
+                html += '<li><a>' + data[i].students_id[j].id + data[i].students_id[j].name + '</a></li>'
+            };
+            html += '</ul><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">负责老师 <span class="pull-right badge bg-aqua teacher_name">';
+            tch_name = data[i].teacher_id;
+            if (data[i].teacher_id.length != 0){
+                html += data[i].teacher_id[0].name;
+            }
+            html += '</span></a><ul class="dropdown-menu tch_list" style="width: 310px">';
+            html += '</ul></li></ul></div>';
+            $('#class_name_tag').append(html);
+            html = ''
         }
-        html += '</span></a><ul class="dropdown-menu tch_list" style="width: 310px">';
-        html += '</ul></li></ul></div>';
-        $('#class_name_tag').append(html);
-        html = ''
     }
     addTchToList();
 }
