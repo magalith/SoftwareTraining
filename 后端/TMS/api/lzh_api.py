@@ -444,7 +444,7 @@ def admin_get_students_list_bak():
     ans = {
         "code": "ok",
     }
-    users = models.User.objects.all()
+    users = models.User.objects.filter(group="S")
     data = []
     for user in users:
         s_class = user.class_id.information() if user.class_id else {}
@@ -460,7 +460,7 @@ def admin_get_students_list_bak():
         }
         data.append(temp)
     ans["data"] = data
-    return
+    return ans
 
 
 # 为手机号获取手机验证码
