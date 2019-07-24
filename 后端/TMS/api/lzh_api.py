@@ -456,7 +456,7 @@ def admin_get_students_list_bak():
             "id": user.id,
             "note": user.project_id.name if user.project_id else "",
             "stuname": user.name,
-            "teacher": teacher[0].name if teacher else "",
+            "teacher": teacher[0]["name"] if teacher else "",
         }
         data.append(temp)
     ans["data"] = data
