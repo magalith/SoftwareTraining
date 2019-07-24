@@ -440,6 +440,27 @@ def update_class_member(class_id, teacher_list=[], student_list=[]):
     return ans
 
 
+def admin_get_students_list_bak():
+    ans = {
+        "code": "ok",
+    }
+    users = models.User.objects.all()
+    data = []
+    for user in users:
+        s_class = user.information()["class"]
+        teacher = s_class["teachers"] if s_class else []
+        temp = {
+            "class": user.class_id.name,
+            "gender": user.gender,
+            "id": user.id,
+            "note": user.project_id.name,
+            "stuname": user.name,
+            "teacher": teacher[0].name if teacher else "",
+        }
+    ans["data"] = data
+    return
+
+
 # 为手机号获取手机验证码
 def get_verification_code_for_phone(phone_number, method):
     ans = {

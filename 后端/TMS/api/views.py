@@ -363,3 +363,8 @@ def root_update_single_class_member(request):
     students_id = first_class["students_id"]
     ans = lzh_api.update_class_member(int(class_id), teachers_id, students_id)
     return HttpResponse(json.dumps(ans, ensure_ascii=False))
+
+
+def get_students_list_bak(request):
+    ans = lzh_api.admin_get_students_list_bak()
+    return HttpResponse(json.dumps(ans, ensure_ascii=False))

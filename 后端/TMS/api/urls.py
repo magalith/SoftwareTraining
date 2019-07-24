@@ -27,6 +27,9 @@ urlpatterns = [
     ############
     # 管理员查看全部学生名单
     re_path("get_students/?$", views.get_students_list),
+    # 重写接口:管理员查看全部学生名单
+    # @Lizhenghao
+    re_path("get_students_bak/?$", views.get_students_list_bak),
     # 管理员更新班级信息
     re_path("set_classes/?$", views.upgrade_class_info),
     # 管理员获取教师名单
