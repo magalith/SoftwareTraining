@@ -10,15 +10,15 @@ function getStuMission(data) {
     var html = ''
     for (i=0; i<data.length; i++) {
         if (data[i].stage_number === 0) {
-            html += '<li><a><h3>' + data[i].text + '</h3></a></li><li>' + data[i].deadline + '</li>';
+            html += '<li><a><h3>' + data[i].text.split(";;;")[0] + '</h3></a></li><li>' + data[i].text.split(";;;")[1] + '</li><li>' + data[i].deadline + '</li>';
             $('.missionlist').eq(0).append(html);
             html = ''
         } else if (data[i].stage_number === 1) {
-            html += '<li><a><h3>' + data[i].text + '</h3></a></li><li>' + data[i].deadline + '</li>';
+            html += '<li><a><h3>' + data[i].text.split(";;;")[0] + '</h3></a></li><li>' + data[i].text.split(";;;")[1] + '</li></li>';
             $('.missionlist').eq(1).append(html);
             html = ''
         } else {
-            html += '<li><a><h3>' + data[i].text + '</h3></a></li><li>' + data[i].deadline + '</li>';
+            html += '<li><a><h3>' + data[i].text.split(";;;")[0] + '</h3></a></li><li>' + data[i].text.split(";;;")[1] + '</li></li>';
             $('.missionlist').eq(2).append(html);
             html = ''
         }
