@@ -100,8 +100,13 @@ function submitClass(event){
             }
             classes = '[{"class_id": ' + data + ', "teacher_id": [], "students_id": [' + stu_list + ']}]';
             console.log(stu_list)
+            huidiao_canshu = 0
             $.post("/api/update_class_member_bak", {"timestamp": 123, "class": classes}, function(data){
                 console.log(data)
+                huidiao_canshu += 1;
+                if(huidiao_canshu == classNum){
+                    window.location.replace("/admin_student");
+                }
             })
             confirm_time += 1
             console.log(confirm_time)

@@ -95,11 +95,11 @@ DATABASES = {
         # 数据库密码,敏感信息,不要轻易暴露
         'PASSWORD': 'qweqwe123',
         # 数据库所在地址,若数据库在本地则使用localhost
-        # 'HOST': 'cd-cdb-5w9d2w14.sql.tencentcdb.com',
-        'HOST': 'rm-wz990kv1561j1bfh7.mysql.rds.aliyuncs.com',
+        'HOST': 'cd-cdb-5w9d2w14.sql.tencentcdb.com',
+        # 'HOST': 'rm-wz990kv1561j1bfh7.mysql.rds.aliyuncs.com',
         # 数据库端口号,MySQL默认使用3306号
-        # 'PORT': '62949',
-        'PORT': '3306',
+        'PORT': '62949',
+        # 'PORT': '3306',
         # 设置mysql严格模式
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
