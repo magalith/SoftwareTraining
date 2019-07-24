@@ -447,16 +447,18 @@ def admin_get_students_list_bak():
     users = models.User.objects.all()
     data = []
     for user in users:
-        s_class = user.information()["class"]
-        teacher = s_class["teachers"] if s_class else []
+        s_class = user.class_id.information() if user.class_id else {}
+        teacher = s_class.get("teachers") if s_class else []
+        class_name = s_class.get("name")
         temp = {
-            "class": user.class_id.name,
+            "class": class_name,
             "gender": user.gender,
             "id": user.id,
-            "note": user.project_id.name,
+            "note": user.project_id.name if user.project_id else "",
             "stuname": user.name,
             "teacher": teacher[0].name if teacher else "",
         }
+        data.append(temp)
     ans["data"] = data
     return
 
