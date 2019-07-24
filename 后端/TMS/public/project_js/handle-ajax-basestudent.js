@@ -1,6 +1,6 @@
 
 $(function() {
-    $.post("/api/get_students", {"timestamp": 123}, function(data){
+    $.post("/api/get_students_bak", {"timestamp": 123}, function(data){
         loadStuList(data)
         $('.divide_class').click(data, divideClass);
     }, "json");
