@@ -109,8 +109,10 @@ class Class(models.Model):
         try:
             teachers = [User.objects.get(id=tid, group="T") for tid in teacher_list] if teacher_list else []
             students = [User.objects.get(id=sid, group="S") for sid in student_list] if student_list else []
-            if self.clear_all_member() is False:
-                raise Exception("清空班级成员错误")
+            if teachers:
+                self.clear_all_member("T")
+            if students:
+                self.clear_all_member("S")
         except:
             return False
         for t in teachers:
@@ -122,9 +124,11 @@ class Class(models.Model):
         return True
 
     # 清空班级成员
-    def clear_all_member(self):
+    def clear_all_member(self, group="S"):
         try:
-            general_users = list(User.objects.filter(group="T")) + list(User.objects.filter(group="S"))
+            general_users = []
+            for users_group in group:
+                general_users.extend(list(User.objects.filter(group=users_group.upper())))
             for u in general_users:
                 if u.class_id == self:
                     u.class_id = None
