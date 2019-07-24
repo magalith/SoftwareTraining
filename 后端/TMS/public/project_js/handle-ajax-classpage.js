@@ -18,11 +18,11 @@ function loadClassInfo(data) {
             html += '<li><a>' + data[i].students_id[j].id + data[i].students_id[j].name + '</a></li>'
         };
         html += '</ul><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">负责老师 <span class="pull-right badge bg-aqua teacher_name">';
-        html += data[i].teacher_id + '</span></a>';
-        html += '<ul class="dropdown-menu tch_list" style="width: 310px">';
-        // for (var j = 0; j < data.length; j++) {
-        //     html += '<li><a onclick="getTeacher(this)">' + data[j].teacher + '</a></li>';
-        // }
+        tch_name = data[i].teacher_id;
+        if (data[i].teacher_id.length != 0){
+            html += data[i].teacher_id[0].name;
+        }
+        html += '</span></a><ul class="dropdown-menu tch_list" style="width: 310px">';
         html += '</ul></li></ul></div>';
         $('#class_name_tag').append(html);
         html = ''
