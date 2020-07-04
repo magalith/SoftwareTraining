@@ -13,9 +13,9 @@ from aliyunsdkcore.request import CommonRequest
 
 def sent_sms_with_phone(phone_number):
     ans = {}
-    # client = AcsClient('LTAICNrMCIXkVv7O', 'XQGp8NBdcs7OBtgY1TrvrTpbZwPUdp', 'default')
+    # client = AcsClient('', 'XQGp8NBdcs7OBtgY1TrvrTpbZwPUdp', 'default')
     # 短信验证码,@maglith 友情提供
-    client = AcsClient('LTAIvOKVFOootzEk', 'psEqWjHnX3B4CCxA6X1g4XiFMCz5BC', 'default')
+    client = AcsClient('', 'psEqWjHnX3B4CCxA6X1g4XiFMCz5BC', 'default')
 
     request = CommonRequest()
     request.set_accept_format('json')
